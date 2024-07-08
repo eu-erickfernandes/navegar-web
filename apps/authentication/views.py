@@ -7,12 +7,14 @@ from .decorators import redirect_authenticated_user
 
 @redirect_authenticated_user
 def registration(request):
-    return render(request, 'authentication/registration.html')
+    return render(request, 'authentication/auth.html')
 
 
 @redirect_authenticated_user
 def signin(request):
-    return render(request, 'authentication/login.html')
+    login = True
+
+    return render(request, 'authentication/auth.html', {'login': login})
 
 
 def user_logout(request):

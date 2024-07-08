@@ -1,0 +1,13 @@
+<form action="{% url 'authentication:user_registration' %}" method="POST">
+    {% csrf_token %}
+
+    <input type="text" placeholder="Nome completo" name="name" maxlength="100">
+    <input type="email" placeholder="E-mail" name="email" maxlength="100">
+    <input type="password" placeholder="Senha" name="password" maxlength="100">
+
+    <button type="submit">Criar conta</button>
+    
+    <a href="{% url 'authentication:signin' %}">
+        <button type="button">Voltar</button>
+    </a>
+</form>

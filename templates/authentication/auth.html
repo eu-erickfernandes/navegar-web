@@ -1,0 +1,39 @@
+{% extends './partials/_base.html' %}
+
+{% block title %}
+    {% if login %}
+        Entrar
+    {% else %}
+        Cadastro
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <header class="auth-header">
+        <img 
+            alt=""
+            class="logo"
+            src="" 
+        >
+
+        <div class="group">
+            {% if login %}
+                <h1>Login</h1>
+                
+                <p>Entre com as suas credenciais</p>
+            {% else %}
+                <h1>Cadastro</h1>
+                
+                <p>Insira seus dados para criar uma conta</p>
+            {% endif %}
+        </div>
+    </header>
+
+    <main>
+        {% if login %}
+            {% include './partials/_signin.html' %}
+        {% else %}
+            {% include './partials/_registration.html' %}
+        {% endif %}
+    </main>
+{% endblock %}

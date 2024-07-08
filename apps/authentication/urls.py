@@ -9,7 +9,7 @@ urlpatterns = [
     # VIEWS
     path('', index, name= 'index'),
     path('cadastro/', registration, name= 'registration'),
-    path('login/', signin, name= 'signin'),
+    path('entrar/', signin, name= 'signin'),
     path('sair/', user_logout, name= 'logout'),
 
     # ACTIONS
