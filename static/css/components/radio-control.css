@@ -1,0 +1,45 @@
+.radio-control{
+    display: flex;
+    gap: .5rem;
+
+    label{
+        background-color: var(--clr-primary-light);
+        border-radius: .5rem;
+        color: var(--clr-text-light);
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        padding-block: 1rem;
+        padding-inline: .75rem;
+        text-align: center;
+        transition: .5s;
+        width: 100%;
+
+        &:not([for]){
+            display: none;
+        }
+
+        &:is(input:checked + label){
+            background-color: var(--clr-primary-dark);
+            color: var(--clr-white);
+        }
+
+        &:is(:hover, :focus-visible):not(input:disabled + label){
+            background-color: var(--clr-primary);
+        }
+
+        &:is(input:disabled + label){
+            background-color: hsl(0, 0%, 90%);
+            cursor: default;
+        }
+
+        &:is(input:checked:disabled + label){
+            background-color: var(--clr-border);
+            color: #333;
+        }
+    }
+
+    input{
+        display: none;
+    }
+}

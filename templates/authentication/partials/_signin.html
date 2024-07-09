@@ -1,8 +1,18 @@
 <form action="{% url 'authentication:user_login' %}" method="POST">
     {% csrf_token %}
 
-    <input class="email-input" type="email" placeholder="E-mail" name="email" maxlength="100">
-    <input class="password-input" type="password" placeholder="Senha" name="password" maxlength="100">
+    <div class="radio-control">
+        <input id="radio-auth-type-phone" name="radio-auth-type" type="radio" data-radio-control="phone" value="phone" checked>
+        <label for="radio-auth-type-phone">Telefone</label>
+    
+        <input id="radio-auth-type-email" name="radio-auth-type" type="radio" data-radio-control="email" value="email">
+        <label for="radio-auth-type-email">E-mail</label>
+    </div>
+    
+
+    <input class="email-input" type="email" placeholder="E-mail" name="email" maxlength="100" data-radio-control-target="email">
+    <input class="phone-input" type="text" placeholder="Telefone" name="phone" maxlength="15" data-radio-control-target="phone">
+    <input class="password-input" type="password" placeholder="Senha" name="password" maxlength="100" required>
 
     <button class="button" type="submit">Entrar</button>
     

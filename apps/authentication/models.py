@@ -18,12 +18,14 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         ('P', 'Passenger'),
         ('A', 'Administrator')
     ]
+
     person = models.OneToOneField(Person, null= True, on_delete= models.CASCADE)
     email = models.EmailField(unique= True)
     phone = models.CharField(max_length= 16, unique= True, null= True)
 
     role = models.CharField(max_length=1, choices= ROLE_CHOICES, default= 'P')
 
+    # CUSTOM USER SETTINGS
     is_staff = models.BooleanField(default= False)
     is_active = models.BooleanField(default= True)
     date_joined = models.DateTimeField(default= timezone.now)

@@ -13,8 +13,13 @@
         <ul>
             {% for user in users %}
                 <li>
-                    <p>{{ user }}</p>
+                    <p>{{ user.person.name }}</p>
+                    <p>{{ user.email }}</p>
+                    <p>{{ user.phone }}</p>
+                    <p>{{ user.role }}</p>
                 </li>
+
+                <br>
             {% endfor %}
         </ul>
     </main>
