@@ -1,5 +1,7 @@
 {% extends './partials/_base.html' %}
 
+{% load static %}
+
 {% block title %}
     {% if login %}
         Entrar
@@ -8,12 +10,16 @@
     {% endif %}
 {% endblock %}
 
+{% block css_template %}
+    <link rel="stylesheet" href="{% static 'css/templates/authentication/auth.css' %}">
+{% endblock %}
+
 {% block content %}
     <header class="auth-header">
         <img 
-            alt=""
+            alt="Logotipo Navegar"
             class="logo"
-            src="" 
+            src="{% static 'images/logo.svg' %}" 
         >
 
         <div class="group">

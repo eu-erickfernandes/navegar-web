@@ -1,0 +1,37 @@
+:root{
+    /* PRIMARY */
+    --clr-primary: #1C74E9;
+    --clr-primary-dark: #0E4690;
+    --clr-primary-light: #E8F1FD;
+
+    /* AUXILIARY */
+    --clr-green: #1CE960;
+    --clr-green-dark: #0E8B38;
+    --clr-green-light: #D1FADF;
+
+    --clr-yellow: #E9C61C;
+    --clr-yellow-dark: #8B760E;
+    --clr-yellow-light: #FAF3D1;
+    
+    --clr-red: #E91C1C;
+    --clr-red-dark: #8B0E0E;
+    --clr-red-light: #FDE8E8;
+
+    /* NEUTRAL */
+    --clr-gray: #C3CDDA;
+    --clr-gray-light: #EEF2F6;
+
+    --clr-white: #FFF;
+
+    /* TEXT */
+    --clr-placeholder: #333;
+
+    --clr-text: #333;
+    --clr-text-light: #666;
+
+    /* LAYOUT */
+    --clr-background: var(--clr-primary-light);
+
+    /* GRADIENTS */
+    --linear-blue: linear-gradient(270deg, #458EED, #1C74E9, #135DBE);
+}

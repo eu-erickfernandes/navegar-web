@@ -26,6 +26,10 @@
     </head>
 
     <body>
+        <a href="{% url 'route:index' %}">Rotas</a>
+        <a href="{% url 'authentication:index' %}">Usuários</a>
+        <a href="{% url 'authentication:user_logout' %}">Logout</a>
+
         {% block content %}{% endblock %}
     </body>
 </html>

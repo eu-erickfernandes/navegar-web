@@ -1,0 +1,73 @@
+.auth-header{
+    background-image: var(--linear-blue);
+    border-bottom-left-radius: 1.25rem;
+    border-bottom-right-radius: 1.25rem;
+    box-shadow: 0px 0px 1.25rem 0px hsla(214, 82%, 30%, 0.5);
+    color: var(--clr-white);
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    padding-block: 2rem;
+    padding-inline: 1rem;
+
+    .logo{
+        align-self: flex-start;
+        height: 2.5rem;
+        width: auto;
+    }
+
+    h1{
+        font-size: 1.25rem;
+        font-weight: 600;
+    }
+
+    p{
+        font-size: 1rem;
+        font-weight: 500;
+    }
+}
+
+main,
+form{
+    height: 100%;
+}
+
+form{
+    .email-input,
+    .phone-input,
+    .password-input{
+        --background-size: 1.25rem;
+        --padding-left: .75rem;
+        
+        background-size: var(--background-size);
+        background-repeat: no-repeat;
+        background-position-x: var(--padding-left);
+        background-position-y: center;
+        padding-left: calc(var(--padding-left) + var(--background-size) + .5rem);
+
+        &:-internal-autofill-selected{
+            padding-left: .75rem;
+        }
+    }
+
+    .email-input{
+        background-image: url('../../../icons/mail.svg');
+    }
+
+    .phone-input{
+        background-image: url('../../../icons/phone.svg');
+    }
+
+    .password-input{
+        background-image: url('../../../icons/lock.svg');
+    }
+
+
+    .button[type="submit"]{
+        margin-top: auto;
+    }
+
+    .link{
+        text-align: center;
+    }
+}

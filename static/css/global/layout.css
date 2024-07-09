@@ -1,0 +1,21 @@
+html, 
+body{
+    height: 100%;
+}
+
+body,
+main,
+.group{
+    display: flex;
+    flex-direction: column;
+}
+
+main{
+    gap: 1rem;
+    padding-block: 1.5rem;
+    padding-inline: 1rem;
+}
+
+.group{
+    gap: .5rem;
+}

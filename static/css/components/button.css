@@ -1,0 +1,32 @@
+.button{
+    background-color: var(--clr-primary);
+    border: none;
+    border-radius: .5rem;
+    color: var(--clr-white);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    outline: none;
+    padding-block: 1rem;
+    padding-inline: 2rem;
+    transition: background-color .5s;
+    width: 100%;
+
+    &:is(:hover, :focus-visible){
+        background-color: var(--clr-primary-dark);
+    }
+
+    &.secondary{
+        background-color: transparent;
+        border: 1px solid var(--clr-primary);
+        color: var(--clr-primary);
+        font-weight: 500;
+        padding-block: calc(1rem - 1px);
+        padding-inline: calc(2rem - 1px);
+
+        &:is(:hover, :focus-visible){
+            background-color: var(--clr-primary);
+            color: #FFF;
+        }
+    }
+}

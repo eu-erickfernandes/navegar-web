@@ -10,7 +10,7 @@ urlpatterns = [
     path('', index, name= 'index'),
     path('cadastro/', registration, name= 'registration'),
     path('entrar/', signin, name= 'signin'),
-    path('sair/', user_logout, name= 'logout'),
+    path('sair/', user_logout, name= 'user_logout'),
 
     # ACTIONS
     path('user_registration/', user_registration, name= 'user_registration'),
