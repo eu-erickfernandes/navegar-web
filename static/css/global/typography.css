@@ -4,3 +4,13 @@ body,
 body *{
     font-family: 'Inter', system-ui, sans-serif;
 }
+
+body{
+    color: var(--clr-text);
+}
+
+.link{
+    color: var(--clr-primary);
+    font-size: 14px;
+    font-weight: 500;
+}

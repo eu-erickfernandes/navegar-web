@@ -1,0 +1,29 @@
+input:is(
+    [type="date"], 
+    [type="email"], 
+    [type="password"], 
+    [type="text"],
+    [type="time"],
+    [type="number"]
+), 
+select{
+    background-color: var(--clr-gray-light);
+    border: none;
+    border-radius: .5rem;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: 500;
+    outline: none;
+    padding-block: 1rem;
+    padding-inline: .75rem;
+    transition: .25s;
+    width: 100%;
+
+    ::placeholder{
+        color: var(--clr-placeholder);
+    }
+}
+
+/* select option:first-child:disabled{
+    display: none;
+} */
