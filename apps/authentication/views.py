@@ -4,6 +4,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 
 from .decorators import redirect_authenticated_user
+from .models import *
 
 @redirect_authenticated_user
 def registration(request):
@@ -25,4 +26,8 @@ def user_logout(request):
 
 @login_required
 def index(request):
-    return render(request, 'authentication/index.html')
+    users = CustomUser.objects.all()
+
+    return render(request, 'authentication/index.html',{
+        'users': users
+    })
