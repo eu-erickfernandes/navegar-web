@@ -1,9 +1,13 @@
 <form action="{% url 'authentication:user_registration' %}" method="POST">
     {% csrf_token %}
 
-    <input type="text" placeholder="Nome completo" name="name" maxlength="100">
-    <input type="email" placeholder="E-mail" name="email" maxlength="100">
-    <input type="password" placeholder="Senha" name="password" maxlength="100">
+    <input type="text" placeholder="Nome completo" name="name" maxlength="100" required>
+    <input type="text" placeholder="CPF" name="cpf" data-mask="cpf" required>
+    <input type="text" placeholder="Data de Nascimento" name="birth_date" maxlength="100" required>
+    <input type="email" placeholder="E-mail" name="email" maxlength="100" required>
+    <input type="text" placeholder="Telefone" name="phone" data-mask="phone" required>
+    <input type="password" placeholder="Senha" name="password" maxlength="100" required>
+    <input type="password" placeholder="Confirmação da senha" name="confirm_password" maxlength="100">
 
     <button class="button" type="submit">Criar conta</button>
     
