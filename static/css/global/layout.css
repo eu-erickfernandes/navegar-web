@@ -3,6 +3,10 @@ body{
     height: 100%;
 }
 
+body .hidden{
+    display: none;
+}
+
 body,
 main,
 .group{
