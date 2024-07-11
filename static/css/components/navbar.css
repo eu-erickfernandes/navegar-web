@@ -1,0 +1,42 @@
+.navbar{
+    background-color: var(--clr-white);
+    bottom: 0;
+    box-sizing: border-box;
+    display: flex;
+    gap: .8rem;
+    font-size: .75rem;
+    font-weight: 500;
+    height: var(--navbar-height);
+    padding-block: .5rem;
+    padding-inline: 1rem;
+    position: fixed;
+    width: 100%;
+
+    .navlink{
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        gap: .25rem;
+        text-align: center;
+        width: 100%;
+
+        &.active{
+            img{
+                display: none;
+            }
+
+            .active-icon{
+                display: block;
+            }
+        }
+
+        img{
+            aspect-ratio: 1;
+            height: 1.25rem;
+
+            &.active-icon{
+                display: none;
+            }
+        }
+    }
+}

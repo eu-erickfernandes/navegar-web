@@ -1,0 +1,31 @@
+{% load static %}
+
+<nav class="navbar">
+    <a class="navlink" href="{% url 'route:index' %}" data-navbar-link="/">
+        <img src="{% static 'icons/navbar/search.svg' %}" alt="">
+        <img class="active-icon" src="{% static 'icons/navbar/search-active.svg' %}" alt="">
+
+        <span>Consulta</span>
+    </a>
+    
+    <a class="navlink" href="#" data-navbar-link="passagens">
+        <img src="{% static 'icons/navbar/ticket.svg' %}" alt="">
+        <img class="active-icon" src="{% static 'icons/navbar/ticket-active.svg' %}" alt="">
+
+        <span>Passagens</span>
+    </a>
+
+    <a class="navlink" href="#" data-navbar-link="financeiro">
+        <img src="{% static 'icons/navbar/finantial.svg' %}" alt="">
+        <img class="active-icon" src="{% static 'icons/navbar/finantial-active.svg' %}" alt="">
+
+        <span>Financeiro</span>
+    </a>
+
+    <a class="navlink" href="{% url 'authentication:index' %}" data-navbar-link="usuario">
+        <img src="{% static 'icons/navbar/panel.svg' %}" alt="">
+        <img class="active-icon" src="{% static 'icons/navbar/panel-active.svg' %}" alt="">
+
+        <span>Painel</span>
+    </a>
+</nav>

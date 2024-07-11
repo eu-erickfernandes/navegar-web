@@ -5,17 +5,17 @@
     --clr-primary-light: #E8F1FD;
 
     /* AUXILIARY */
-    --clr-green: #1CE960;
-    --clr-green-dark: #0E8B38;
-    --clr-green-light: #D1FADF;
+    --clr-green: #1CE9A4;
+    --clr-green-dark: #0E8B61;
+    --clr-green-light: #D1FAEC;
 
-    --clr-yellow: #E9C61C;
-    --clr-yellow-dark: #8B760E;
-    --clr-yellow-light: #FAF3D1;
+    --clr-yellow: #E9E91C;
+    --clr-yellow-dark: #8B8B0E;
+    --clr-yellow-light: #FAFAD1;
     
-    --clr-red: #E91C1C;
-    --clr-red-dark: #8B0E0E;
-    --clr-red-light: #FDE8E8;
+    --clr-red: #E91C82;
+    --clr-red-dark: #8B0E4C;
+    --clr-red-light: #FDE8F2;
 
     /* NEUTRAL */
     --clr-gray: #C3CDDA;
@@ -24,7 +24,7 @@
     --clr-white: #FFF;
 
     /* TEXT */
-    --clr-placeholder: #333;
+    --clr-placeholder: #808080;
 
     --clr-text: #333;
     --clr-text-light: #666;

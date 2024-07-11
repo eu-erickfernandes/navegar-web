@@ -1,6 +1,20 @@
+:root{
+    --navbar-height: 4rem;
+    --page-header-height: 3.5rem
+}
+
 html, 
 body{
+    box-sizing: border-box;
     height: 100%;
+}
+
+body:has(.page-header){
+    padding-top: var(--page-header-height);
+}
+
+body:has(.navbar) main{
+    padding-bottom: var(--navbar-height);
 }
 
 body .hidden{
@@ -8,16 +22,9 @@ body .hidden{
 }
 
 body,
-main,
 .group{
     display: flex;
     flex-direction: column;
-}
-
-main{
-    gap: 1rem;
-    padding-block: 1.5rem;
-    padding-inline: 1rem;
 }
 
 .group{

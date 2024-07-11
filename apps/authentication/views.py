@@ -26,7 +26,7 @@ def user_logout(request):
 
 @login_required
 def index(request):
-    users = CustomUser.objects.all()
+    users = CustomUser.objects.all().exclude(is_superuser= True)
 
     return render(request, 'authentication/index.html',{
         'users': users

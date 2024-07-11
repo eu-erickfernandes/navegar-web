@@ -8,6 +8,8 @@
 
         <title>Navegar • {% block title %}{% endblock %}</title>
 
+        <link rel="shortcut icon" href="{% static 'favicon.svg' %}" type="image/x-icon">
+
         <!-- GLOBAL CSS -->
         <link rel="stylesheet" href="{% static 'css/global/reset.css' %}">
         <link rel="stylesheet" href="{% static 'css/global/typography.css' %}">
@@ -19,6 +21,9 @@
         <link rel="stylesheet" href="{% static 'css/components/form.css' %}">
         <link rel="stylesheet" href="{% static 'css/components/input.css' %}">
         <link rel="stylesheet" href="{% static 'css/components/messages.css' %}">
+        <link rel="stylesheet" href="{% static 'css/components/navbar.css' %}">
+        <link rel="stylesheet" href="{% static 'css/components/navicon.css' %}">
+        <link rel="stylesheet" href="{% static 'css/components/page-header.css' %}">
         <link rel="stylesheet" href="{% static 'css/components/radio-control.css' %}">
         
         <!-- TEMPLATES CSS -->
@@ -26,10 +31,12 @@
     </head>
 
     <body>
-        <a href="{% url 'route:index' %}">Rotas</a>
-        <a href="{% url 'authentication:index' %}">Usuários</a>
-        <a href="{% url 'authentication:user_logout' %}">Logout</a>
+        <!-- <a href="{% url 'authentication:user_logout' %}">Logout</a> -->
 
         {% block content %}{% endblock %}
+
+        {% include './_navbar.html' %}
+
+        <script src="{% static 'js/components/navbar.js' %}"></script>
     </body>
 </html>
