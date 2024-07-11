@@ -6,20 +6,37 @@
     Usuários
 {% endblock %}
 
-{% block content %}
-    <main>
-        <h1>Usuários</h1>
+{% block css_template %}
+    <link rel="stylesheet" href="{% static 'css/templates/authentication/index.css' %}">
+{% endblock %}
 
-        <ul>
+{% block content %}
+    {% include '../partials/_page-header.html' with title='Usuários' back_link='/' %}
+
+    <main>
+        <div class="user-search">
+            <input type="text" id="user-search" placeholder="Buscar usuário" class="search">
+        </div>
+
+        <ul class="users-list">
             {% for user in users %}
                 <li>
-                    <p>{{ user.person.name }}</p>
-                    <p>{{ user.email }}</p>
-                    <p>{{ user.phone }}</p>
-                    <p>{{ user.role }}</p>
-                </li>
+                    <span class="status {% if user.is_active %}active{% endif %}"></span>
 
-                <br>
+                    <div class="group">
+                        <div class="data">
+                            <span class="name">{{ user.person.name }}</span>
+                            <span>{{ user.email }}</span>
+                            <span>{{ user.phone }}</span>
+                        </div>
+                        
+                        {% if user.role == 'A' %}
+                            <span class="role administrator">Administrator</span>
+                        {% elif user.role == 'S' %}
+                            <span class="role suppiler">Fornecedor</span>
+                        {% endif %}
+                    </div>
+                </li>
             {% endfor %}
         </ul>
     </main>

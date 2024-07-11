@@ -15,8 +15,8 @@ class Person(models.Model):
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     ROLE_CHOICES = [
-        ('P', 'Passenger'),
-        ('A', 'Administrator')
+        ('P', 'Passenger',),
+        ('A', 'Administrator',)
     ]
 
     person = models.OneToOneField(Person, null= True, on_delete= models.CASCADE)

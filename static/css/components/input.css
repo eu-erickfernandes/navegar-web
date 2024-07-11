@@ -7,17 +7,29 @@ input:is(
     [type="number"]
 ), 
 select{
+    --icon-size: 1.25rem;
+    --padding-inline: .75rem;
+
     background-color: var(--clr-gray-light);
+    background-position-x: calc(100% - var(--padding-inline));
+    background-position-y: center;
+    background-repeat: no-repeat;
     border: none;
     border-radius: .5rem;
     box-sizing: border-box;
+    color: var(--clr-text);
     font-size: 14px;
     font-weight: 500;
     outline: none;
     padding-block: 1rem;
-    padding-inline: .75rem;
+    padding-inline: var(--padding-inline);
     transition: .25s;
     width: 100%;
+
+    &.search{
+        background-image: url('../../icons/inputs/search.svg');
+        padding-right: calc(var(--icon-size) + var(--padding-inline) + .5rem);
+    }
 
     ::placeholder{
         color: var(--clr-placeholder);

@@ -3,6 +3,7 @@
 body,
 body *{
     font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 500;
 }
 
 body{

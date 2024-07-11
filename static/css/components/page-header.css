@@ -1,0 +1,19 @@
+.page-header{
+    align-items: center;
+    background-color: var(--clr-white);
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    height: var(--page-header-height);
+    padding-inline: 1rem;
+    /* justify-content: space-between; */
+    position: fixed;
+    top: 0;
+    width: 100%;
+
+    h1{
+        font-size: 1.25rem;
+        font-weight: 600;
+        text-align: center;
+    }
+}

@@ -1,0 +1,70 @@
+main{
+    --user-search-height: 4.5rem;
+ 
+    padding-top: var(--user-search-height);
+}
+
+.user-search{
+    background-color: var(--clr-white);
+    box-sizing: border-box;
+    height: var(--user-search-height);
+    position: fixed;
+    top: var(--page-header-height);
+    padding-block: .75rem;
+    padding-inline: 1rem;
+    width: 100%;
+}
+
+.users-list{
+    display: flex;
+    flex-direction: column;
+    
+    li{
+        align-items: center;
+        display: flex;
+        gap: 1rem;
+        padding: 1rem;
+
+        .status{
+            background-color: var(--clr-gray);
+            border-radius: 100vw;
+            display: block;
+            height: .5rem;
+            width: .5rem;
+
+            &.active{
+                background-color: var(--clr-green);
+            }
+        }
+
+        .data{
+            color: var(--clr-text-light);
+            display: flex;
+            flex-direction: column;
+            font-size: .75rem;
+            gap: .25rem;
+
+            .name{
+                color: var(--clr-text);
+                font-size: 14px;
+            }
+        }
+
+        .role{
+            background-color: var(--clr-gray-light);
+            border-radius: .25rem;
+            color: var(--clr-primary-dark);
+            display: block;
+            font-size: .5rem;
+            font-weight: 600;
+            padding-block: .25rem;
+            padding-inline: .5rem;
+            width: fit-content;
+
+            &.administrator{
+                background-color: var(--clr-primary-dark);
+                color: var(--clr-white);
+            }
+        }
+    }
+}
