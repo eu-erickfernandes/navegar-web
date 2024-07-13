@@ -5,5 +5,5 @@ from apps.route.views import *
 app_name = 'route'
 
 urlpatterns = [
-    path('', index, name= 'index')
+    path('', search, name= 'search')
 ]

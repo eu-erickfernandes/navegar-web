@@ -1,6 +1,5 @@
 main{
     --user-search-height: 4.5rem;
- 
     padding-top: var(--user-search-height);
 }
 
@@ -8,10 +7,10 @@ main{
     background-color: var(--clr-white);
     box-sizing: border-box;
     height: var(--user-search-height);
-    position: fixed;
-    top: var(--page-header-height);
     padding-block: .75rem;
     padding-inline: 1rem;
+    position: fixed;
+    top: var(--page-header-height);
     width: 100%;
 }
 

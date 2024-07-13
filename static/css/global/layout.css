@@ -27,6 +27,11 @@ body,
     flex-direction: column;
 }
 
+main{
+    padding-top: 1.25rem;
+}
+
 .group{
+    display: grid;
     gap: .5rem;
 }
