@@ -36,6 +36,11 @@ select{
     }
 }
 
+::selection{
+    background-color: var(--clr-primary-dark);
+    color: var(--clr-white);
+}
+
 /* select option:first-child:disabled{
     display: none;
 } */

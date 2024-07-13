@@ -1,8 +1,6 @@
 const radioControls = document.querySelectorAll('[data-radio-control]')
 const targets = document.querySelectorAll('[data-radio-control-target]')
 
-console.log(radioControls, targets)
-
 // INTIALIZAING THE COMPONENTS
 
 if(radioControls.length){

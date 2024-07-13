@@ -68,6 +68,6 @@ form{
     }
 
     .link{
-        text-align: center;
+        align-self: center;
     }
 }
