@@ -13,8 +13,8 @@
 {% block content %}
     <main>
         <a href="{% url 'authentication:index' %}">Usuários</a>
-        <a href="#">Embarcações</a>
-        <a href="#">Rotas</a>
+        <a href="{% url 'route:boats' %}">Embarcações</a>
+        <a href="{% url 'route:index' %}">Rotas</a>
         <a href="{% url 'authentication:user_logout' %}">Sair</a>
     </main>
 {% endblock %}
