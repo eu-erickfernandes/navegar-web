@@ -30,3 +30,7 @@
         }
     }
 }
+
+a:has(.button){
+    width: 100%;
+}
