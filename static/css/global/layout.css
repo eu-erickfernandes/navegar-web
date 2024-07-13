@@ -12,21 +12,39 @@ body{
 body{
     display: flex;
     flex-direction: column;
+
+    &:has(.page-header){
+        padding-top: var(--page-header-height);
+    }
+
+    &:not(:has(.page-header)){
+        background-color: var(--clr-background);
+        
+        main{
+            display: grid;
+            gap: 1rem;
+        }
+    }
+
+    &:has(.navbar) main{
+        padding-bottom: calc(var(--navbar-height) + 1rem);
+    }
+
+    .group{
+        display: grid;
+        gap: .5rem;
+
+        &.sm{
+            gap: .25rem;
+        }
+    }
+
+    .hidden{
+        display: none;
+    }
 }
 
-body:has(.page-header){
-    padding-top: var(--page-header-height);
-}
-
-body:has(.navbar) main{
-    padding-bottom: var(--navbar-height);
-}
-
-body .hidden{
-    display: none;
-}
-
-.group{
-    display: grid;
-    gap: .5rem;
+main{
+    padding-inline: 1rem;
+    padding-block: 1.25rem;
 }

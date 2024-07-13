@@ -29,6 +29,17 @@
             color: #FFF;
         }
     }
+
+    &.icon{
+        background-size: 1.5rem;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: fit-content;
+
+        &.search{
+            background-image: url('../../icons/inputs/search.svg');
+        }
+    }
 }
 
 a:has(.button){

@@ -97,7 +97,7 @@ def user_login(request):
     if user:
         login(request, user)
 
-        return redirect(reverse('route:index'))
+        return redirect(reverse('route:search'))
     
     return render(request, 'authentication/auth.html', {
         'error_messages': error_messages,

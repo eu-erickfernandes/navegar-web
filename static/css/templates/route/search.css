@@ -1,0 +1,81 @@
+.logo{
+    height: 1.75rem;
+    width: auto;
+}
+
+.route-search-form{
+    background-color: var(--clr-white);
+    border-radius: .5rem;
+    gap: .75rem;
+    padding: .75rem;
+
+    .search-input-list{
+        display: grid;
+        gap: .25rem;
+
+        .route-list{
+            border-radius: .5rem;
+            display: grid;
+            gap: .125rem;
+            overflow: hidden;
+            
+            li{
+                background-color: var(--clr-gray-light);
+                cursor: pointer;
+                padding: .75rem;
+
+                .route-time{
+                    font-size: .75rem;
+                }
+            }
+        }
+    }
+
+    .search-date-button{
+        display: flex;
+        gap: .75rem;
+    }
+
+    .result-item{
+        background-color: var(--clr-white);
+        border: 2px solid var(--clr-gray-light);
+        border-radius: .5rem;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 8rem;
+        padding-block: .75rem;
+        padding-inline: 1rem;
+        width: 100%;
+
+        .route-value{
+            align-items: flex-start;
+            display: flex;
+            justify-content: space-between;
+
+            .group{
+                text-align: right;
+                
+                .price-label{
+                    font-size: 14px;
+                }
+                
+                .cost-label{
+                    font-size: .5rem;
+                }
+            }
+        }
+
+        .route-info span{
+            color: var(--clr-text-light);
+            font-size: .75rem;
+            font-weight: 600;
+
+            &.route-time{
+                color: var(--clr-text);
+                font-size: 14px;
+            }
+        }
+    }
+}

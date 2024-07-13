@@ -6,26 +6,66 @@
     Consulta de rotas
 {% endblock %}
 
+{% block css_template %}
+    <link rel="stylesheet" href="{% static 'css/templates/route/search.css' %}">
+{% endblock %}
+
 {% block content %}
     <main>
-        <img src="" alt="">
+        <img 
+            alt="Logotipo Navegar"
+            class="logo"
+            src="{% static 'images/logo-blue.svg' %}" 
+        >
 
-        <div class="">
-            <div>
-                <input type="text">
+        <form class="route-search-form">
+            <div class="search-input-list">
+                <input 
+                    name="route" 
+                    placeholder="Digite o local de origem" 
+                    required
+                    type="text" 
+                >
 
-                <ul>
-                    <li>
-                        MANAUS -> TABATINGA
+                <ul class="route-list">
+                    <li class="group">
+                        <p class="route">MANAUS -> ACANAUÍ</p>
+                        <span class="route-time">11:00 - 15:00 (Dia seguinte)</span>
+                    </li>
+                    <li class="group">
+                        <p class="route">MANAUS -> ACANAUÍ</p>
+                        <span class="route-time">11:00 - 15:00 (Dia seguinte)</span>
                     </li>
                 </ul>
             </div>
 
-            <div>
-                <input type="date" name="" id="">
+            <div class="search-date-button">
+                <input 
+                    id="date" 
+                    name="date"     
+                    required
+                    type="date" 
+                >
 
-                <button class="icon search" type="submit"></button>
+                <button class="button icon search" type="submit"></button>
             </div>
-        </div>
+
+            <a class="result-item" href="#">
+                <div class="route-value">
+                    <span class="boat-label">Diamante</span>
+                    
+                    <div class="group sm">
+                        <span class="price-label">R$ 830,00</span>
+                        <span class="cost-label">-R$ 830,00</span>
+                    </div>
+                </div>
+
+                <div class="group sm route-info">
+                    <span class="route-time">11:00 - 15:00 (Dia seguinte)</span>
+                    <span>Manaus - Acanuauí</span>
+                    <span>35 horas</span>
+                </div>
+            </a>
+        </form>
     </main>
 {% endblock %}
