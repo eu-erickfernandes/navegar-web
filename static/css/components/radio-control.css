@@ -26,6 +26,7 @@
 
         &:is(:hover, :focus-visible):not(input:disabled + label){
             background-color: var(--clr-primary);
+            color: var(--clr-white);
         }
 
         &:is(input:disabled + label){

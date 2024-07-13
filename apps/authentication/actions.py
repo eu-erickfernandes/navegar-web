@@ -1,4 +1,4 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.contrib.auth import authenticate, login
 from django.views.decorators.http import require_POST
@@ -6,24 +6,58 @@ from django.views.decorators.http import require_POST
 from .models import CustomUser, Person
 from utils.format import date_format
 
-
 @require_POST
 def user_registration(request):
+    # DATA VALIDATION
+    error_messages = {
+        'cpf': 'CPF já cadastrado',
+        'birth_date': 'Data inválida',
+        'email': 'E-mail já cadastrado',
+        'phone': 'Telefone já cadastrado',
+        'password_confirmation': 'Os campos de senha não estão iguais',
+    }
+
     name = request.POST.get('name')
     cpf = request.POST.get('cpf')
-
     birth_date = date_format(request.POST.get('birth_date'))
+    email = request.POST.get('email')
+    phone = request.POST.get('phone')
 
+    password = request.POST.get('password')
+    password_confirmation = request.POST.get('password_confirmation')
+
+    fields = {
+        'name': name,
+        'cpf': cpf,
+        'birth_date': request.POST.get('birth_date'),
+        'email': email,
+        'phone': phone
+    }
+
+    if Person.objects.filter(cpf= cpf).exists():
+        return render(request, 'authentication/auth.html', {
+            'error_message': {'cpf': 'CPF já cadastrado'},
+            'fields': fields
+        })
+
+    if CustomUser.objects.filter(email= email).exists():
+        return render(request, 'authentication/auth.html', {
+            'error_message': {'email': 'E-mail já cadastrado'},
+            'fields': fields
+        })
+
+    if CustomUser.objects.filter(phone= phone).exists():
+        return render(request, 'authentication/auth.html', {
+            'error_message': {'phone': 'Telefone já cadastrado'},
+            'fields': fields
+        })
+    
+    # USER CREATION
     person = Person.objects.create(
         name= name,
         cpf= cpf,
         birth_date= birth_date
     )
-
-    email = request.POST.get('email')
-    phone = request.POST.get('phone')
-    password = request.POST.get('password')
-    password_confirmation = request.POST.get('password_confirmation')
 
     user = CustomUser.objects.create_user(
         person= person,
@@ -33,12 +67,15 @@ def user_registration(request):
     )
 
     return redirect(reverse('authentication:signin'))
-    # return redirect(reverse('authentication:registration'))
 
 
 @require_POST
 def user_login(request):
     auth_type = request.POST.get('radio-auth-type')
+
+    error_messages = {
+        'auth': 'Credenciais inválidas, tente novamente'
+    }
 
     if auth_type == 'email':
         email = request.POST.get('email')
@@ -48,7 +85,10 @@ def user_login(request):
         try:    
             email = CustomUser.objects.get(phone= phone).email
         except:
-            return redirect(reverse('authentication:signin'))
+            return render(request, 'authentication/auth.html', {
+                'error_messages': error_messages,
+                'login': True
+            })
     
     password = request.POST.get('password')
 
@@ -59,4 +99,7 @@ def user_login(request):
 
         return redirect(reverse('route:index'))
     
-    return redirect(reverse('authentication:signin'))
+    return render(request, 'authentication/auth.html', {
+        'error_messages': error_messages,
+        'login': True
+    })

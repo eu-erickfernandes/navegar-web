@@ -9,6 +9,11 @@ body{
     height: 100%;
 }
 
+body{
+    display: flex;
+    flex-direction: column;
+}
+
 body:has(.page-header){
     padding-top: var(--page-header-height);
 }
@@ -19,16 +24,6 @@ body:has(.navbar) main{
 
 body .hidden{
     display: none;
-}
-
-body,
-.group{
-    display: flex;
-    flex-direction: column;
-}
-
-main{
-    padding-top: 1.25rem;
 }
 
 .group{
