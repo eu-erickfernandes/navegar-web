@@ -25,6 +25,11 @@ def user_logout(request):
 
 
 @login_required
+def panel(request):
+    return render(request, 'authentication/panel.html')
+
+
+@login_required
 def index(request):
     users = CustomUser.objects.all().exclude(is_superuser= True)
 

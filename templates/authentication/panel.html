@@ -1,0 +1,20 @@
+{% extends '../partials/_base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Painel
+{% endblock %}
+
+{% block css_template %}
+    <link rel="stylesheet" href="{% static 'css/templates/authentication/panel.css' %}">
+{% endblock %}
+
+{% block content %}
+    <main>
+        <a href="{% url 'authentication:index' %}">Usuários</a>
+        <a href="#">Embarcações</a>
+        <a href="#">Rotas</a>
+        <a href="{% url 'authentication:user_logout' %}">Sair</a>
+    </main>
+{% endblock %}

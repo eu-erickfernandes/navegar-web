@@ -33,6 +33,8 @@ form{
 }
 
 form{
+    padding: 0;
+
     .email-input,
     .phone-input,
     .password-input{

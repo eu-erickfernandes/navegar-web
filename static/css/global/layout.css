@@ -13,16 +13,23 @@ body{
     display: flex;
     flex-direction: column;
 
+    &:has(.auth-header){
+        main{
+            padding-inline: 1rem;
+        }
+    }
+
     &:has(.page-header){
         padding-top: var(--page-header-height);
     }
 
-    &:not(:has(.page-header)){
+    &:not(:has(.page-header), :has(.auth-header)){
         background-color: var(--clr-background);
         
         main{
             display: grid;
             gap: 1rem;
+            padding-inline: 1rem;
         }
     }
 
@@ -45,6 +52,5 @@ body{
 }
 
 main{
-    padding-inline: 1rem;
     padding-block: 1.25rem;
 }
