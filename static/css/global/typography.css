@@ -15,3 +15,13 @@ body{
     font-size: 14px;
     font-weight: 500;
 }
+
+.error-message{
+    color: var(--clr-red-dark);
+    font-size: 14px;
+    font-weight: 500;
+
+    &:empty{
+        display: none;
+    }
+}
