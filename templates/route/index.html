@@ -7,5 +7,13 @@
 {% endblock %}
 
 {% block content %}
-
+    <main>
+        <ul>
+            {% for route in routes %}
+                <li>
+                    <a href="#">{{ route }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </main>
 {% endblock %}

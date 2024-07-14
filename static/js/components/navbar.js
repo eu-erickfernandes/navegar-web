@@ -1,8 +1,6 @@
 const current_path = window.location.pathname.split('/')
 const links = document.querySelectorAll('[data-navbar-link]')
 
-console.log(current_path)
-
 if(links)
     if (current_path.length == 2)
         document.querySelectorAll(('[data-navbar-link="/"]')).forEach((link) => {

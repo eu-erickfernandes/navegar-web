@@ -9,34 +9,6 @@
     gap: .75rem;
     padding: .75rem;
 
-    .search-input-list{
-        display: grid;
-        gap: .25rem;
-
-        .route-list{
-            border-radius: .5rem;
-            display: grid;
-            gap: .125rem;
-            overflow: auto;
-            max-height: 0;
-            transition: max-height .5s;
-
-            &:is(.route-field:focus-visible + .route-list){
-                max-height: 10rem;
-            }
-
-            li{
-                background-color: var(--clr-gray-light);
-                cursor: pointer;
-                padding: .75rem;
-
-                .route-time{
-                    font-size: .75rem;
-                }
-            }
-        }
-    }
-
     .search-date-button{
         display: flex;
         gap: .75rem;
@@ -68,7 +40,7 @@
                 }
                 
                 .cost-label{
-                    font-size: .5rem;
+                    font-size: .75rem;
                 }
             }
         }
@@ -83,5 +55,11 @@
                 font-size: 14px;
             }
         }
+    }
+
+    .not-found{
+        color: var(--clr-red-dark);
+        font-size: 14px;
+        font-weight: 600;
     }
 }

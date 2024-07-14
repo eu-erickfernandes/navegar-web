@@ -44,6 +44,6 @@ select{
     color: var(--clr-white);
 }
 
-/* select option:first-child:disabled{
+select option:first-child:disabled{
     display: none;
-} */
+}

@@ -1,5 +1,6 @@
-from django.db import models
+from datetime import datetime, timedelta
 
+from django.db import models
 
 from apps.authentication.models import CustomUser
 
@@ -34,6 +35,22 @@ class Route(models.Model):
 
     def __str__(self):
         return f'{self.origin} - {self.destination}'
+    
+    @property
+    def duration(self):
+        start_datetime = datetime.combine(datetime.today(), self.departure_time)
+        end_datetime = datetime.combine(datetime.today(), self.arrival_time)
+
+        if self.next_day:
+            end_datetime += timedelta(days=1)
+
+        total_time = end_datetime - start_datetime
+        total_seconds = total_time.total_seconds()
+        hours, remainder = divmod(total_seconds, 3600)
+        # minutes, seconds = divmod(remainder, 60)
+        total_time = f"{int(hours):02}"
+
+        return total_time
 
 
 class RouteBoat(models.Model):
@@ -46,14 +63,57 @@ class RouteBoat(models.Model):
 
 class RouteBoatWeekday(models.Model):
     WEEKDAY_CHOICES = [
-        ('1', 'Domingo'),
-        ('2', 'Segunda-Feira'),
-        ('3', 'Terça-Feira'),
-        ('4', 'Quarta-Feira'),
-        ('5', 'Quinta-Feira'),
-        ('6', 'Sexta-Feira'),
-        ('7', 'Sábado'),
+        ('1', 'Segunda-Feira'),
+        ('2', 'Terça-Feira'),
+        ('3', 'Quarta-Feira'),
+        ('4', 'Quinta-Feira'),
+        ('5', 'Sexta-Feira'),
+        ('6', 'Sábado'),
+        ('7', 'Domingo'),
     ]
 
     route_boat = models.ForeignKey(RouteBoat, on_delete= models.PROTECT)
     weekday = models.CharField(max_length= 1, choices= WEEKDAY_CHOICES)
+
+    @property
+    def __str__(self):
+        return f'{self.route_boat} - {self.get_weekday_display()}'
+
+    @property
+    def boat(self):
+        return self.route_boat.boat
+    
+    @property
+    def route(self):
+        return self.route_boat.route
+
+    @property
+    def origin(self):
+        return self.route.origin
+
+    @property
+    def destination(self):
+        return self.route.destination
+
+    @property
+    def departure_time(self):
+        return self.route.departure_time
+
+    @property
+    def arrival_time(self):
+        return self.route.arrival_time
+
+    @property
+    def next_day(self):
+        return self.route.next_day
+    
+    @property
+    def duration(self):
+        return self.route.duration
+
+    @property
+    def cost(self):
+        return self.route.cost
+    
+    def price(self):
+        return self.route.price
