@@ -17,8 +17,14 @@
             border-radius: .5rem;
             display: grid;
             gap: .125rem;
-            overflow: hidden;
-            
+            overflow: auto;
+            max-height: 0;
+            transition: max-height .5s;
+
+            &:is(.route-field:focus-visible + .route-list){
+                max-height: 10rem;
+            }
+
             li{
                 background-color: var(--clr-gray-light);
                 cursor: pointer;

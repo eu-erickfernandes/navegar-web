@@ -20,11 +20,14 @@ select{
     color: var(--clr-text);
     font-size: 14px;
     font-weight: 500;
+    height: 3rem;
     outline: none;
-    padding-block: 1rem;
     padding-inline: var(--padding-inline);
-    transition: .25s;
     width: 100%;
+
+    &:focus-visible{
+        border: 2px solid var(--clr-primary);
+    }
 
     &.search{
         background-image: url('../../icons/inputs/search.svg');
