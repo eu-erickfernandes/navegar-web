@@ -6,8 +6,9 @@ from .managers import CustomUserManager
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     ROLE_CHOICES = [
+        ('A', 'Administrator',),
         ('P', 'Passenger',),
-        ('A', 'Administrator',)
+        ('S', 'Supplier',)
     ]
 
     name = models.CharField(max_length= 100)

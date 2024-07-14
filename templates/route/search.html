@@ -20,18 +20,32 @@
 
         <form class="route-search-form">
             <div class="search-input-list">
+                <input type="hidden" name="route_id" data-route-id-input>
+
                 <input 
-                    name="route" 
+                    class="route-field"
+                    data-route-input
                     placeholder="Digite o local de origem" 
                     required
                     type="text" 
                 >
 
-                <ul class="route-list">
+                <ul class="route-list" data-route-list>
                     <li class="group">
                         <p class="route">MANAUS -> ACANAUÍ</p>
                         <span class="route-time">11:00 - 15:00 (Dia seguinte)</span>
                     </li>
+
+                    <li class="group">
+                        <p class="route">MANAUS -> ACANAUÍ</p>
+                        <span class="route-time">11:00 - 15:00 (Dia seguinte)</span>
+                    </li>
+
+                    <li class="group">
+                        <p class="route">MANAUS -> ACANAUÍ</p>
+                        <span class="route-time">11:00 - 15:00 (Dia seguinte)</span>
+                    </li>
+
                     <li class="group">
                         <p class="route">MANAUS -> ACANAUÍ</p>
                         <span class="route-time">11:00 - 15:00 (Dia seguinte)</span>
@@ -49,6 +63,57 @@
 
                 <button class="button icon search" type="submit"></button>
             </div>
+
+            <a class="result-item" href="#">
+                <div class="route-value">
+                    <span class="boat-label">Diamante</span>
+                    
+                    <div class="group sm">
+                        <span class="price-label">R$ 830,00</span>
+                        <span class="cost-label">-R$ 830,00</span>
+                    </div>
+                </div>
+
+                <div class="group sm route-info">
+                    <span class="route-time">11:00 - 15:00 (Dia seguinte)</span>
+                    <span>Manaus - Acanuauí</span>
+                    <span>35 horas</span>
+                </div>
+            </a>
+
+            <a class="result-item" href="#">
+                <div class="route-value">
+                    <span class="boat-label">Diamante</span>
+                    
+                    <div class="group sm">
+                        <span class="price-label">R$ 830,00</span>
+                        <span class="cost-label">-R$ 830,00</span>
+                    </div>
+                </div>
+
+                <div class="group sm route-info">
+                    <span class="route-time">11:00 - 15:00 (Dia seguinte)</span>
+                    <span>Manaus - Acanuauí</span>
+                    <span>35 horas</span>
+                </div>
+            </a>
+
+            <a class="result-item" href="#">
+                <div class="route-value">
+                    <span class="boat-label">Diamante</span>
+                    
+                    <div class="group sm">
+                        <span class="price-label">R$ 830,00</span>
+                        <span class="cost-label">-R$ 830,00</span>
+                    </div>
+                </div>
+
+                <div class="group sm route-info">
+                    <span class="route-time">11:00 - 15:00 (Dia seguinte)</span>
+                    <span>Manaus - Acanuauí</span>
+                    <span>35 horas</span>
+                </div>
+            </a>
 
             <a class="result-item" href="#">
                 <div class="route-value">
