@@ -19,118 +19,73 @@
         >
 
         <form class="route-search-form">
-            <div class="search-input-list">
-                <input type="hidden" name="route_id" data-route-id-input>
+            <select name="origin" id="origin" required>
+                <option value="" disabled selected>Origem</option>
 
-                <input 
-                    class="route-field"
-                    data-route-input
-                    placeholder="Digite o local de origem" 
-                    required
-                    type="text" 
-                >
+                {% for city in cities %}
+                    {% if city.id == origin.id %}
+                        <option value="{{ origin.id }}" selected>{{ origin }}</option>
+                    {% else %}
+                        <option value="{{ city.id }}">{{ city }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
 
-                <ul class="route-list" data-route-list>
-                    <li class="group">
-                        <p class="route">MANAUS -> ACANAUÍ</p>
-                        <span class="route-time">11:00 - 15:00 (Dia seguinte)</span>
-                    </li>
+            <select name="destination" id="destination" required>
+                <option value="" disabled selected>Destino</option>
 
-                    <li class="group">
-                        <p class="route">MANAUS -> ACANAUÍ</p>
-                        <span class="route-time">11:00 - 15:00 (Dia seguinte)</span>
-                    </li>
-
-                    <li class="group">
-                        <p class="route">MANAUS -> ACANAUÍ</p>
-                        <span class="route-time">11:00 - 15:00 (Dia seguinte)</span>
-                    </li>
-
-                    <li class="group">
-                        <p class="route">MANAUS -> ACANAUÍ</p>
-                        <span class="route-time">11:00 - 15:00 (Dia seguinte)</span>
-                    </li>
-                </ul>
-            </div>
+                {% for city in cities %}
+                    {% if city.id == destination.id %}
+                        <option value="{{ destination.id }}" selected>{{ destination }}</option>
+                    {% else %}
+                        <option value="{{ city.id }}">{{ city }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
 
             <div class="search-date-button">
                 <input 
-                    id="date" 
+                    id="date"
+                    min="{{ today|date:'Y-m-d' }}" 
                     name="date"     
                     required
                     type="date" 
+
+                    {% if date %}
+                        value="{{ date }}"
+                    {% else %}
+                        value="{{ today|date:'Y-m-d' }}"
+                    {% endif %}
                 >
 
                 <button class="button icon search" type="submit"></button>
             </div>
 
-            <a class="result-item" href="#">
-                <div class="route-value">
-                    <span class="boat-label">Diamante</span>
-                    
-                    <div class="group sm">
-                        <span class="price-label">R$ 830,00</span>
-                        <span class="cost-label">-R$ 830,00</span>
+            {% for item in route_boat_weekdays %}
+                <a class="result-item" href="#">
+                    <div class="route-value">
+                        <span class="boat-label">{{ item.boat }}</span>
+                        
+                        <div class="group sm">
+                            <span class="price-label">R$ {{ item.price }}</span>
+                            <span class="cost-label">-R$ {{ item.cost }}</span>
+                        </div>
                     </div>
-                </div>
 
-                <div class="group sm route-info">
-                    <span class="route-time">11:00 - 15:00 (Dia seguinte)</span>
-                    <span>Manaus - Acanuauí</span>
-                    <span>35 horas</span>
-                </div>
-            </a>
+                    <div class="group sm route-info">
+                        <span class="route-time">
+                            {{ item.departure_time }} - {{ item.arrival_time }}
+                            
+                            {% if item.next_day %} (Dia seguinte) {% endif %}
+                        </span>
 
-            <a class="result-item" href="#">
-                <div class="route-value">
-                    <span class="boat-label">Diamante</span>
-                    
-                    <div class="group sm">
-                        <span class="price-label">R$ 830,00</span>
-                        <span class="cost-label">-R$ 830,00</span>
+                        <span>{{ item.origin }} - {{ item.destination }}</span>
+                        <span>{{ item.duration }} horas</span>
                     </div>
-                </div>
-
-                <div class="group sm route-info">
-                    <span class="route-time">11:00 - 15:00 (Dia seguinte)</span>
-                    <span>Manaus - Acanuauí</span>
-                    <span>35 horas</span>
-                </div>
-            </a>
-
-            <a class="result-item" href="#">
-                <div class="route-value">
-                    <span class="boat-label">Diamante</span>
-                    
-                    <div class="group sm">
-                        <span class="price-label">R$ 830,00</span>
-                        <span class="cost-label">-R$ 830,00</span>
-                    </div>
-                </div>
-
-                <div class="group sm route-info">
-                    <span class="route-time">11:00 - 15:00 (Dia seguinte)</span>
-                    <span>Manaus - Acanuauí</span>
-                    <span>35 horas</span>
-                </div>
-            </a>
-
-            <a class="result-item" href="#">
-                <div class="route-value">
-                    <span class="boat-label">Diamante</span>
-                    
-                    <div class="group sm">
-                        <span class="price-label">R$ 830,00</span>
-                        <span class="cost-label">-R$ 830,00</span>
-                    </div>
-                </div>
-
-                <div class="group sm route-info">
-                    <span class="route-time">11:00 - 15:00 (Dia seguinte)</span>
-                    <span>Manaus - Acanuauí</span>
-                    <span>35 horas</span>
-                </div>
-            </a>
+                </a>
+            {% empty %}
+                <span class="not-found">Nenhuma embarcação disponível</span>
+            {% endfor %}
         </form>
     </main>
 {% endblock %}
