@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login
 from django.views.decorators.http import require_POST
 
-from .models import CustomUser, Person
+from .models import CustomUser
 from utils.format import date_format
 
 @require_POST
@@ -34,7 +34,7 @@ def user_registration(request):
         'phone': phone
     }
 
-    if Person.objects.filter(cpf= cpf).exists():
+    if CustomUser.objects.filter(cpf= cpf).exists():
         return render(request, 'authentication/auth.html', {
             'error_message': {'cpf': 'CPF já cadastrado'},
             'fields': fields
@@ -53,14 +53,10 @@ def user_registration(request):
         })
     
     # USER CREATION
-    person = Person.objects.create(
+    user = CustomUser.objects.create_user(
         name= name,
         cpf= cpf,
-        birth_date= birth_date
-    )
-
-    user = CustomUser.objects.create_user(
-        person= person,
+        birth_date= birth_date,
         phone= phone,
         email= email,
         password= password
