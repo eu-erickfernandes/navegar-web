@@ -12,7 +12,11 @@
     transition: background-color .5s;
     width: 100%;
 
-    &:is(:hover, :focus-visible){
+    &:is(
+        :hover, 
+        :focus-visible, 
+        :not(:disabled, :read-only)
+    ){
         background-color: var(--clr-primary-dark);
     }
 
@@ -24,20 +28,40 @@
         padding-block: calc(1rem - 1px);
         padding-inline: calc(2rem - 1px);
 
-        &:is(:hover, :focus-visible){
+        &:is(
+            :hover, 
+            :focus-visible, 
+            :not(:disabled, :read-only)
+        ){
             background-color: var(--clr-primary);
             color: #FFF;
         }
+    }
+
+    &:disabled,
+    &:disabled:is(
+        :hover, 
+        :focus-visible, 
+    ){
+        background-color: var(--clr-gray);
+        border: none;
+        color: var(--clr-text);
+        cursor: default;
     }
 
     &.icon{
         background-size: 1.5rem;
         background-position: center;
         background-repeat: no-repeat;
+        padding: 1rem;
         width: fit-content;
 
         &.search{
-            background-image: url('../../icons/inputs/search.svg');
+            background-image: url('../../icons/buttons/search.svg');
+
+            &:disabled{
+                background-image: url('../../icons/buttons/search-disabled.svg');
+            }
         }
     }
 }
