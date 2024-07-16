@@ -1,0 +1,41 @@
+.ticket-list li {
+    padding: 1rem;
+
+    p{
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .ticket-route{
+        text-transform: uppercase;
+    }
+
+    span{
+        color: var(--clr-text-light);
+        font-size: .75rem;
+    }
+
+    .ticket-links{
+        display: flex;
+        gap: .5rem;
+
+        a {
+            background-color: var(--clr-primary-light);
+            border-radius: 100vw;
+            color: var(--clr-primary-dark);
+            display: flex;
+            font-size: .75rem;
+            gap: .5rem;
+            padding-block: .5rem;
+            padding-inline: .75rem;
+
+            &.download::before{
+                aspect-ratio: 1;
+                background-image: url('../../../icons/file_save.svg');
+                content: '';
+                display: block;
+                width: .75rem;
+            }
+        }
+    }
+}

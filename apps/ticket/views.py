@@ -2,11 +2,15 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from apps.route.models import RouteBoatWeekday
-from .models import Passenger
+from .models import Passenger, Ticket
 
 # Create your views here.
 def index(request):
-    return render(request, 'ticket/index.html')
+    tickets = Ticket.objects.all().order_by('created_at')
+
+    return render(request, 'ticket/index.html', {
+        'tickets': tickets
+    })
 
 def add(request, route_boat_weekday_id, date):
     passengers = Passenger.objects.all().order_by('name')

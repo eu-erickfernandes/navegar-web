@@ -6,9 +6,30 @@
     Passagens
 {% endblock %}
 
+{% block css_template %}
+    <link rel="stylesheet" href="{% static 'css/templates/ticket/index.css' %}">
+{% endblock %}
+
 {% block content %}
+    {% include '../partials/_page-header.html' with title='Passagens' back_link='/' %}
+
     <main>
-        <ul>
+        <ul class="ticket-list">
+            {% for ticket in tickets %}
+                <li class="group">
+                    <p class="boat-label">{{ ticket.boat }}</p>
+                    <p class="ticket-route">{{ ticket.origin }} -> {{ ticket.destination }}</p>
+                    <span>{{ ticket.date }}</span>
+                    <span>{{ ticket.passenger.name }}</span>
+
+                    <div class="ticket-links">
+                        <a href="#">Ver mais</a>
+                        <a class="download" href="#">Download</a>
+                    </div>
+
+                    <span>Criado em {{ ticket.created_at }}</span>
+                </li>
+            {% endfor %}
         </ul>
     </main>
 {% endblock %}
