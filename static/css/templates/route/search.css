@@ -23,8 +23,8 @@
         flex-direction: column;
         justify-content: space-between;
         height: 8rem;
-        padding-block: .75rem;
-        padding-inline: 1rem;
+        padding-block: 1rem;
+        padding-inline: .75rem;
         width: 100%;
 
         .route-value{

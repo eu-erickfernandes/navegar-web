@@ -23,8 +23,8 @@ class Boat(models.Model):
     
 
 class Route(models.Model):
-    origin = models.ForeignKey(City, on_delete= models.PROTECT, related_name= 'origin')
-    destination = models.ForeignKey(City, on_delete= models.PROTECT, related_name= 'destination')
+    origin = models.ForeignKey(City, on_delete= models.PROTECT, related_name= 'route_origin')
+    destination = models.ForeignKey(City, on_delete= models.PROTECT, related_name= 'route_destination')
 
     departure_time = models.TimeField()
     arrival_time = models.TimeField()
@@ -115,5 +115,13 @@ class RouteBoatWeekday(models.Model):
     def cost(self):
         return self.route.cost
     
+    @property
     def price(self):
         return self.route.price
+    
+class RouteDiscount(models.Model):
+    supplier = models.ForeignKey(CustomUser, on_delete= models.PROTECT)
+    route = models.ForeignKey(Route, on_delete= models.PROTECT)
+    discounted_value = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    discounted_cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    is_active = models.BooleanField(default= False)

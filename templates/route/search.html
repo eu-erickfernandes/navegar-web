@@ -62,7 +62,7 @@
             </div>
 
             {% for item in route_boat_weekdays %}
-                <a class="result-item" href="#">
+                <a class="result-item" href="{% url 'ticket:add' item.id date %}">
                     <div class="route-value">
                         <span class="boat-label">{{ item.boat }}</span>
                         
@@ -84,7 +84,9 @@
                     </div>
                 </a>
             {% empty %}
-                <span class="not-found">Nenhuma embarcação disponível</span>
+                {% if origin %}
+                    <span class="not-found">Nenhuma embarcação disponível</span>
+                {% endif %}
             {% endfor %}
         </form>
     </main>
