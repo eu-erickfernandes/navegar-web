@@ -15,6 +15,7 @@ body{
 
     &:has(.auth-header){
         main{
+            padding-block: 1.25rem;
             padding-inline: 1rem;
         }
     }
@@ -30,6 +31,7 @@ body{
             display: grid;
             gap: 1rem;
             padding-inline: 1rem;
+            padding-top: 1.25rem;
         }
     }
 
@@ -49,8 +51,4 @@ body{
     .hidden{
         display: none;
     }
-}
-
-main{
-    padding-block: 1.25rem;
 }
