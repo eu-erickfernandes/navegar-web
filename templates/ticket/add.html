@@ -1,0 +1,171 @@
+{% extends '../partials/_base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Adicionar passagens
+{% endblock %}
+
+{% block css_template %}
+    <link rel="stylesheet" href="{% static 'css/templates/ticket/add.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include '../partials/_page-header.html' with title='Adicionar passagens' back_link='/' %}
+
+    <main>
+        <div class="group route-info">
+            <p class="boat-label">{{ boat }}</p>
+
+            <div class="group sm">
+                <h2 class="route">{{ route.origin }} -> {{ route.destination }}</h2>
+
+                <div class="route-time">
+                    <span>{{ date }}</span>
+
+                    <span>{{ route.departure_time }} - {{ route.arrival_time }} {% if route.next_day %} (Dia seguinte) {% endif %}</span>
+                </div>
+            </div>
+        </div>
+
+        <form method="POST" action="{% url 'ticket:ticket_creation' route_boat_weekday.id date %}">
+            {% csrf_token %}
+
+            <div class="radio-control">
+                <input type="radio" id="ticket-type-passenger" name="ticket_type" value="passenger" data-radio-passenger checked>
+                <label for="ticket-type-passenger">Passageiro</label>
+                
+                <input type="radio" id="ticket-type-cargo" name="ticket_type" value="cargo" data-radio-cargo>
+                <label for="ticket-type-cargo">Carga</label>
+            </div>
+
+            <div class="passenger-group" data-group-passenger>
+                <div class="quantity-control">
+                    <label for="passengers-quantity-control">Passageiros</label>
+    
+                    <div class="control">
+                        <button type="button" data-quantity-add></button>
+    
+                        <input 
+                            data-quantity-input
+                            id="passengers-quantity-control" 
+                            min="1"
+                            readonly 
+                            step="1"
+                            type="text" 
+                            value="1" 
+                        >
+    
+                        <button type="button" data-quantity-remove></button>
+                    </div>
+                </div>
+    
+            <details class="passenger-dropdown" data-passenger-dropdown name="passenger">
+                    <summary>Passageiro 1</summary>
+    
+                    <div class="passenger-form">
+                        <div class="group sm">
+                            <input
+                                class="passenger-search-input"
+                                data-passenger-name
+                                name="passenger_name"
+                                placeholder="Nome completo"
+                                required
+                                type="text"
+                            >
+    
+                            <ul class="passenger-search-list" data-passenger-list>
+                                {% for passenger in passengers %}
+                                    <li>
+                                        <input type="radio" id="radio-passenger-{{ passenger.id }}" name="radio_passenger" value="{{ passenger.id }}">
+
+                                        <label for="radio-passenger-{{ passenger.id }}" class="group">
+                                            <span>{{ passenger.name }}</span>
+                                            <span>CPF: {{ passenger.cpf }}</span>
+                                        </label>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+    
+                        <input
+                            data-mask="date"
+                            data-passenger-birth
+                            name="passenger_birth"
+                            placeholder="Data de Nascimento"
+                            type="text" 
+                        >
+    
+                        <!-- <div class="radio-control sm">
+                            <input type="radio" id="identification-type-cpf" name="identification_type" value="cpf" checked>
+                            <label for="identification-type-cpf">CPF</label>
+                            
+                            <input type="radio" id="identification-type-rg" name="identification_type" value="rg">
+                            <label for="identification-type-rg">RG</label>
+                        </div> -->
+    
+                        <input 
+                            data-mask="cpf"
+                            data-passenger-cpf
+                            name="passenger_cpf"
+                            placeholder="CPF"
+                            type="text" 
+                        >
+    
+                        <input 
+                            data-passenger-rg
+                            maxlength="14"
+                            name="passenger_rg"
+                            placeholder="RG"
+                            type="text" 
+                        >
+
+                        <span class="remove-passenger" data-passenger-remove>Remover passageiro</span>
+                    </div>
+                </details>
+            </div>
+
+            <div class="cargo-group" data-group-cargo>
+                <input
+                    id="description"
+                    name="description"
+                    placeholder="Descrição da carga" 
+                    type="text"
+                    maxlength="100"
+                >
+
+                <input
+                    id="weight"
+                    name="weight"
+                    placeholder="Peso" 
+                    type="number"
+                    min="1"
+                >
+            </div>
+
+            <div class="submit-navbar">
+                <div class="cost-info">
+                    <span class="">Valor por passagem</span>
+                    <span class="price-label">R$ {{ route.price }}</span>
+
+                    <span class="">Custo por passagem</span>
+                    <span class="cost-label">R$ {{ route.cost }}</span>
+
+                    <!-- <span class="">Valor total</span>
+                    <span class="price-label">R$ {{ route.price }}</span>
+
+
+                    <span class="">Custo total</span>
+                    <span class="cost-label">-R$ {{ route.cost }}</span> -->
+                </div>
+
+                <button class="button" type="submit">Adicionar passagens</button>
+            </div>
+        </form>
+    </main>
+
+{% endblock %}
+
+{% block js_template %}
+    <script src="{% static 'js/templates/ticket/add.js' %}"></script>
+{% endblock %}

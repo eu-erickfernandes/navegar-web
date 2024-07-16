@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'apps.authentication',
-    'apps.route'
+    'apps.route',
+    'apps.ticket'
 ]
 
 MIDDLEWARE = [

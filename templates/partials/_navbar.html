@@ -3,28 +3,28 @@
 <nav class="navbar">
     <a class="navlink" href="{% url 'route:search' %}" data-navbar-link="/">
         <img src="{% static 'icons/navbar/search.svg' %}" alt="">
-        <img class="active-icon" src="{% static 'icons/navbar/search-active.svg' %}" alt="">
+        <img class="active-icon" src="{% static 'icons/navbar/search-active.svg' %}" alt="Consulta">
 
         <span>Consulta</span>
     </a>
     
-    <a class="navlink" href="#" data-navbar-link="passagens">
+    <a class="navlink" href="{% url 'ticket:index' %}" data-navbar-link="passagens">
         <img src="{% static 'icons/navbar/ticket.svg' %}" alt="">
-        <img class="active-icon" src="{% static 'icons/navbar/ticket-active.svg' %}" alt="">
+        <img class="active-icon" src="{% static 'icons/navbar/ticket-active.svg' %}" alt="Passagens">
 
         <span>Passagens</span>
     </a>
 
     <a class="navlink" href="#" data-navbar-link="financeiro">
         <img src="{% static 'icons/navbar/finantial.svg' %}" alt="">
-        <img class="active-icon" src="{% static 'icons/navbar/finantial-active.svg' %}" alt="">
+        <img class="active-icon" src="{% static 'icons/navbar/finantial-active.svg' %}" alt="Financeiro">
 
         <span>Financeiro</span>
     </a>
 
     <a class="navlink" href="{% url 'authentication:panel' %}" data-navbar-link="usuario rotas embarcacoes">
         <img src="{% static 'icons/navbar/panel.svg' %}" alt="">
-        <img class="active-icon" src="{% static 'icons/navbar/panel-active.svg' %}" alt="">
+        <img class="active-icon" src="{% static 'icons/navbar/panel-active.svg' %}" alt="Painel">
 
         <span>Painel</span>
     </a>

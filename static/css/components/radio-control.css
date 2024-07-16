@@ -2,6 +2,15 @@
     display: flex;
     gap: .5rem;
 
+    &.sm{
+        label{
+            border-radius: 100vw;
+            padding-block: .5rem;
+            padding-inline: .75rem;
+            width: fit-content;
+        }
+    }
+
     label{
         background-color: var(--clr-primary-light);
         border-radius: .5rem;
