@@ -1,0 +1,197 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>
+            {{ ticket.boat.name }}
+
+            {% if ticket.passenger %}
+                • {{ ticket.passenger.name }} 
+            {% else %}
+                • CARGA
+            {% endif %}
+        
+            • {{ ticket.date|date:'d/m/Y' }} • {{ ticket.origin }} - {{ ticket.destination }}
+        </title>
+
+        <!-- <style>
+            .header{
+                display: none;
+            }
+
+            .print-ticket-table{
+                border: 1px solid #cccccc;
+            }
+
+            thead{
+                border-bottom: 1px solid #cccccc;
+                font-weight: 600;
+                text-align: center;
+            }
+
+            tbody,
+            tfoot{
+                font-size: .75rem;
+
+                
+            }
+
+            td{
+                padding-block: .5rem
+            }
+
+            tfoot{
+                border-top: 1px solid #cccccc;
+            }
+
+            tr{
+                border: none;
+            }
+
+            .ticket-supplier{
+                font-size: 1.5rem;
+            }
+        </style> -->
+    </head>
+
+    <body>
+        <style>
+            .table{
+                font-family: 'Heveltica';
+                font-size: 14px;
+            }
+
+            .head{
+                border: 1px solid #CCC;
+                font-weight: 600;
+                padding: 8px;
+                text-align: center;
+            }
+
+            /* td{
+                padding: 8px;
+            } */
+        </style>
+
+        <table class="table">
+            <!-- <thead>
+                <tr style="
+                    border: 1px solid #CCC;
+                    font-weight: 600;
+                    text-align: center;
+                ">
+                    <td colspan="4" style="padding: 8px;">Confirmação de passagem #{{ ticket.id }}</td>
+                </tr>
+            </thead> -->
+
+            <tr class="head">
+                <td class="head-col" colspan="4">Confirmação de passagem #{{ ticket.id }}</td>
+            </tr>
+
+            <tr>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>RG</th>
+                <th>Nascimento</th>
+                <th></th>
+            </tr>
+
+            <tr>
+                <td>{{ ticket.passenger.name }}</td>
+                <td>{{ ticket.passenger.cpf  }}</td>
+                <td>{{ ticket.passenger.rg  }}</td>
+
+                <td>
+                    <img src="{{ aggreko_logo_url }}" alt="Aggreko">
+                </td>
+            </tr>
+    
+            <!-- <tbody>
+                <tr>
+                    {% if ticket.type == 'passageiro' %}
+                        <th>Nome</th>
+                        <th>{{ ticket.document_type|upper }}</th>
+                        <th>Nascimento</th>
+                    {% else %}
+                        <th>Descrição da carga</th>
+                        <th>Peso</th>
+                    {% endif %}
+                </tr>
+    
+                <tr>
+                    {% if ticket.type == 'passageiro' %}
+                        <td>{{ ticket.name_client }}</td>
+                        <td>{{ ticket.document_client }}</td>
+                        <td>{{ ticket.birth_date_client|date:'d-m-Y' }}</td>
+                    {% else %}
+                        <td>{{ ticket.cargo_description }}</td>
+                        <td>{{ ticket.cargo_weight }}</td>
+                    {% endif %}
+    
+                    <td rowspan="2">
+                        <img src="{% static 'images/aggreko.png' %}" alt="Aggreko">
+                    </td>
+                </tr>
+    
+                <tr>
+                    <td><b>Viação</b> {{ routeweek.boat }}</td>
+                </tr>
+    
+                <tr>
+                    <td><b>De:</b> {{ routeweek.route.origin }}</td>
+                    <td><b>Para:</b> {{ routeweek.route.destination }}</td>
+                </tr>
+    
+                <tr>
+                    <td><b>Saída:</b> {{ ticket.date }} {{ routeweek.get_departure_time }}</td>
+                    <td><b>Tipo de Veículo:</b> Lancha</td>
+                </tr>
+    
+                <tr><td></td></tr>
+    
+                <tr>
+                    <td><b>Forma de Pagamento:</b> Pix</td>
+                </tr>
+    
+                <tr>
+                    <td><b>Responsável pela confirmação:</b></td>
+                </tr>
+    
+                <tr>
+                    <td class="ticket-supplier"><b>{{ ticket.supplier }}</b></td>
+                </tr>
+    
+                <tr><td></td></tr>
+    
+                <tr>
+                    <td colspan="4"><b>Obs: PROCURAR O RESPONSÁVEL NA HORA DO EMBARQUE</b></td>
+                </tr>
+            </tbody>
+    
+            <tfoot>
+                <tr>
+                    <td><b>Nome:</b> CP Turismo e viagens</td>
+                    <td></td>
+    
+                    <td rowspan="3" colspan="2">
+                        <img src="{% static 'images/CP.png' %}" alt="Aggreko">
+                    </td>
+                </tr>
+    
+                <tr>
+                    <td><b>Telefone:</b> +55 21 34797979</td>
+                    <td>cpturismo@cpturismo.com.br</td>
+                </tr>
+    
+                <tr>
+                    <td><b>Consultor:</b> RAPHAEL COSTA</td>
+                    <td>RAPHAEL@CPTURISMO.COM.BR</td>
+                </tr>
+            </tfoot> -->
+        </table>
+    </body>
+</html>
