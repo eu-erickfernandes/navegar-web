@@ -20,11 +20,16 @@
                     <p class="boat-label">{{ ticket.boat }}</p>
                     <p class="ticket-route">{{ ticket.origin }} -> {{ ticket.destination }}</p>
                     <span>{{ ticket.date }}</span>
-                    <span>{{ ticket.passenger.name }}</span>
+
+                    {% if ticket.passenger %}
+                        <span>{{ ticket.passenger.name }}</span>
+                    {% else %}
+                        <span>CARGA</span>
+                    {% endif %}
 
                     <div class="ticket-links">
                         <a href="#">Ver mais</a>
-                        <a class="download" href="#">Download</a>
+                        <a class="download" href="{% url 'ticket:pdf' ticket.id %}" download>Download</a>
                     </div>
 
                     <span>Criado em {{ ticket.created_at }}</span>
