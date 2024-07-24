@@ -239,6 +239,7 @@ const removePassenger = () => {
         passengersDropdowns[length-1].remove()
 
     enumeratePassengers()
+    namingDropdowns()
     updateQuantity()
 }
 

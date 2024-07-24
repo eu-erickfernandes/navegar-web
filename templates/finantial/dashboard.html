@@ -1,0 +1,55 @@
+{% extends '../partials/_base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Financeiro
+{% endblock %}
+
+{% block css_template %}
+    <link rel="stylesheet" href="{% static 'css/templates/finantial/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include '../partials/_page-header.html' with title='Financeiro' back_link='/' %}
+
+    <main>
+        <div class="container">
+            <input type="month">
+        </div>
+
+        <ul class="ticket-list">
+            {% for ticket in tickets %}
+                <li class="group">
+                    {% if ticket.status == 'pending' %}
+                        <span class="badge blue">{{ ticket.get_translared_status }}</span>
+                    {% elif ticket.status == 'paid' %}
+                        <span class="badge green">{{ ticket.get_translared_status }}</span>
+                    {% endif %}
+
+                    <p class="boat-label">{{ ticket.boat }}</p>
+                    <p class="ticket-route">{{ ticket.origin }} -> {{ ticket.destination }}</p>
+
+    
+                    <span>{{ ticket.departure_time }} - {{ ticket.arrival_time }} {% if ticket.next_day %} (Dia seguinte) {% endif %}</span>
+
+                    {% if ticket.passenger %}
+                        <span>{{ ticket.passenger.name }}</span>
+                    {% else %}
+                        <span>CARGA</span>
+                    {% endif %}
+
+                    <div class="group row">
+                        <span class="profit-label">R$ {{ ticket.profit }}</span>
+                        <span class="price-label">R$ {{ ticket.price }}</span>
+                        <span class="cost-label">R$ {{ ticket.cost }}</span>
+                    </div>
+
+                    <div class="ticket-links">
+                        <a href="#">Marcar como pago</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </main>
+{% endblock %}

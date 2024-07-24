@@ -39,12 +39,27 @@ body{
         padding-bottom: calc(var(--navbar-height) + 1rem);
     }
 
+    .container{
+        display: grid;
+        gap: .75rem;
+        padding-block: .75rem;
+        padding-inline: 1rem;
+    }
+
     .group{
         display: grid;
         gap: .5rem;
 
+        &.row{
+            display: flex;
+        }
+
         &.sm{
             gap: .25rem;
+        }
+
+        &.lg{
+            gap: 1rem;
         }
     }
 

@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.views.decorators.http import require_POST
 
 from apps.route.models import RouteBoatWeekday
-from .models import Ticket, Passenger, TicketCargo
+from .models import Ticket, Passenger, Cargo
 
 from utils.format import date_format
 
@@ -29,7 +29,6 @@ def ticket_creation(request, route_boat_weekday_id, date):
 
     if ticket_type == 'passenger':
         for item in request.POST.items():
-            print(item)
             if 'passenger_name' in item[0]:
                 index = item[0].split('_')[2]
                 
@@ -45,7 +44,7 @@ def ticket_creation(request, route_boat_weekday_id, date):
 
                 if request.POST.__contains__(f'passenger_birth_{index}'):
                     birth_date = request.POST.get(f'passenger_birth_{index}')
-                    passenger.birth_date = date_format(birth_date)
+                    passenger.birth_date = date_format(birth_date) or None
 
                 if request.POST.__contains__(f'passenger_rg_{index}'):
                     rg = request.POST.get(f'passenger_rg_{index}')
@@ -79,7 +78,7 @@ def ticket_creation(request, route_boat_weekday_id, date):
 
                 Ticket.objects.create(
                     created_by= created_by,
-                    passenger= passenger,
+
                     boat= boat,
 
                     origin= origin,
@@ -92,15 +91,24 @@ def ticket_creation(request, route_boat_weekday_id, date):
                     next_day= next_day,
                     
                     cost= cost,
-                    price= price
+                    price= price,
+
+                    passenger= passenger,
                 )
     else:
         description = request.POST.get('description')
         weight = request.POST.get('weight')
 
+        cargo = Cargo.objects.create(
+            description= description,
+            weight= weight,
+        )
+
         ticket = Ticket.objects.create(
             created_by= created_by,
             boat= boat,
+
+            cargo= cargo,
 
             origin= origin,
             destination= destination,
@@ -112,12 +120,7 @@ def ticket_creation(request, route_boat_weekday_id, date):
             next_day= next_day,
             
             cost= cost,
-            price= price
+            price= price,
         )
-
-        TicketCargo.objects.create(
-            ticket= ticket,
-            weight= weight,
-            description= description
-        )
+        
     return redirect(reverse('ticket:index'))

@@ -7,7 +7,7 @@ from django.conf import settings
 from xhtml2pdf import pisa
 
 from apps.route.models import RouteBoatWeekday
-from .models import Passenger, Ticket, TicketCargo
+from .models import Passenger, Ticket, Cargo
 
 def index(request):
     tickets = Ticket.objects.all().order_by('-created_at')
@@ -42,7 +42,7 @@ def pdf(request, ticket_id):
         ticket_cargo = None
 
         if not ticket.passenger:
-            ticket_cargo = TicketCargo.objects.get(ticket= ticket)
+            ticket_cargo = Cargo.objects.get(ticket= ticket)
     except:
         return redirect(reverse('ticket:index'))
     

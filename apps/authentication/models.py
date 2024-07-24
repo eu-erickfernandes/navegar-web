@@ -7,15 +7,16 @@ from .managers import CustomUserManager
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     ROLE_CHOICES = [
         ('A', 'Administrator',),
+        ('C', 'Costumer',),
         ('P', 'Passenger',),
         ('S', 'Supplier',)
     ]
 
     name = models.CharField(max_length= 100)
-    birth_date = models.DateField()
-    cpf = models.CharField(max_length= 14, unique= True)
+    birth_date = models.DateField(null= True)
+    cpf = models.CharField(max_length= 14, unique= True, null= True)
 
-    email = models.EmailField(unique= True)
+    email = models.EmailField(unique= True, null= True)
     phone = models.CharField(max_length= 16, unique= True)
 
     role = models.CharField(max_length=1, choices= ROLE_CHOICES, default= 'P')
@@ -33,3 +34,15 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.name
+    
+    def get_translated_role(self):
+        ROLE_TRANSLATIONS = [
+            ('A', 'Administrador',),
+            ('C', 'Cliente',),
+            ('P', 'Passageiro',),
+            ('S', 'Fornecedor',)
+        ]
+
+        for role in ROLE_TRANSLATIONS:
+            if role[0] == self.role:
+                return role[1]

@@ -51,13 +51,13 @@
 
             <tr>
                 {% if ticket.passenger %}
-                    <td>{{ ticket.passenger.name }}</td>
-                    <td>{{ ticket.passenger.birth_date|date:'d/m/Y' }}</td>
-                    <td>{{ ticket.passenger.cpf }}</td>
-                    <td>{{ ticket.passenger.rg }}</td>
+                    <td class="costumer-data">{{ ticket.passenger.name }}</td>
+                    <td class="costumer-data">{{ ticket.passenger.birth_date|date:'d/m/Y'|default:"N/A" }}</td>
+                    <td class="costumer-data">{{ ticket.passenger.cpf|default:"N/A" }}</td>
+                    <td class="costumer-data">{{ ticket.passenger.rg|default:"N/A" }}</td>
                 {% else %}
-                    <td>{{ ticket_cargo.description }}</td>
-                    <td>{{ ticket_cargo.weight }}</td>
+                    <td class="costumer-data">{{ ticket_cargo.description }}</td>
+                    <td class="costumer-data">{{ ticket_cargo.weight }}</td>
                 {% endif %}
             </tr>
 
@@ -142,15 +142,15 @@
                 text-align: right;
             }
 
-            /* table{
-                border: 1px solid #CCC;
-            } */
-
             .ticket-table td,
             .ticket-table th{
                 font-size: 1.25rem;
                 padding-top: 1rem;
                 text-align: left;
+            }
+
+            .ticket-table .costumer-data{
+                padding-top: .25rem;
             }
 
             .supplier{
@@ -161,94 +161,6 @@
             .info-table{
                 margin-top: 1cm;
             }
-
-            /* tr {
-                border: 1px solid #CCC;
-                padding: 16px;
-            } */
-            /* .tabela {
-                font-size: 11px;
-                border-collapse: collapse;
-                border: 1px solid black;
-                text-align: center;
-            }
-            th, td {
-                padding: 2px;
-                padding-top: 5px;
-            }
-            p{
-                margin: 0;
-                font-size: 14px;
-                font-weight: bold;
-            }
-            span{
-                font-size: 12px;
-                font-weight: normal;
-            }
-            
-            h1{
-                text-align: center;
-                font-size: 18px;
-            }
-            h2{
-                margin: 0;
-            } */
         </style>
     </body>
 </html>
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relatório de Aluno</title>
-</head>
-<body>
-    <table>
-        <tr>
-            <td class="logo"> 
-                <img class="logo-atena" id="img2" src="{{ url_atena }}" width="140px" height="auto" alt="">       
-            </td>
-            <td><h1>Relatório de Aluno</h1></td>
-            <td class="logo-see">
-                <img id="img2" src="{{ url_logo }}" alt="" width="140px" height="auto"> 
-            </td>
-        </tr>
-    </table>
-    
-    <p>Contrato: <span>{{empresa_relatorio_estoque.numero_contrato}}</span></p>
-    <p>Empresa: <span>{{empresa_relatorio_estoque.empresa.nome}}</span></p>
-     
-    <br>
-
-    <table class="tabela">
-        <thead>
-            <tr>
-                <th>Escola</th>
-                <th class="coluna-13">Turma</th>
-                <th class="coluna-13">Turno</th>
-                <th>Aluno</th>
-                <th class="coluna-7">Item</th>
-                <th class="coluna-7">Valor kit</th>
-                <th>Data recebimento</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for voucher in voucher_fardamento %}
-                <tr>
-                    <td>{{ voucher.vinculacao_contrato.endereco_escola.escola.nome_escola}}</td>
-                    <td>{{ voucher.turma.nome }}</td>
-                    <td>{{ voucher.turma.turno }}</td>
-                    <td>{{ voucher.aluno.nome }}</td>
-                    <td>{{ voucher.numero_item }}</td>
-                    <td>{{ voucher.vinculacao_contrato.item_contrato.valor_unitario }}</td>
-                    <td>{{ voucher.fardamento_entregue_em }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    
-</body>
-</html> -->
-
