@@ -46,3 +46,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         for role in ROLE_TRANSLATIONS:
             if role[0] == self.role:
                 return role[1]
+            
+    class Meta:
+        ordering = ['name']

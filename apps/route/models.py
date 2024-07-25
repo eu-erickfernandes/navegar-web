@@ -12,6 +12,8 @@ class City(models.Model):
     def __str__(self):
         return self.name
     
+    class Meta:
+        ordering = ['name']
 
 class Boat(models.Model):
     supplier = models.ForeignKey(CustomUser, on_delete= models.PROTECT)
@@ -20,6 +22,9 @@ class Boat(models.Model):
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        ordering = ['name']
     
 
 class Route(models.Model):
@@ -35,6 +40,9 @@ class Route(models.Model):
 
     def __str__(self):
         return f'{self.origin} - {self.destination}'
+    
+    class Meta:
+        ordering = ['origin', 'destination']
     
     @property
     def duration(self):
@@ -59,6 +67,9 @@ class RouteBoat(models.Model):
 
     def __str__(self):
         return f'{self.route} - {self.boat}'
+    
+    class Meta:
+        ordering = ['route', 'boat']
 
 
 class RouteBoatWeekday(models.Model):
@@ -75,7 +86,6 @@ class RouteBoatWeekday(models.Model):
     route_boat = models.ForeignKey(RouteBoat, on_delete= models.PROTECT)
     weekday = models.CharField(max_length= 1, choices= WEEKDAY_CHOICES)
 
-    @property
     def __str__(self):
         return f'{self.route_boat} - {self.get_weekday_display()}'
 
@@ -118,6 +128,9 @@ class RouteBoatWeekday(models.Model):
     @property
     def price(self):
         return self.route.price
+    
+    class Meta:
+        ordering = ['route_boat', 'weekday']
     
 class RouteDiscount(models.Model):
     supplier = models.ForeignKey(CustomUser, on_delete= models.PROTECT)

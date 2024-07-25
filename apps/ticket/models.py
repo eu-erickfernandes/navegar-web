@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 
 from apps.authentication.models import CustomUser
@@ -12,11 +14,19 @@ class Passenger(models.Model):
     def __str__(self):
         return self.name
     
+    class Meta:
+        ordering = ['name']
+    
 
 class Cargo(models.Model):
     description = models.CharField(max_length=100, null= True)
     weight = models.CharField(max_length=10, null= True)
 
+    def __str__(self):
+        return f'{self.description} - {self.weight}'
+    
+    class Meta:
+        ordering = ['description']
 
 class Ticket(models.Model):
     STATUS_CHOICES= [
@@ -24,7 +34,7 @@ class Ticket(models.Model):
         ('paid', 'Pago'),
     ]
 
-    created_at = models.DateTimeField(auto_now_add= True)
+    created_at = models.DateTimeField(default= datetime.now)
     created_by = models.ForeignKey(CustomUser, on_delete= models.PROTECT)
 
     passenger = models.ForeignKey(Passenger, on_delete= models.PROTECT, null= True)
@@ -46,6 +56,9 @@ class Ticket(models.Model):
 
     status = models.CharField(max_length= 20, choices= STATUS_CHOICES, default= 'pending')
 
+    def __str__(self):
+        return f'{self.date}: {self.origin} - {self.destination} - {"PASSENGER" if self.passenger else "CARGO"}'
+
     @property
     def profit(self):
         return self.price - self.cost
@@ -54,3 +67,6 @@ class Ticket(models.Model):
         for status in self.STATUS_CHOICES:
             if status[0] == self.status:
                 return status[1]
+            
+    class Meta:
+        ordering = ['-created_at']
