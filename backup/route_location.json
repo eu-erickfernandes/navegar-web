@@ -1,0 +1,123 @@
+{
+"route_location": [
+	{
+		"id" : 3,
+		"name" : "Codajas"
+	},
+	{
+		"id" : 4,
+		"name" : "Coari"
+	},
+	{
+		"id" : 5,
+		"name" : "Tefé"
+	},
+	{
+		"id" : 6,
+		"name" : "Alvarães"
+	},
+	{
+		"id" : 7,
+		"name" : "Uarini"
+	},
+	{
+		"id" : 8,
+		"name" : "Fonte Boa"
+	},
+	{
+		"id" : 9,
+		"name" : "Jutaí"
+	},
+	{
+		"id" : 10,
+		"name" : "Tonantins"
+	},
+	{
+		"id" : 11,
+		"name" : "Santo Antonio de Içá"
+	},
+	{
+		"id" : 12,
+		"name" : "Amaturá"
+	},
+	{
+		"id" : 13,
+		"name" : "São Paulo de Olivença"
+	},
+	{
+		"id" : 14,
+		"name" : "Benjamin Constant"
+	},
+	{
+		"id" : 15,
+		"name" : "Tabatinga"
+	},
+	{
+		"id" : 16,
+		"name" : "Manacapuru"
+	},
+	{
+		"id" : 17,
+		"name" : "Manaus"
+	},
+	{
+		"id" : 18,
+		"name" : "Beruri"
+	},
+	{
+		"id" : 19,
+		"name" : "Anori"
+	},
+	{
+		"id" : 20,
+		"name" : "Anamã"
+	},
+	{
+		"id" : 21,
+		"name" : "Maraã"
+	},
+	{
+		"id" : 22,
+		"name" : "Japurá"
+	},
+	{
+		"id" : 23,
+		"name" : "Acanauí"
+	},
+	{
+		"id" : 24,
+		"name" : "Tamaniquá"
+	},
+	{
+		"id" : 25,
+		"name" : "Juruá"
+	},
+	{
+		"id" : 26,
+		"name" : "Carauari"
+	},
+	{
+		"id" : 27,
+		"name" : "Caapiranga"
+	},
+	{
+		"id" : 28,
+		"name" : "Santa Isabel do Rio Negro"
+	},
+	{
+		"id" : 29,
+		"name" : "Manicoré"
+	},
+	{
+		"id" : 30,
+		"name" : "Novo Aripuanã"
+	},
+	{
+		"id" : 31,
+		"name" : "Santarém"
+	},
+	{
+		"id" : 32,
+		"name" : "Porto Trombetas"
+	}
+]}
