@@ -45,13 +45,39 @@ body{
     }
 }
 
+.profit-label{
+    color: var(--clr-green-dark);
+    font-weight: 600;
+}
 
 .price-label{
-    color: var(--clr-green-dark);
+    color: var(--clr-primary-dark);
     font-weight: 600;
 }
 
 .cost-label{
     color: var(--clr-red-dark);
     font-weight: 600;
+}
+
+.badge{
+    background-color: var(--clr-gray-light);
+    border-radius: .25rem;
+    color: var(--clr-primary-dark);
+    display: block;
+    font-size: .5rem;
+    font-weight: 600;
+    padding-block: .25rem;
+    padding-inline: .5rem;
+    width: fit-content;
+
+    &.blue{
+        background-color: var(--clr-primary-dark);
+        color: var(--clr-white);
+    }
+
+    &.green{
+        background-color: var(--clr-green-dark);
+        color: var(--clr-white);
+    }
 }

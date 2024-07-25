@@ -9,13 +9,6 @@ from utils.format import date_format
 @require_POST
 def user_registration(request):
     # DATA VALIDATION
-    error_messages = {
-        'cpf': 'CPF já cadastrado',
-        'birth_date': 'Data inválida',
-        'email': 'E-mail já cadastrado',
-        'phone': 'Telefone já cadastrado',
-        'password_confirmation': 'Os campos de senha não estão iguais',
-    }
 
     name = request.POST.get('name')
     cpf = request.POST.get('cpf')
@@ -32,6 +25,15 @@ def user_registration(request):
         'birth_date': request.POST.get('birth_date'),
         'email': email,
         'phone': phone
+    }
+
+    # HANDLING ERRORS
+    error_messages = {
+        'cpf': 'CPF já cadastrado',
+        'birth_date': 'Data inválida',
+        'email': 'E-mail já cadastrado',
+        'phone': 'Telefone já cadastrado',
+        'password_confirmation': 'Os campos de senha não estão iguais',
     }
 
     if CustomUser.objects.filter(cpf= cpf).exists():

@@ -22,7 +22,7 @@
             <select name="origin" id="origin" required>
                 <option value="" disabled selected>Origem</option>
 
-                {% for city in cities %}
+                {% for city in origins %}
                     {% if city.id == origin.id %}
                         <option value="{{ origin.id }}" selected>{{ origin }}</option>
                     {% else %}
@@ -34,9 +34,9 @@
             <select name="destination" id="destination" required>
                 <option value="" disabled selected>Destino</option>
 
-                {% for city in cities %}
+                {% for city in destinations %}
                     {% if city.id == destination.id %}
-                        <option value="{{ destination.id }}" selected>{{ destination }}</option>
+                        <option value="{{ city.id }}" selected>{{ city }}</option>
                     {% else %}
                         <option value="{{ city.id }}">{{ city }}</option>
                     {% endif %}

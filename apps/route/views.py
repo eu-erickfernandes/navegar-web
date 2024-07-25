@@ -18,7 +18,12 @@ def boats(request):
 
 @login_required
 def search(request):
-    cities = City.objects.all()
+    available_origins_ids = Route.objects.values_list('origin', flat= True)
+    available_destinations_ids = Route.objects.values_list('destination', flat= True)
+
+    origins = City.objects.filter(id__in= available_origins_ids)
+    destinations = City.objects.filter(id__in= available_destinations_ids)
+
     today = datetime.now().date()   
 
     # HANDLING THE ROUTE SEARCH
@@ -42,16 +47,18 @@ def search(request):
             )
 
         return render(request, 'route/search.html', {
-            'cities': cities,
             'date': date,
             'destination': destination,
+            'destinations': destinations,
             'origin': origin,
+            'origins': origins,
             'route_boat_weekdays': route_boat_weekdays,
             'today': today
         })
 
 
     return render(request, 'route/search.html', {
-        'cities': cities,
+        'destinations': destinations,
+        'origins': origins,
         'today': today
     })

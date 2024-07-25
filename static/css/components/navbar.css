@@ -28,6 +28,10 @@
             .active-icon{
                 display: block;
             }
+
+            span{
+                color: var(--clr-primary-dark);
+            }
         }
 
         img{

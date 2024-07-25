@@ -1,10 +1,11 @@
 input:is(
     [type="date"], 
     [type="email"], 
+    [type="month"],
+    [type="number"],
     [type="password"], 
     [type="text"],
     [type="time"],
-    [type="number"]
 ), 
 select{
     --icon-size: 1.25rem;
