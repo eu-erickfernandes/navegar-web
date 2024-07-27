@@ -9,13 +9,9 @@ if(radioControls.length){
     
         const radioKey = radioChecked.getAttribute('data-radio-control')
 
-        console.log(radioChecked, radioKey)
-        
         targets.forEach((target) => {
             const targetKey = target.getAttribute('data-radio-control-target')
 
-            console.log(targetKey)
-    
             if(targetKey == radioKey){
                 target.classList.remove('hidden')
             }else{
