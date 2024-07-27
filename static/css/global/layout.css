@@ -40,6 +40,7 @@ body{
     }
 
     .container{
+        background-color: var(--clr-white);
         display: grid;
         gap: .5rem;
         padding-block: .75rem;

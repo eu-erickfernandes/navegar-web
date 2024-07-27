@@ -2,7 +2,7 @@ from datetime import datetime
 
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .models import City, RouteBoatWeekday, Route
+from .models import City, RouteBoatWeekday, Route, Boat
 
 @login_required
 def index(request):
@@ -14,7 +14,11 @@ def index(request):
 
 @login_required
 def boats(request):
-    return render(request, 'route/boats.html')
+    boats = Boat.objects.all()
+
+    return render(request, 'route/boats.html', {
+        'boats': boats
+    })
 
 @login_required
 def search(request):

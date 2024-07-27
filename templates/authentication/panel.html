@@ -12,9 +12,19 @@
 
 {% block content %}
     <main>
-        <a href="{% url 'authentication:index' %}">Usuários</a>
-        <a href="{% url 'route:boats' %}">Embarcações</a>
-        <a href="{% url 'route:index' %}">Rotas</a>
-        <a href="{% url 'authentication:user_logout' %}">Sair</a>
+        <div class="container user-info">
+            <div class="group sm">
+                <h2 class="name">{{ request.user.name }}</h2>
+                <p class="fs-sm fw-bd">{{ request.user.email }}</p>
+                <p class="fs-sm fw-bd">{{ request.user.phone }}</p>
+            </div>
+        </div>
+
+        <div class="group">
+            <a class="panel-link users fs-md" href="{% url 'authentication:index' %}">Usuários</a>
+            <a class="panel-link boats fs-md" href="{% url 'route:boats' %}">Embarcações</a>
+            <a class="panel-link routes fs-md" href="{% url 'route:index' %}">Rotas</a>
+            <a class="panel-link logout fs-md" href="{% url 'authentication:user_logout' %}">Sair</a>
+        </div>
     </main>
 {% endblock %}
