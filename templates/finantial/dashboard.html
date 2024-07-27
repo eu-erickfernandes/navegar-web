@@ -14,42 +14,83 @@
     {% include '../partials/_page-header.html' with title='Financeiro' back_link='/' %}
 
     <main>
-        <div class="container">
-            <input type="month">
+        <form class="container">
+            <input 
+                data-month-input
+                type="month"
+                max="{{ last_month|date:'Y-m' }}"
+                min="{{ first_month|date:'Y-m' }}"
+                name="month"
+                value="{{ main_date|date:'Y-m' }}"
+            >
+        </form>
+
+        <div class="container center">
+            <h2 class="fw-bd">{{ main_date|date:'F, Y' }}</h2>
+
+            <div class="group sm">
+                <span class="profit-label fs-lg">R$ {{ total_profit }}</span>
+                <span class="price-label fs-sm">Faturamento: R$ {{ total_invoicing }}</span>
+                <span class="cost-label fs-sm">Custo: -R$ {{ total_cost }}</span>
+            </div>
         </div>
 
-        <ul class="ticket-list">
-            {% for ticket in tickets %}
-                <li class="group">
-                    {% if ticket.status == 'pending' %}
-                        <span class="badge blue">{{ ticket.get_translared_status }}</span>
-                    {% elif ticket.status == 'paid' %}
-                        <span class="badge green">{{ ticket.get_translared_status }}</span>
-                    {% endif %}
+        {% for day in days %}
+            <div class="container lg gray">
+                <p class="fs-md fw-bd">{{ day.day|date:'l, d \d\e F' }}</p>
 
-                    <p class="boat-label">{{ ticket.boat }}</p>
-                    <p class="ticket-route">{{ ticket.origin }} -> {{ ticket.destination }}</p>
+                <span class="divider"></span>
 
-    
-                    <span>{{ ticket.departure_time }} - {{ ticket.arrival_time }} {% if ticket.next_day %} (Dia seguinte) {% endif %}</span>
+                <div class="group sm">
+                    <span class="fs-sm profit-label">Lucro: R$ {{ day.total_profit }}</span>
+                    <span class="fs-sm price-label">Faturamento: R$ {{ day.total_invoicing }}</span>
+                    <span class="fs-sm cost-label">Custo: R$ {{ day.total_cost }}</span>
+                </div>
+            </div>
 
-                    {% if ticket.passenger %}
-                        <span>{{ ticket.passenger.name }}</span>
-                    {% else %}
-                        <span>CARGA</span>
-                    {% endif %}
+            <ul class="ticket-list">
+                {% for ticket in day.tickets %}
+                    <li class="group">
+                        {% if ticket.status == 'pending' %}
+                            <span class="badge blue">{{ ticket.get_translared_status }}</span>
+                        {% elif ticket.status == 'paid' %}
+                            <span class="badge green">{{ ticket.get_translared_status }}</span>
+                        {% endif %}
 
-                    <div class="group row">
-                        <span class="profit-label">R$ {{ ticket.profit }}</span>
-                        <span class="price-label">R$ {{ ticket.price }}</span>
-                        <span class="cost-label">R$ {{ ticket.cost }}</span>
-                    </div>
+                        <p class="boat-label">{{ ticket.boat }}</p>
+                        <p class="ticket-route">{{ ticket.origin }} -> {{ ticket.destination }}</p>
 
-                    <!-- <div class="ticket-links">
-                        <a href="#">Marcar como pago</a>
-                    </div> -->
-                </li>
-            {% endfor %}
-        </ul>
+                        <div class="group lg row">
+                            <span>{{ ticket.date|date:"SHORT_DATE_FORMAT" }}</span>
+
+                            <span>{{ ticket.departure_time }} - {{ ticket.arrival_time }} {% if ticket.next_day %} (Dia seguinte) {% endif %}</span>
+                        </div>
+
+                        {% if ticket.passenger %}
+                            <span>{{ ticket.passenger.name }}</span>
+                        {% else %}
+                            <span>CARGA</span>
+                        {% endif %}
+
+                        <div class="group row">
+                            <span class="profit-label">R$ {{ ticket.profit }}</span>
+                            <span class="price-label">R$ {{ ticket.price }}</span>
+                            <span class="cost-label">R$ {{ ticket.cost }}</span>
+                        </div>
+                        
+                        {% if ticket.status == 'pending' %}
+                            <div class="ticket-links">
+                                <a href="#">Marcar como pago</a>
+                            </div>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
     </main>
+
+{% endblock %}
+
+{% block js_template %}
+    <script src="{% static 'js/templates/finantial/dashboard.js' %}"></script>
 {% endblock %}

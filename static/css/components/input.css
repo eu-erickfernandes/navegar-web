@@ -19,7 +19,7 @@ select{
     border-radius: .5rem;
     box-sizing: border-box;
     color: var(--clr-text);
-    font-size: 14px;
+    font-size: .875rem;
     font-weight: 500;
     height: 3rem;
     outline: none;

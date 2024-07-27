@@ -913,12 +913,6 @@
 		"route_id" : 24
 	},
 	{
-		"id" : 159,
-		"weekday" : "Sunday",
-		"boat_id" : 18,
-		"route_id" : 24
-	},
-	{
 		"id" : 160,
 		"weekday" : "Monday",
 		"boat_id" : 17,
@@ -2327,5 +2321,17 @@
 		"weekday" : "Friday",
 		"boat_id" : 31,
 		"route_id" : 66
+	},
+	{
+		"id" : 410,
+		"weekday" : "Sunday",
+		"boat_id" : 18,
+		"route_id" : 67
+	},
+	{
+		"id" : 411,
+		"weekday" : "Saturday",
+		"boat_id" : 31,
+		"route_id" : 68
 	}
 ]}

@@ -10,15 +10,31 @@ body{
     color: var(--clr-text);
 }
 
+.fs-sm{
+    font-size: .75rem;
+}
+
+.fs-md{
+    font-size: .875rem;
+}
+
+.fs-lg{
+    font-size: 1.25rem;
+}
+
+.fw-bd{
+    font-weight: 600;
+}
+
 .link{
     color: var(--clr-primary);
-    font-size: 14px;
+    font-size: .875rem;
     font-weight: 500;
 }
 
 .error-message{
     color: var(--clr-red-dark);
-    font-size: 14px;
+    font-size: .875rem;
     font-weight: 500;
 
     &:empty{
