@@ -7,7 +7,7 @@ main{
     padding: 1rem;
 
     .boat-label{
-        font-size: 14px;
+        font-size: .875rem;
     }
 
     .route{
@@ -45,7 +45,7 @@ main{
 
     label{
         color: var(--clr-text);
-        font-size: 14px;
+        font-size: .875rem;
     }
 
     .control{
@@ -71,7 +71,7 @@ main{
         input{
             background-color: transparent;
             display: block;
-            font-size: 14px;
+            font-size: .875rem;
             height: auto;
             padding: 0;
             width: .5rem;
@@ -171,7 +171,7 @@ main{
             }
             
             li{
-                font-size: 14px;
+                font-size: .875rem;
 
                 input{
                     display: none;
@@ -192,7 +192,7 @@ main{
         .remove-passenger{
             color: var(--clr-red-dark);
             cursor: pointer;
-            font-size: 14px;
+            font-size: .875rem;
             font-weight: 600;
         }
     }

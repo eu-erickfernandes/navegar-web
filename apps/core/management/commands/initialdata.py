@@ -225,7 +225,7 @@ class Command(BaseCommand):
                         weekday = weekday_dict[weekday]
                     )
 
-                    print(f'ROUTE BOAT WEEKDAY {route_boat_weekday} CREATED')
+                    print(f'{route_boat_weekday.id} - ROUTE BOAT WEEKDAY {route_boat_weekday} CREATED')
                     new_route_boat_weekdays += 1
                 else:
                     print('ERROR')

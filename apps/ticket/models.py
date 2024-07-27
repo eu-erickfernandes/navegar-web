@@ -57,7 +57,7 @@ class Ticket(models.Model):
     status = models.CharField(max_length= 20, choices= STATUS_CHOICES, default= 'pending')
 
     def __str__(self):
-        return f'{self.date}: {self.origin} - {self.destination} - {"PASSENGER" if self.passenger else "CARGO"}'
+        return f'{self.date}: {self.origin} - {self.destination} - {"PASSENGER" if self.passenger else "CARGO"} - CREATED AT {self.created_at}'
 
     @property
     def profit(self):

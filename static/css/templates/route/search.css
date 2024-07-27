@@ -36,7 +36,7 @@
                 text-align: right;
                 
                 .price-label{
-                    font-size: 14px;
+                    font-size: .875rem;
                 }
                 
                 .cost-label{
@@ -52,14 +52,14 @@
 
             &.route-time{
                 color: var(--clr-text);
-                font-size: 14px;
+                font-size: .875rem;
             }
         }
     }
 
     .not-found{
         color: var(--clr-red-dark);
-        font-size: 14px;
+        font-size: .875rem;
         font-weight: 600;
     }
 }

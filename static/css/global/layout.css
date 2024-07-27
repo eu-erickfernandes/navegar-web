@@ -41,9 +41,22 @@ body{
 
     .container{
         display: grid;
-        gap: .75rem;
+        gap: .5rem;
         padding-block: .75rem;
         padding-inline: 1rem;
+
+        &.center{
+            align-items: center;
+            text-align: center;
+        }
+
+        &.lg{
+            padding-block: 1rem;
+        }
+
+        &.gray{
+            background-color: var(--clr-gray-light);
+        }
     }
 
     .group{

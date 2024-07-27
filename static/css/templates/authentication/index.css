@@ -45,7 +45,7 @@ main{
 
             .name{
                 color: var(--clr-text);
-                font-size: 14px;
+                font-size: .875rem;
             }
         }
 
