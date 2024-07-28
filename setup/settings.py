@@ -35,11 +35,7 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 DEVELOPMENT_MODE = os.getenv('DEVELOPMENT_MODE', 'False') == 'True' 
 
-if DEVELOPMENT_MODE is True:
-    ALLOWED_HOSTS = ['*']
-else:
-    ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '127.0.0.1, localhost').split(',')
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -94,6 +90,13 @@ WSGI_APPLICATION = 'setup.wsgi.application'
 
 if DEVELOPMENT_MODE is True:
     DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        },
+    }
+else:
+    DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
             "NAME": os.getenv("POSTGRES_DB", "mydatabase"),
@@ -103,12 +106,12 @@ if DEVELOPMENT_MODE is True:
             "PORT": "5432",
         }
     }
-elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
-    if os.getenv("DATABASE_URL", None) is None:
-        raise Exception("DATABASE_URL environment variable not defined")
-    DATABASES = {
-        "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
-    }
+# elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
+#     if os.getenv("DATABASE_URL", None) is None:
+#         raise Exception("DATABASE_URL environment variable not defined")
+#     DATABASES = {
+#         "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
+#     }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -151,7 +154,7 @@ if DEVELOPMENT_MODE is True:
         os.path.join(BASE_DIR, 'static/')
     ]
 else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 # Default primary key field type
