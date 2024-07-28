@@ -103,7 +103,7 @@ else:
             "USER": os.getenv("POSTGRES_USER", "postgres"),
             "PASSWORD": os.getenv("POSTGRES_PASSWORD", "password"),
             "HOST": "db",
-            "PORT": "5432",
+            "PORT": os.getenv('POSTGRES_PORT', 'port'),
         }
     }
 # elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
