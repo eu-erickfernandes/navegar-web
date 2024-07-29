@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.decorators.http import require_POST
 
@@ -6,6 +6,8 @@ from apps.route.models import RouteBoatWeekday
 from .models import Ticket, Passenger, Cargo
 
 from utils.format import date_format
+
+from services.whatsapp_api import send_message
 
 @require_POST
 def ticket_creation(request, route_boat_weekday_id, date):
@@ -52,7 +54,7 @@ def ticket_creation(request, route_boat_weekday_id, date):
 
                 passenger.save()
 
-                Ticket.objects.create(
+                ticket = Ticket.objects.create(
                     created_by= created_by,
                     passenger= passenger,
                     boat= boat,
@@ -70,13 +72,16 @@ def ticket_creation(request, route_boat_weekday_id, date):
                     price= price
                 )
 
+                message = f'TICKET {ticket} CRIADO COM SUCESSO'
+                send_message('556899546899', message)
+
             if 'radio_passenger' in item[0]:
                 index = item[0].split('_')[2]
                 id = item[1]
 
                 passenger = Passenger.objects.get(id= id)
 
-                Ticket.objects.create(
+                ticket = Ticket.objects.create(
                     created_by= created_by,
 
                     boat= boat,
@@ -95,6 +100,9 @@ def ticket_creation(request, route_boat_weekday_id, date):
 
                     passenger= passenger,
                 )
+
+                message = f'TICKET {ticket} CRIADO COM SUCESSO'
+                send_message('556899546899', message)
     else:
         description = request.POST.get('description')
         weight = request.POST.get('weight')
@@ -123,4 +131,6 @@ def ticket_creation(request, route_boat_weekday_id, date):
             price= price,
         )
         
+        message = f'TICKET {ticket} CRIADO COM SUCESSO'
+        send_message('556899546899', message)
     return redirect(reverse('ticket:index'))

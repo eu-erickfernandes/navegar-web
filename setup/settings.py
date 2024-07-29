@@ -164,3 +164,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'authentication.CustomUser'
 LOGIN_URL = '/usuario/entrar'
+
+WHATSAPP_API_URL = 'http://whatsapp-api:3000/'
+WHATSAPP_API_SESSION = 'navegarwpp'

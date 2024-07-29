@@ -9,6 +9,8 @@ from xhtml2pdf import pisa
 from apps.route.models import RouteBoatWeekday
 from .models import Passenger, Ticket, Cargo
 
+from services.whatsapp_api import session_status, send_message
+
 def index(request):
     tickets = Ticket.objects.all().order_by('-created_at')
 
@@ -33,7 +35,6 @@ def add(request, route_boat_weekday_id, date):
         'route': route_boat_weekday.route,
         'route_boat_weekday': route_boat_weekday
     })
-
 
 
 def pdf(request, ticket_id):

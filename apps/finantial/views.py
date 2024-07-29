@@ -18,11 +18,11 @@ def dashboard(request):
 
     tickets = Ticket.objects.filter(created_at__year= main_date.year, created_at__month= main_date.month)
     
-    total_invoicing = round(tickets.aggregate(Sum('price')).get('price__sum'), 2)
-    total_cost = round(tickets.aggregate(Sum('cost')).get('cost__sum'), 2)
-    total_profit = round(total_invoicing - total_cost, 2)
-
     if tickets.count() > 0:
+        total_invoicing = round(tickets.aggregate(Sum('price')).get('price__sum'), 2)
+        total_cost = round(tickets.aggregate(Sum('cost')).get('cost__sum'), 2)
+        total_profit = round(total_invoicing - total_cost, 2)
+
         days_list = tickets.dates('created_at', 'day', order= 'DESC')
 
         days = []
@@ -43,6 +43,10 @@ def dashboard(request):
                     'tickets': tickets.filter(created_at__day= day.day)
                 }
             )
+    else:
+        return render(request, 'finantial/dashboard.html', {
+
+        })
 
     return render(request, 'finantial/dashboard.html', {
         'days': days,

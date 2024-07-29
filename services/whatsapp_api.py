@@ -6,22 +6,24 @@ from django.conf import settings
 
 load_dotenv()
 
-host = os.getenv('HOST_IP', 'HOST_IP')
-port = os.getenv('PORT', 'PORT')
-session = os.getenv('SESSION_NAME', 'SESSION_NAME')
-
 def session_status():
-    url = f'http://{host}:{port}/session/status/{session}'
+    url = f'{settings.WHATSAPP_API_URL}session/status/{settings.WHATSAPP_API_SESSION}'
+    
+    try:
+        response = get(url)
+        return response.json()
+    except:
+        return None
 
-    response = get(url)
-
-    return response.json()
 
 def send_message(number, message):
-        url = f'http://{host}:{port}/client/sendMessage/{session}'
+    url = f'{settings.WHATSAPP_API_URL}client/sendMessage/{settings.WHATSAPP_API_SESSION}'
 
+    status = session_status()
+
+    if status != None and status.get('success'):
         headers = {
-            'x-api-key': session,
+            'x-api-key': f'{settings.WHATSAPP_API_SESSION}',
         }
 
         data = {
@@ -31,4 +33,7 @@ def send_message(number, message):
         }
 
         response = post(url, json=data, timeout=10, headers=headers)
+
         return response.json()
+    else:
+        return None
