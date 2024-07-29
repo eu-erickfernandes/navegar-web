@@ -9,6 +9,19 @@ from utils.format import date_format
 
 from services.whatsapp_api import send_message
 
+def new_ticket_message(request, ticket):
+    description = ''
+    
+    pdf_path = f'{request.build_absolute_uri()}'
+
+    if ticket.passenger:
+        description = f'Passageiro: {ticket.passenger.name}'
+
+    if ticket.cargo:
+        description = f'Carga: {ticket.cargo.description}'
+
+    return f'{ticket.date} {ticket.origin} - {ticket.destination}\nSaída: {ticket.departure_time}\nChegada: {ticket.arrival_time}\nLancha: {ticket.boat}\nValor: {ticket.price}\n\n{description}\nVoucher: {pdf_path}'
+
 @require_POST
 def ticket_creation(request, route_boat_weekday_id, date):
     try:
@@ -72,8 +85,10 @@ def ticket_creation(request, route_boat_weekday_id, date):
                     price= price
                 )
 
-                message = f'TICKET {ticket} CRIADO COM SUCESSO'
-                send_message('556899546899', message)
+                message = new_ticket_message(request, ticket)
+                response = send_message('556899546899', message)
+
+                
 
             if 'radio_passenger' in item[0]:
                 index = item[0].split('_')[2]
@@ -101,8 +116,10 @@ def ticket_creation(request, route_boat_weekday_id, date):
                     passenger= passenger,
                 )
 
-                message = f'TICKET {ticket} CRIADO COM SUCESSO'
-                send_message('556899546899', message)
+                message = new_ticket_message(request, ticket)
+                response = send_message('556899546899', message)
+
+                
     else:
         description = request.POST.get('description')
         weight = request.POST.get('weight')
@@ -131,6 +148,8 @@ def ticket_creation(request, route_boat_weekday_id, date):
             price= price,
         )
         
-        message = f'TICKET {ticket} CRIADO COM SUCESSO'
-        send_message('556899546899', message)
+        message = new_ticket_message(request, ticket)
+        response = send_message('556899546899', message)
+
+        print(response)
     return redirect(reverse('ticket:index'))

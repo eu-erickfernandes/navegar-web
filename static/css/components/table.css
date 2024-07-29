@@ -1,0 +1,20 @@
+.table{
+    display: block;
+    overflow-x: auto;
+
+    th{
+        background-color: var(--clr-primary);
+        color: var(--clr-white);
+        text-transform: uppercase;
+    }
+
+    td, th{
+        font-size: .75rem;
+        font-weight: 600;
+        height: 2.5rem;
+        padding-inline: 1rem;
+        text-align: center;
+        text-wrap: nowrap;
+        vertical-align: middle;
+    }
+}

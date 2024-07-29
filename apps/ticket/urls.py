@@ -12,5 +12,5 @@ urlpatterns = [
     path('<int:ticket_id>/pdf/', pdf, name= 'pdf'),
 
     # ACTIONS
-    path('ticket_creation/<int:route_boat_weekday_id>/<slug:date>/', ticket_creation, name= 'ticket_creation')
+    path('ticket_creation/<int:route_boat_weekday_id>/<slug:date>/', ticket_creation, name= 'ticket_creation'),
 ]

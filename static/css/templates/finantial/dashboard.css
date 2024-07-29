@@ -1,30 +1,44 @@
-.ticket-list li {
-    color: var(--clr-text-light);
-    font-size: .75rem;
-    padding: 1rem;
 
-    p{
-        font-size: .875rem;
-        font-weight: 600;
-    }
+.finantial-form{
+    gap: 0;
+    padding: 0;
 
-    .ticket-route{
-        text-transform: uppercase;
-    }
+    .ticket-table{
+        tr{
+            background-color: var(--clr-green-light);
+            transition: background-color .5s;
+            
+            
+            &:has(input){
+                background-color: var(--clr-red-light);
+            }
+            
+            &:has(input:checked){
+                background-color: var(--clr-primary-light);
+            }
+        }
 
-    .ticket-links{
-        display: flex;
-        gap: .5rem;
-
-        a {
-            background-color: var(--clr-primary-light);
-            border-radius: 100vw;
-            color: var(--clr-primary-dark);
-            display: flex;
-            font-size: .75rem;
-            gap: .5rem;
-            padding-block: .5rem;
-            padding-inline: .75rem;
+        .paid-ticket{
+            background-color: var(--clr-green-dark);
+            background-image: url('../../../icons/check-white.svg');
+            background-position: center;
+            background-repeat: no-repeat;
         }
     }
+
+    button{
+        background-color: var(--clr-green-dark);
+        border: none;
+        box-sizing: border-box;
+        color: var(--clr-white);
+        display: none;
+        font-size: .75rem;
+        font-weight: 600;
+        padding-block: .75rem;
+    }
+
+    &:has(input:checked) button{
+        display: block;
+    }
+
 }

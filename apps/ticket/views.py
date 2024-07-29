@@ -21,7 +21,7 @@ def index(request):
 
 def add(request, route_boat_weekday_id, date):
     passengers = Passenger.objects.all().order_by('name')
-
+    
     try:
         route_boat_weekday = RouteBoatWeekday.objects.get(id= route_boat_weekday_id)
     except:
