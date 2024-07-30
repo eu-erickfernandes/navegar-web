@@ -12,6 +12,7 @@ from services.whatsapp_api import send_message
 def new_ticket_message(request, ticket):
     description = ''
     
+    date = f'{ticket.date.split("-")[2]}/{ticket.date.split("-")[1]}/{ticket.date.split("-")[0]}'
     pdf_path = f'http://{request.get_host()}/passagens/{ticket.id}/pdf'
 
     if ticket.passenger:
@@ -20,7 +21,7 @@ def new_ticket_message(request, ticket):
     if ticket.cargo:
         description = f'Carga: {ticket.cargo.description}'
 
-    return f'{ticket.date} {ticket.origin} - {ticket.destination}\nSaída: {ticket.departure_time}\nChegada: {ticket.arrival_time}\nLancha: {ticket.boat}\nValor: {ticket.price}\n\n{description}\nVoucher: {pdf_path}'
+    return f'{date} {ticket.origin} - {ticket.destination}\nSaída: {ticket.departure_time}\nChegada: {ticket.arrival_time}\nLancha: {ticket.boat}\nValor: {ticket.price}\n\n{description}\nVoucher: {pdf_path}'
 
 @require_POST
 def ticket_creation(request, route_boat_weekday_id, date):
