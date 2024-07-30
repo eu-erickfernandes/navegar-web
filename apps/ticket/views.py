@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.template.loader import get_template
 from django.http import HttpResponse
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 
 from xhtml2pdf import pisa
 
@@ -11,6 +12,7 @@ from .models import Passenger, Ticket, Cargo
 
 from services.whatsapp_api import session_status, send_message
 
+@login_required
 def index(request):
     tickets = Ticket.objects.all().order_by('-created_at')
 
@@ -19,6 +21,7 @@ def index(request):
     })
 
 
+@login_required
 def add(request, route_boat_weekday_id, date):
     passengers = Passenger.objects.all().order_by('name')
     
@@ -37,6 +40,7 @@ def add(request, route_boat_weekday_id, date):
     })
 
 
+@login_required
 def pdf(request, ticket_id):
     try:
         ticket = Ticket.objects.get(id= ticket_id)

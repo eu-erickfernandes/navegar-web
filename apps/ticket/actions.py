@@ -12,7 +12,7 @@ from services.whatsapp_api import send_message
 def new_ticket_message(request, ticket):
     description = ''
     
-    pdf_path = f'{request.build_absolute_uri()}'
+    pdf_path = f'http://{request.get_host()}/passagens/{ticket.id}/pdf'
 
     if ticket.passenger:
         description = f'Passageiro: {ticket.passenger.name}'

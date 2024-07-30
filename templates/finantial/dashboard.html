@@ -29,7 +29,8 @@
             <h2 class="fw-bd fs-lg">{{ main_date|date:'F, Y' }}</h2>
 
             <span class="profit-label fs-sm">Lucro: R$ {{ total_profit }}</span>
-            <span class="cost-label fs-sm">Custo: R$ {{ total_cost }}</span>
+            <span class="price-label fs-sm">Valor pago: R$ {{ total_paid }}</span>
+            <span class="cost-label fs-sm">Valor a pagar: R$ {{ total_pending }}</span>
         </div>
 
         {% for day in days %}
@@ -40,7 +41,8 @@
 
                 <div class="group sm">
                     <span class="fs-sm profit-label">Lucro: R$ {{ day.total_profit }}</span>
-                    <span class="fs-sm cost-label">Custo: R$ {{ day.total_cost }}</span>
+                    <span class="fs-sm price-label">Valor pago: R$ {{ day.total_paid }}</span>
+                    <span class="fs-sm cost-label">Valor a pagar: R$ {{ day.total_pending }}</span>
                 </div>
             </div>
             
