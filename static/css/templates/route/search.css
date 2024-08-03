@@ -19,15 +19,13 @@
         border: 2px solid var(--clr-gray-light);
         border-radius: .5rem;
         box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 8rem;
+        display: grid;
+        gap: 1rem;
         padding-block: 1rem;
         padding-inline: .75rem;
         width: 100%;
 
-        .route-value{
+        /* .route-value{
             align-items: flex-start;
             display: flex;
             justify-content: space-between;
@@ -43,7 +41,7 @@
                     font-size: .75rem;
                 }
             }
-        }
+        } */
 
         .route-info span{
             color: var(--clr-text-light);

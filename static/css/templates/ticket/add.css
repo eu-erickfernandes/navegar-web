@@ -1,5 +1,5 @@
 main{
-    --submit-navbar-height: 130px;
+    --submit-navbar-height: 107px;
     padding-bottom: calc(var(--submit-navbar-height) + 1rem);
 }
 
@@ -167,7 +167,7 @@ main{
             transition: max-height .5s;
 
             &:is(.passenger-search-input:focus-visible + .passenger-search-list){
-                max-height: 10rem;
+                max-height: 17.5rem;
             }
             
             li{
