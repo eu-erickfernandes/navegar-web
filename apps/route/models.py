@@ -1,8 +1,11 @@
 from datetime import datetime, timedelta
 
 from django.db import models
+from decimal import Decimal
 
 from apps.authentication.models import CustomUser
+
+PROFIT_MARGIN = Decimal(0.08)
 
 # Create your models here.
 class City(models.Model):
@@ -43,6 +46,10 @@ class Route(models.Model):
     
     class Meta:
         ordering = ['origin', 'destination']
+
+    @property
+    def profit(self):
+        return round(self.price * PROFIT_MARGIN, 2)
     
     @property
     def duration(self):

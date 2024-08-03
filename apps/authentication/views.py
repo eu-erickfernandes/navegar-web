@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 
-from .decorators import redirect_authenticated_user
+from .decorators import redirect_authenticated_user, required_user_roles
 from .models import *
 
 @redirect_authenticated_user
@@ -30,6 +30,7 @@ def panel(request):
 
 
 @login_required
+@required_user_roles('A')
 def index(request):
     users = CustomUser.objects.all().exclude(is_superuser= True)
 

@@ -63,14 +63,7 @@
 
             {% for item in route_boat_weekdays %}
                 <a class="result-item" href="{% url 'ticket:add' item.id date %}">
-                    <div class="route-value">
-                        <span class="boat-label">{{ item.boat }}</span>
-                        
-                        <div class="group sm">
-                            <span class="price-label">R$ {{ item.price }}</span>
-                            <span class="cost-label">-R$ {{ item.cost }}</span>
-                        </div>
-                    </div>
+                    <span class="boat-label fs-md">{{ item.boat }}</span>
 
                     <div class="group sm route-info">
                         <span class="route-time">
@@ -82,6 +75,8 @@
                         <span>{{ item.origin }} - {{ item.destination }}</span>
                         <span>{{ item.duration }} horas</span>
                     </div>
+
+                    <span class="price-label fs-sm">R$ {{ item.price }}</span>
                 </a>
             {% empty %}
                 {% if origin %}

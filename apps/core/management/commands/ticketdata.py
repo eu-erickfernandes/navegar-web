@@ -27,7 +27,7 @@ class Command(BaseCommand):
         for data in ticket_data['ticket_ticket']:
             created_at = datetime.fromisoformat(data['created_at'])
 
-            if created_at.date().month >= 6:
+            if created_at.date().month >= 6 and data['status'] == 4:
                 print('ADDING TICKET')
                 print(f'CREATED AT {created_at}')
 

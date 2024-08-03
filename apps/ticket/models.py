@@ -58,10 +58,6 @@ class Ticket(models.Model):
 
     def __str__(self):
         return f'{self.date}: {self.origin} - {self.destination} - {"PASSENGER" if self.passenger else "CARGO"} - CREATED AT {self.created_at}'
-
-    @property
-    def profit(self):
-        return self.price - self.cost
     
     def get_translared_status(self):
         for status in self.STATUS_CHOICES:

@@ -3,7 +3,7 @@
     overflow-x: auto;
 
     th{
-        background-color: var(--clr-primary);
+        background-color: var(--clr-primary-dark);
         color: var(--clr-white);
         text-transform: uppercase;
     }
