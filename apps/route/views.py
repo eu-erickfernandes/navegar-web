@@ -2,9 +2,12 @@ from datetime import datetime
 
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+
+from apps.authentication.decorators import required_user_roles
 from .models import City, RouteBoatWeekday, Route, Boat
 
 @login_required
+@required_user_roles('A')
 def index(request):
     routes = Route.objects.all()
 

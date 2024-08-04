@@ -35,3 +35,20 @@
     /* GRADIENTS */
     --linear-blue: linear-gradient(270deg, #458EED, #1C74E9, #135DBE);
 }
+
+/* TEXT COLORS */
+.clr-text-light{
+    color: var(--clr-text-light);
+}
+
+.clr-primary{
+    color: var(--clr-primary-dark);
+}
+
+.clr-green{
+    color: var(--clr-green-dark);
+}
+
+.clr-red{
+    color: var(--clr-red-dark);
+}

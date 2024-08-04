@@ -25,24 +25,6 @@
         padding-inline: .75rem;
         width: 100%;
 
-        /* .route-value{
-            align-items: flex-start;
-            display: flex;
-            justify-content: space-between;
-
-            .group{
-                text-align: right;
-                
-                .price-label{
-                    font-size: .875rem;
-                }
-                
-                .cost-label{
-                    font-size: .75rem;
-                }
-            }
-        } */
-
         .route-info span{
             color: var(--clr-text-light);
             font-size: .75rem;
