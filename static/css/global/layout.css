@@ -41,10 +41,12 @@ body{
 
     .container{
         background-color: var(--clr-white);
+        box-sizing: border-box;
         display: grid;
         gap: .5rem;
         padding-block: .75rem;
         padding-inline: 1rem;
+        width: 100%;
 
         &.center{
             align-items: center;

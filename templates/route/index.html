@@ -7,13 +7,43 @@
 {% endblock %}
 
 {% block content %}
+    {% include '../partials/_page-header.html' with title='Rotas' back_link='/' %}
+
     <main>
+        <div class="container">
+            <input
+                class="search"
+                data-route-search
+                id="route-field"
+                placeholder="Buscar rota"    
+                type="text"
+            >
+        </div>
+
+        <div class="container">
+            <a href="#" class="button link add">Adicionar rota</a>
+        </div>
+
         <ul>
             {% for route in routes %}
-                <li>
-                    <a href="#">{{ route }}</a>
+                <li data-route-item="{{ route.origin }} {{ route.destination }}">
+                    <a class="container" href="#">
+                        <p class="fs-md fw-bd">{{ route.origin }} -> {{ route.destination }}</p>
+
+                        <span class="fs-sm clr-text-light">
+                            {{ route.departure_time }} - {{ route.arrival_time }}
+                            
+                            {% if route.next_day %} (Dia seguinte) {% endif %}
+                        </span>
+
+                        <span class="clr-primary fs-sm fw-bd">{{ route.price }}</span>
+                    </a>
                 </li>
             {% endfor %}
         </ul>
     </main>
+{% endblock %}
+
+{% block js_template %}
+    <script src="{% static 'js/templates/route/index.js' %}"></script>
 {% endblock %}

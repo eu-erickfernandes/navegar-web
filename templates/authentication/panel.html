@@ -23,9 +23,9 @@
         <div class="group">
             {% if request.user.role == 'A' %}
                 <a class="panel-link users fs-md" href="{% url 'authentication:index' %}">Usuários</a>
+                <a class="panel-link routes fs-md" href="{% url 'route:index' %}">Rotas</a>
             {% endif %}
-            <!-- <a class="panel-link boats fs-md" href="{% url 'route:boats' %}">Embarcações</a>
-            <a class="panel-link routes fs-md" href="{% url 'route:index' %}">Rotas</a> -->
+            <!-- <a class="panel-link boats fs-md" href="{% url 'route:boats' %}">Embarcações</a> -->
             <a class="panel-link logout fs-md" href="{% url 'authentication:user_logout' %}">Sair</a>
         </div>
     </main>

@@ -30,10 +30,10 @@
 
             {% if request.user.role == 'A' %}
                 <span class="profit-label fs-sm">Lucro: R$ {{ total_profit }}</span>
-                <span class="price-label fs-sm">Valor pago: R$ {{ total_paid }}</span>
+                <span class="clr-primary fs-sm">Valor pago: R$ {{ total_paid }}</span>
                 <span class="cost-label fs-sm">Valor a pagar: R$ {{ total_pending }}</span>
             {% elif request.user.role == 'C' %}
-                <span class="price-label fs-sm">Valor recebido: R$ {{ total_paid }}</span>
+                <span class="clr-primary fs-sm">Valor recebido: R$ {{ total_paid }}</span>
                 <span class="cost-label fs-sm">Valor a receber: R$ {{ total_pending }}</span>
             {% endif %}
         </div>
@@ -47,10 +47,10 @@
                 <div class="group sm">
                     {% if request.user.role == 'A' %}
                         <span class="fs-sm profit-label">Lucro: R$ {{ day.total_profit }}</span>
-                        <span class="fs-sm price-label">Valor pago: R$ {{ day.total_paid }}</span>
+                        <span class="fs-sm clr-primary">Valor pago: R$ {{ day.total_paid }}</span>
                         <span class="fs-sm cost-label">Valor a pagar: R$ {{ day.total_pending }}</span>
                     {% elif request.user.role == 'C' %}
-                        <span class="fs-sm price-label">Valor recebido: R$ {{ day.total_paid }}</span>
+                        <span class="fs-sm clr-primary">Valor recebido: R$ {{ day.total_paid }}</span>
                         <span class="fs-sm cost-label">Valor a receber: R$ {{ day.total_pending }}</span>
                     {% endif %}
                 </div>

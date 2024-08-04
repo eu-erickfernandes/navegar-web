@@ -38,6 +38,27 @@
         }
     }
 
+    &.link{
+        background-color: var(--clr-primary-light);
+        border-radius: 100vw;
+        color: var(--clr-primary-dark);
+        display: flex;
+        font-size: .75rem;
+        gap: .5rem;
+        padding-block: .5rem;
+        padding-inline: .75rem;
+        width: fit-content;
+
+        &.add::before{
+            aspect-ratio: 1;
+            background-image: url(../../icons/buttons/add-link.svg);
+            content: '';
+            display: block;
+            height: .75rem;
+            width: auto;
+        }
+    }
+
     &:disabled,
     &:disabled:is(
         :hover, 
