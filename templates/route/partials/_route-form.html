@@ -1,0 +1,157 @@
+<form 
+    method="POST" 
+    
+    {% if route %}
+        action="{% url 'route:route_update' route.id %}"
+    {% else %}
+        action="{% url 'route:route_creation' %}"
+    {% endif %}
+>
+    {% csrf_token %}
+
+    <select name="origin" id="origin" required>
+        <option value="" selected disabled>Origem</option>
+
+        {% for city in cities %}
+            {% if route.origin.id == city.id %}
+                <option value="{{ city.id }}" selected>{{ city.name }}</option>
+            {% else %}
+                <option value="{{ city.id }}">{{ city.name }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+
+    <select name="destination" id="destination" required>
+        <option value="" selected disabled>Destino</option>
+
+        {% for city in cities %}
+            {% if route.destination.id == city.id %}
+                <option value="{{ city.id }}" selected>{{ city.name }}</option>
+            {% else %}
+                <option value="{{ city.id }}">{{ city.name }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+
+    <div class="group row">
+        <div class="group">
+            <label for="departure-time">Partida</label>
+            
+            <input
+                id="departure-time" 
+                name="departure_time" 
+                type="time" 
+                required
+
+                {% if route.departure_time %} value="{{ route.departure_time }}" {% endif %}
+            >
+        </div>
+        
+        <div class="group">
+            <label for="arrival-time">Chegada</label>
+            
+            <input
+                id="arrival-time" 
+                name="arrival_time" 
+                type="time" 
+                required
+
+                {% if route.arrival_time %} value="{{ route.arrival_time }}" {% endif %}
+            >
+        </div>
+    </div>
+
+    <label class="checkbox" for="next-day">
+        <input 
+            id="next-day"
+            name="next_day" 
+            type="checkbox" 
+            
+            {% if route.next_day %} checked {% endif %}
+        >
+
+        <span>Dia seguinte</span>
+    </label>
+    
+    <input
+        id="price"
+        name="price"
+        placeholder="Preço"
+        required
+        type="text"
+
+        {% if route.price %} value="{{ route.price }}" {% endif %}
+    >
+
+    <p class="fs-md">Embarcações</p>
+    
+    {% for route_boat in route.route_boats %}
+        <div class="container lg card route-card" data-boat-card>
+            <div class="group lg">
+                <select name="route_boat-{{ route_boat.id }}-boat" id="route_boat-{{ route_boat.id }}-boat" required>
+                    <option value="" disabled selected>Selecione uma Embarcação</option>
+
+                    {% for boat in boats %}
+                        {% if boat == route_boat.boat %}
+                            <option value="{{ boat.id }}" selected>{{ boat.name }}</option>
+                        {% else %}
+                            <option value="{{ boat.id }}">{{ boat.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+
+                <div class="group row space-between">
+                    {% for weekday in weekdays %}
+                        <label class="checkbox sm" for="route_boat-{{ route_boat.id }}-weekday-{{ weekday.0 }}">
+                            <input 
+                                id="route_boat-{{ route_boat.id }}-weekday-{{ weekday.0 }}" 
+                                name="route_boat-{{ route_boat.id }}-weekday-{{ weekday.0 }}"
+                                type="checkbox" 
+                                
+                                {% if weekday.0 in route_boat.weekdays_list %} checked {% endif %}
+                            >
+                            
+                            <span>{{ weekday.1|first }}</span>
+                        </label>
+                    {% endfor %}
+                </div>
+
+                <span class="fw-bd fs-md clr-red remove-boat" data-boat-remove>Remover Embarcação</span>
+            </div>
+        </div>
+    {% empty %}
+        <div class="container lg card route-card" data-boat-card="new">
+            <div class="group lg">
+                <select name="boat" id="boat" required>
+                    <option value="" disabled selected>Selecione uma Embarcação</option>
+
+                    {% for boat in boats %}
+                        <option value="{{ boat.id }}">{{ boat.name }}</option>
+                    {% endfor %}
+                </select>
+
+                <div class="group row space-between">
+                    {% for weekday in weekdays %}
+                        <label class="checkbox sm" for="weekday-{{ weekday.0 }}">
+                            <input 
+                                id="weekday-{{ weekday.0 }}" 
+                                name="weekday-{{ weekday.0 }}"
+                                type="checkbox" 
+                            >
+                            
+                            <span>{{ weekday.1|first }}</span>
+                        </label>
+                    {% endfor %}
+                </div>
+
+                <span class="fw-bd fs-md clr-red remove-boat" data-boat-remove>Remover Embarcação</span>
+            </div>
+        </div>
+    {% endfor %}
+
+    <button class="button link add" type="button" data-add-button>Adicionar Embarcação</button>
+
+    <div class="container lg submit-navbar">
+        <button class="button">Salvar alterações</button>
+    </div>
+</form>
