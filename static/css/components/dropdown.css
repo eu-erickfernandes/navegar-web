@@ -1,0 +1,35 @@
+.dropdown{
+    background-color: var(--clr-white);
+    border: 1px solid var(--clr-gray-light);
+    border-radius: .5rem;
+    padding-inline: 1rem;
+
+    &[open]{
+        padding-bottom: 1rem;
+
+        summary{
+            padding-bottom: 1rem;
+    
+            &::after{
+                rotate: 180deg;
+            }
+        }
+    }
+
+    summary{
+        display: flex;
+        justify-content: space-between;
+        padding-block: 1rem;
+
+        &::after{
+            aspect-ratio: 1;
+            background-image: url('../../icons/navicons/arrow_down.svg');
+            background-position: center;
+            background-repeat: no-repeat;
+            content: '';
+            display: block;
+            transition: rotate .5s;
+            width: .75rem;
+        }
+    }
+}

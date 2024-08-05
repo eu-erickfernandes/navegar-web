@@ -48,6 +48,11 @@ body{
         padding-inline: 1rem;
         width: 100%;
 
+        &.card{
+            border: 1px solid var(--clr-gray-light);
+            border-radius: .5rem;
+        }
+
         &.center{
             align-items: center;
             text-align: center;
@@ -63,11 +68,17 @@ body{
     }
 
     .group{
+        box-sizing: border-box;
         display: grid;
         gap: .5rem;
+        width: 100%;
 
         &.row{
             display: flex;
+
+            &.space-between{
+                justify-content: space-between;
+            }
         }
 
         &.sm{

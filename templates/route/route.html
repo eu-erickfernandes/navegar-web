@@ -1,0 +1,23 @@
+{% extends '../partials/_base.html' %}
+
+{% load static %}
+
+{% block title %}
+    {{ route.origin }} - {{ route.destination }}
+{% endblock %}
+
+{% block css_template %}
+    <link rel="stylesheet" href="{% static 'css/templates/route/partials/_route-form.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include '../partials/_page-header.html' with title='Rota' back_link='/rotas' %}
+
+    <main>
+        {% include './partials/_route-form.html' %}
+    </main>
+{% endblock %}
+
+{% block js_template %}
+    <script src="{% static 'js/templates/route/partials/_route-form.js' %}"></script>
+{% endblock %}

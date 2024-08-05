@@ -66,6 +66,10 @@ class Route(models.Model):
         total_time = f"{int(hours):02}"
 
         return total_time
+    
+    @property
+    def route_boats(self):
+        return RouteBoat.objects.filter(route= self)
 
 
 class RouteBoat(models.Model):
@@ -74,6 +78,13 @@ class RouteBoat(models.Model):
 
     def __str__(self):
         return f'{self.route} - {self.boat}'
+    
+    @property
+    def route_boat_weekdays(self):
+        return RouteBoatWeekday.objects.filter(route_boat= self)
+    
+    def weekdays_list(self):
+        return list(RouteBoatWeekday.objects.filter(route_boat= self).values_list('weekday', flat= True))
     
     class Meta:
         ordering = ['route', 'boat']

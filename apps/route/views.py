@@ -2,18 +2,78 @@ from datetime import datetime
 
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 
 from apps.authentication.decorators import required_user_roles
-from .models import City, RouteBoatWeekday, Route, Boat
+from .models import City, RouteBoatWeekday, Route, Boat, RouteBoat
 
 @login_required
 @required_user_roles('A')
 def index(request):
     routes = Route.objects.all()
 
+    # RouteBoatWeekday.objects.all().delete()
+    # RouteBoat.objects.all().delete()
+    # Route.objects.all().delete()
+
     return render(request, 'route/index.html', {
         'routes': routes
     })
+
+
+@login_required
+@required_user_roles('A')
+def add(request):
+    cities = City.objects.all()
+    boats = Boat.objects.all()
+
+    weekdays = [
+        ('7', 'Domingo'),
+        ('1', 'Segunda-Feira'),
+        ('2', 'Terça-Feira'),
+        ('3', 'Quarta-Feira'),
+        ('4', 'Quinta-Feira'),
+        ('5', 'Sexta-Feira'),
+        ('6', 'Sábado'),
+    ]
+
+    return render(request, 'route/add.html', {
+        'boats': boats,
+        'cities': cities,
+        'hidden_navbar': True,
+        'weekdays': weekdays
+    })
+
+
+@login_required
+@required_user_roles('A')
+def route(request, route_id):
+    try:
+        route = Route.objects.get(id= route_id)
+    except:
+        raise Http404
+    
+    cities = City.objects.all()
+    boats = Boat.objects.all()
+
+    weekdays = [
+        ('7', 'Domingo'),
+        ('1', 'Segunda-Feira'),
+        ('2', 'Terça-Feira'),
+        ('3', 'Quarta-Feira'),
+        ('4', 'Quinta-Feira'),
+        ('5', 'Sexta-Feira'),
+        ('6', 'Sábado'),
+    ]
+
+    return render(request, 'route/route.html', {
+        'boats': boats,
+        'cities': cities,
+        'hidden_navbar': True,
+        'route': route,
+        'weekdays': weekdays
+    })
+
 
 @login_required
 def boats(request):
@@ -22,6 +82,7 @@ def boats(request):
     return render(request, 'route/boats.html', {
         'boats': boats
     })
+
 
 @login_required
 def search(request):

@@ -21,13 +21,13 @@
         </div>
 
         <div class="container">
-            <a href="#" class="button link add">Adicionar rota</a>
+            <a href="{% url 'route:add' %}" class="button link add">Adicionar rota</a>
         </div>
 
         <ul>
             {% for route in routes %}
                 <li data-route-item="{{ route.origin }} {{ route.destination }}">
-                    <a class="container" href="#">
+                    <a class="container" href="{% url 'route:route' route.id %}">
                         <p class="fs-md fw-bd">{{ route.origin }} -> {{ route.destination }}</p>
 
                         <span class="fs-sm clr-text-light">

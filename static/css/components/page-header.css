@@ -6,7 +6,6 @@
     grid-template-columns: repeat(3, 1fr);
     height: var(--page-header-height);
     padding-inline: 1rem;
-    /* justify-content: space-between; */
     position: fixed;
     top: 0;
     width: 100%;

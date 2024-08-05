@@ -4,4 +4,8 @@ form{
     flex-direction: column;
     gap: 1rem;
     padding: 1rem;
+
+    label{
+        font-size: .875rem;
+    }
 }
