@@ -16,7 +16,7 @@ def user_registration(request):
     cpf = request.POST.get('cpf')
     birth_date = date_format(request.POST.get('birth_date'))
     email = request.POST.get('email')
-    phone = request.POST.get('phone')
+    phone = sub('\D', '', request.POST.get('phone'))
 
     password = request.POST.get('password')
     password_confirmation = request.POST.get('password_confirmation')
@@ -81,6 +81,8 @@ def user_login(request):
         email = request.POST.get('email')
     elif auth_type == 'phone':
         phone = sub('\D', '', request.POST.get('phone'))
+
+        print(phone)
 
         try:    
             email = CustomUser.objects.get(phone= phone).email
