@@ -1,3 +1,5 @@
+from re import sub
+
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.contrib.auth import authenticate, login
@@ -78,7 +80,7 @@ def user_login(request):
     if auth_type == 'email':
         email = request.POST.get('email')
     elif auth_type == 'phone':
-        phone = request.POST.get('phone')
+        phone = sub('\D', '', request.POST.get('phone'))
 
         try:    
             email = CustomUser.objects.get(phone= phone).email

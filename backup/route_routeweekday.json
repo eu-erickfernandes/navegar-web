@@ -2333,5 +2333,335 @@
 		"weekday" : "Saturday",
 		"boat_id" : 31,
 		"route_id" : 68
+	},
+	{
+		"id" : 412,
+		"weekday" : "Monday",
+		"boat_id" : 14,
+		"route_id" : 69
+	},
+	{
+		"id" : 413,
+		"weekday" : "Tuesday",
+		"boat_id" : 16,
+		"route_id" : 69
+	},
+	{
+		"id" : 414,
+		"weekday" : "Wednesday",
+		"boat_id" : 6,
+		"route_id" : 69
+	},
+	{
+		"id" : 415,
+		"weekday" : "Thursday",
+		"boat_id" : 11,
+		"route_id" : 69
+	},
+	{
+		"id" : 416,
+		"weekday" : "Friday",
+		"boat_id" : 12,
+		"route_id" : 69
+	},
+	{
+		"id" : 417,
+		"weekday" : "Saturday",
+		"boat_id" : 8,
+		"route_id" : 69
+	},
+	{
+		"id" : 418,
+		"weekday" : "Sunday",
+		"boat_id" : 10,
+		"route_id" : 69
+	},
+	{
+		"id" : 419,
+		"weekday" : "Monday",
+		"boat_id" : 13,
+		"route_id" : 69
+	},
+	{
+		"id" : 420,
+		"weekday" : "Tuesday",
+		"boat_id" : 15,
+		"route_id" : 69
+	},
+	{
+		"id" : 421,
+		"weekday" : "Wednesday",
+		"boat_id" : 3,
+		"route_id" : 69
+	},
+	{
+		"id" : 422,
+		"weekday" : "Thursday",
+		"boat_id" : 4,
+		"route_id" : 69
+	},
+	{
+		"id" : 423,
+		"weekday" : "Friday",
+		"boat_id" : 5,
+		"route_id" : 69
+	},
+	{
+		"id" : 424,
+		"weekday" : "Saturday",
+		"boat_id" : 7,
+		"route_id" : 69
+	},
+	{
+		"id" : 425,
+		"weekday" : "Sunday",
+		"boat_id" : 9,
+		"route_id" : 69
+	},
+	{
+		"id" : 426,
+		"weekday" : "Tuesday",
+		"boat_id" : 30,
+		"route_id" : 59
+	},
+	{
+		"id" : 427,
+		"weekday" : "Sunday",
+		"boat_id" : 33,
+		"route_id" : 54
+	},
+	{
+		"id" : 428,
+		"weekday" : "Monday",
+		"boat_id" : 23,
+		"route_id" : 10
+	},
+	{
+		"id" : 429,
+		"weekday" : "Saturday",
+		"boat_id" : 14,
+		"route_id" : 70
+	},
+	{
+		"id" : 430,
+		"weekday" : "Saturday",
+		"boat_id" : 13,
+		"route_id" : 70
+	},
+	{
+		"id" : 431,
+		"weekday" : "Sunday",
+		"boat_id" : 15,
+		"route_id" : 71
+	},
+	{
+		"id" : 432,
+		"weekday" : "Tuesday",
+		"boat_id" : 22,
+		"route_id" : 72
+	},
+	{
+		"id" : 433,
+		"weekday" : "Saturday",
+		"boat_id" : 22,
+		"route_id" : 72
+	},
+	{
+		"id" : 434,
+		"weekday" : "Wednesday",
+		"boat_id" : 20,
+		"route_id" : 72
+	},
+	{
+		"id" : 435,
+		"weekday" : "Monday",
+		"boat_id" : 23,
+		"route_id" : 72
+	},
+	{
+		"id" : 436,
+		"weekday" : "Friday",
+		"boat_id" : 21,
+		"route_id" : 72
+	},
+	{
+		"id" : 437,
+		"weekday" : "Sunday",
+		"boat_id" : 19,
+		"route_id" : 72
+	},
+	{
+		"id" : 438,
+		"weekday" : "Thursday",
+		"boat_id" : 19,
+		"route_id" : 72
+	},
+	{
+		"id" : 439,
+		"weekday" : "Monday",
+		"boat_id" : 6,
+		"route_id" : 73
+	},
+	{
+		"id" : 440,
+		"weekday" : "Tuesday",
+		"boat_id" : 11,
+		"route_id" : 73
+	},
+	{
+		"id" : 441,
+		"weekday" : "Wednesday",
+		"boat_id" : 12,
+		"route_id" : 73
+	},
+	{
+		"id" : 442,
+		"weekday" : "Thursday",
+		"boat_id" : 8,
+		"route_id" : 73
+	},
+	{
+		"id" : 443,
+		"weekday" : "Friday",
+		"boat_id" : 10,
+		"route_id" : 73
+	},
+	{
+		"id" : 444,
+		"weekday" : "Saturday",
+		"boat_id" : 14,
+		"route_id" : 73
+	},
+	{
+		"id" : 445,
+		"weekday" : "Sunday",
+		"boat_id" : 16,
+		"route_id" : 73
+	},
+	{
+		"id" : 446,
+		"weekday" : "Monday",
+		"boat_id" : 3,
+		"route_id" : 73
+	},
+	{
+		"id" : 447,
+		"weekday" : "Tuesday",
+		"boat_id" : 4,
+		"route_id" : 73
+	},
+	{
+		"id" : 448,
+		"weekday" : "Wednesday",
+		"boat_id" : 5,
+		"route_id" : 73
+	},
+	{
+		"id" : 449,
+		"weekday" : "Thursday",
+		"boat_id" : 7,
+		"route_id" : 73
+	},
+	{
+		"id" : 450,
+		"weekday" : "Friday",
+		"boat_id" : 9,
+		"route_id" : 73
+	},
+	{
+		"id" : 451,
+		"weekday" : "Saturday",
+		"boat_id" : 13,
+		"route_id" : 73
+	},
+	{
+		"id" : 452,
+		"weekday" : "Sunday",
+		"boat_id" : 15,
+		"route_id" : 73
+	},
+	{
+		"id" : 453,
+		"weekday" : "Monday",
+		"boat_id" : 10,
+		"route_id" : 74
+	},
+	{
+		"id" : 454,
+		"weekday" : "Tuesday",
+		"boat_id" : 14,
+		"route_id" : 74
+	},
+	{
+		"id" : 455,
+		"weekday" : "Wednesday",
+		"boat_id" : 16,
+		"route_id" : 74
+	},
+	{
+		"id" : 456,
+		"weekday" : "Thursday",
+		"boat_id" : 6,
+		"route_id" : 74
+	},
+	{
+		"id" : 457,
+		"weekday" : "Friday",
+		"boat_id" : 11,
+		"route_id" : 74
+	},
+	{
+		"id" : 458,
+		"weekday" : "Sunday",
+		"boat_id" : 8,
+		"route_id" : 74
+	},
+	{
+		"id" : 459,
+		"weekday" : "Monday",
+		"boat_id" : 9,
+		"route_id" : 74
+	},
+	{
+		"id" : 460,
+		"weekday" : "Tuesday",
+		"boat_id" : 13,
+		"route_id" : 74
+	},
+	{
+		"id" : 461,
+		"weekday" : "Wednesday",
+		"boat_id" : 15,
+		"route_id" : 74
+	},
+	{
+		"id" : 462,
+		"weekday" : "Thursday",
+		"boat_id" : 3,
+		"route_id" : 74
+	},
+	{
+		"id" : 463,
+		"weekday" : "Friday",
+		"boat_id" : 4,
+		"route_id" : 74
+	},
+	{
+		"id" : 464,
+		"weekday" : "Saturday",
+		"boat_id" : 5,
+		"route_id" : 74
+	},
+	{
+		"id" : 465,
+		"weekday" : "Sunday",
+		"boat_id" : 7,
+		"route_id" : 74
+	},
+	{
+		"id" : 466,
+		"weekday" : "Tuesday",
+		"boat_id" : 27,
+		"route_id" : 75
 	}
 ]}
