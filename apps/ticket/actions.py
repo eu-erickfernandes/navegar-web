@@ -87,9 +87,7 @@ def ticket_creation(request, route_boat_weekday_id, date):
                 )
 
                 message = new_ticket_message(request, ticket)
-                response = send_message('556899546899', message)
-
-                
+                # response = send_message('556899546899', message)
 
             if 'radio_passenger' in item[0]:
                 index = item[0].split('_')[2]
@@ -118,7 +116,7 @@ def ticket_creation(request, route_boat_weekday_id, date):
                 )
 
                 message = new_ticket_message(request, ticket)
-                response = send_message('556899546899', message)
+                # response = send_message('556899546899', message)
 
                 
     else:
@@ -150,7 +148,5 @@ def ticket_creation(request, route_boat_weekday_id, date):
         )
         
         message = new_ticket_message(request, ticket)
-        response = send_message('556899546899', message)
-
-        print(response)
+        # response = send_message('556899546899', message)
     return redirect(reverse('ticket:index'))
