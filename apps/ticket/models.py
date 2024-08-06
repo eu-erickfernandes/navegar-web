@@ -1,4 +1,5 @@
 from datetime import datetime
+from datetime import timedelta
 
 from django.db import models
 
@@ -37,8 +38,8 @@ class Ticket(models.Model):
     created_at = models.DateTimeField(default= datetime.now)
     created_by = models.ForeignKey(CustomUser, on_delete= models.PROTECT)
 
-    passenger = models.ForeignKey(Passenger, on_delete= models.PROTECT, null= True)
-    cargo = models.ForeignKey(Cargo, on_delete= models.PROTECT, null= True)
+    passenger = models.ForeignKey(Passenger, on_delete= models.PROTECT, null= True, blank= True)
+    cargo = models.ForeignKey(Cargo, on_delete= models.PROTECT, null= True, blank= True)
 
     boat = models.ForeignKey(Boat, on_delete= models.PROTECT)
 
@@ -59,6 +60,9 @@ class Ticket(models.Model):
     def __str__(self):
         return f'{self.date}: {self.origin} - {self.destination} - {"PASSENGER" if self.passenger else "CARGO"} - CREATED AT {self.created_at}'
     
+    def arrival_date(self):
+        return self.date + timedelta(days=1) if self.next_day else self.date
+
     def get_translared_status(self):
         for status in self.STATUS_CHOICES:
             if status[0] == self.status:
