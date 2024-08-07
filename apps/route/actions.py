@@ -1,9 +1,12 @@
 from decimal import Decimal
 
 from django.shortcuts import redirect
+from django.urls import reverse
 from django.views.decorators.http import require_POST
 
 from .models import Route, RouteBoat, Boat, RouteBoatWeekday, City
+
+from apps.authentication.models import CustomUser
 
 @require_POST
 def route_creation(request):
@@ -129,3 +132,15 @@ def route_update(request, route_id):
     RouteBoat.objects.filter(route= route).exclude(id__in= route_boats).delete()
 
     return redirect(f'/rotas/{route_id}')
+
+@require_POST
+def boat_creation(request):
+    name = request.POST.get('name')
+    supplier = CustomUser.objects.get(id= request.POST.get('supplier'))
+
+    Boat.objects.create(
+        name= name,
+        supplier= supplier
+    )
+
+    return redirect(reverse('route:boats')) 
