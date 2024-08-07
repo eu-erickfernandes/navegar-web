@@ -4,8 +4,9 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 
+from apps.authentication.models import CustomUser
 from apps.authentication.decorators import required_user_roles
-from .models import City, RouteBoatWeekday, Route, Boat, RouteBoat
+from .models import City, RouteBoatWeekday, Route, Boat
 
 @login_required
 @required_user_roles('A')
@@ -76,11 +77,14 @@ def route(request, route_id):
 
 
 @login_required
+@required_user_roles('A')
 def boats(request):
+    suppliers = CustomUser.objects.filter(is_superuser= False, role='S').order_by('name')
     boats = Boat.objects.all()
 
     return render(request, 'route/boats.html', {
-        'boats': boats
+        'boats': boats,
+        'suppliers': suppliers,
     })
 
 

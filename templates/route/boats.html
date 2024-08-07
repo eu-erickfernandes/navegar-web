@@ -7,13 +7,46 @@
 {% endblock %}
 
 {% block content %}
+    {% include '../partials/_page-header.html' with title='Embarcações' back_link='/' %}
+
     <main>
+        <form class="container" action="{% url 'route:boat_creation' %}" method="POST">
+            {% csrf_token %}
+            <input
+                data-boat-search
+                id="name"
+                name="name"
+                placeholder="Nome da embarcação"    
+                required
+                type="text"
+            >
+
+            <select name="supplier" id="supplier" required>
+                <option value="" disabled selected>Fornecedor</option>
+
+                {% for supplier in suppliers %}
+                    <option value="{{ supplier.id }}">{{ supplier.name }}</option>
+                {% endfor %}
+            </select>
+
+            <button class="button link add" type="submit">Adicionar embarcação</button>
+        </form>
+
+        <!-- <div class="container">
+            <a href="{% url 'route:add' %}" class="button link add">Adicionar rota</a>
+        </div> -->
+
         <ul>
             {% for boat in boats %}
-                <li>
-                    <a href="#">{{ boat }}</a>
+                <li class="container" data-boat-item="{{ boat.name }}">
+                    <p class="fs-md fw-bd">{{ boat.name }}</p>
+                    <span class="clr-primary fs-sm fw-bd">{{ boat.supplier.name }}</span>
                 </li>
             {% endfor %}
         </ul>
     </main>
+{% endblock %}
+
+{% block js_template %}
+    <script src="{% static 'js/templates/route/boat.js' %}"></script>
 {% endblock %}
