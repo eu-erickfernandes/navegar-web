@@ -40,6 +40,10 @@ select{
     }
 }
 
+input[type="file"]{
+    display: none;
+}
+
 ::selection{
     background-color: var(--clr-primary-dark);
     color: var(--clr-white);

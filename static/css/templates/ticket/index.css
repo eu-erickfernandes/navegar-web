@@ -1,20 +1,6 @@
 .ticket-list li {
     padding: 1rem;
 
-    p{
-        font-size: .875rem;
-        font-weight: 600;
-    }
-
-    .ticket-route{
-        text-transform: uppercase;
-    }
-
-    span{
-        color: var(--clr-text-light);
-        font-size: .75rem;
-    }
-
     .ticket-links{
         display: flex;
         gap: .5rem;

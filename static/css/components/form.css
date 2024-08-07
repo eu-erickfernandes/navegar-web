@@ -1,4 +1,4 @@
-form{
+form:not(.discreet){
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -7,5 +7,25 @@ form{
 
     label{
         font-size: .875rem;
+    }
+}
+
+
+main{
+    --submit-navbar-height: 5rem;
+    padding-bottom: calc(var(--submit-navbar-height) + 1rem);
+}
+
+.discreet{
+    .submit-navbar{
+        bottom: 0;
+        height: var(--submit-navbar-height);
+        left: 0;
+        position: fixed;
+        z-index: 1;
+    }
+
+    &:has(:invalid) .submit-navbar{
+        display: none;
     }
 }

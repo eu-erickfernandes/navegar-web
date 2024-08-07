@@ -2,6 +2,7 @@ from datetime import datetime
 from datetime import timedelta
 
 from django.db import models
+from django.conf import settings
 
 from apps.authentication.models import CustomUser
 from apps.route.models import Boat, City
@@ -33,6 +34,7 @@ class Ticket(models.Model):
     STATUS_CHOICES= [
         ('pending', 'Pendente'),
         ('paid', 'Pago'),
+        ('cancelled', 'Cancelado'),
     ]
 
     created_at = models.DateTimeField(default= datetime.now)
@@ -55,11 +57,14 @@ class Ticket(models.Model):
     cost = models.DecimalField(max_digits= 10, decimal_places= 2)
     price = models.DecimalField(max_digits= 10, decimal_places= 2)
 
+    file = models.FileField(upload_to= 'ticket_files/', blank= True, null= True)
+
     status = models.CharField(max_length= 20, choices= STATUS_CHOICES, default= 'pending')
 
     def __str__(self):
         return f'{self.date}: {self.origin} - {self.destination} - {"PASSENGER" if self.passenger else "CARGO"} - CREATED AT {self.created_at}'
     
+    @property
     def arrival_date(self):
         return self.date + timedelta(days=1) if self.next_day else self.date
 

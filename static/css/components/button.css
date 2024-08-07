@@ -49,13 +49,31 @@
         padding-inline: .75rem;
         width: fit-content;
 
-        &.add::before{
+        &.red{
+            background-color: var(--clr-red-light);
+            color: var(--clr-red-dark);
+        }
+
+        &.add::before,
+        &.download::before,
+        &.upload::before{
             aspect-ratio: 1;
-            background-image: url(../../icons/buttons/add-link.svg);
             content: '';
             display: block;
             height: .75rem;
             width: auto;
+        }
+
+        &.add::before{
+            background-image: url('../../icons/buttons/add-link.svg');
+        }
+
+        &.download::before{
+            background-image: url('../../icons/file_save.svg');
+        }
+
+        &.upload::before{
+            background-image: url('../../icons/buttons/upload.svg');
         }
     }
 
@@ -86,6 +104,6 @@
     }
 }
 
-a:has(.button){
+a:has(.button:not(.link)){
     width: 100%;
 }

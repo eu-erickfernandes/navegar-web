@@ -41,6 +41,23 @@ def add(request, route_boat_weekday_id, date):
 
 
 @login_required
+def ticket(request, ticket_id):
+    try:
+        ticket = Ticket.objects.get(id= ticket_id)
+        ticket_cargo = None
+
+        if not ticket.passenger:
+            ticket_cargo = Cargo.objects.get(ticket= ticket)
+    except:
+        return redirect(reverse('ticket:index'))
+    
+    return render(request, 'ticket/ticket.html', {
+        'ticket': ticket,
+        'ticket_cargo': ticket_cargo
+    })
+
+
+@login_required
 def pdf(request, ticket_id):
     try:
         ticket = Ticket.objects.get(id= ticket_id)

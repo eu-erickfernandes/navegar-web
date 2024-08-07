@@ -1,16 +1,33 @@
-const inputs = document.querySelectorAll(':is(input, select)')
+// const inputs = document.querySelectorAll(':is(input, select)')
 
-const toogleTouchedClass = (event) => {
-    event.target.classList.add('touched')
+// const toogleTouchedClass = (event) => {
+//     event.target.classList.add('touched')
+// }
+
+// const initialize = (input) => {
+//     input.addEventListener('blur', toogleTouchedClass)
+// }
+
+// if(inputs){
+//     inputs.forEach(initialize)
+// }
+
+// FILE INPUTS
+
+const fileInputs = document.querySelectorAll('input[type="file"]')
+
+const toogleLabel = (event) => {
+    const input = event.target
+    const label = document.querySelector(`label[for="${input.id}"]`)
+
+    if(label){
+        label.textContent = input.files[0].name
+    }
 }
 
-const initialize = (input) => {
-    input.addEventListener('blur', toogleTouchedClass)
-
-    if(input.type == 'file')
-        input.addEventListener('change', toogleTouchedClass)
+const initializeFileInputs = (input) => {
+    input.addEventListener('change', toogleLabel)
 }
 
-if(inputs){
-    inputs.forEach(initialize)
-}
+if(fileInputs)
+    fileInputs.forEach(initializeFileInputs)

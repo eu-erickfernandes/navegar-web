@@ -17,22 +17,61 @@
         <ul class="ticket-list">
             {% for ticket in tickets %}
                 <li class="group">
-                    <p class="boat-label">{{ ticket.boat }}</p>
-                    <p class="ticket-route">{{ ticket.origin }} -> {{ ticket.destination }}</p>
-                    <span>{{ ticket.date }}</span>
-
-                    {% if ticket.passenger %}
-                        <span>{{ ticket.passenger.name }}</span>
-                    {% else %}
-                        <span>CARGA</span>
+                    {% if ticket.status == 'pending' %}
+                        <span class="badge yellow">Pendente</span>
+                    {% elif ticket.status == 'paid' %}
+                        <span class="badge green">Pago</span>
+                    {% elif ticket.status == 'cancelled' %}
+                        <span class="badge red">Cancelado</span>
                     {% endif %}
 
-                    <div class="ticket-links">
-                        <a href="#">Ver mais</a>
-                        <a class="download" href="{% url 'ticket:pdf' ticket.id %}" download>Download</a>
+                    <p class="boat-label fs-md fw-bd">{{ ticket.boat }}</p>
+                    <p class="ticket-route fs-md fw-bd">{{ ticket.origin|upper }} -> {{ ticket.destination|upper  }}</p>
+                    <span class="fs-sm clr-text-light">{{ ticket.date }}</span>
+
+                    {% if ticket.passenger %}
+                        <span class="fs-sm clr-text-light">{{ ticket.passenger.name }}</span>
+                    {% else %}
+                        <span class="fs-sm clr-text-light">CARGA</span>
+                    {% endif %}
+
+                    <div class="group row">
+                        <a href="{% url 'ticket:ticket' ticket.id %}" class="button link">Ver mais</a>
+
+                        {% if ticket.status != 'cancelled' %}
+                            {% if ticket.boat.supplier.upload_ticket %}
+                                {% if ticket.file %}
+                                    <a class="button link download" href="{% url 'ticket:pdf' ticket.id %}" download>Download</a>
+                                {% else %}
+                                    <form 
+                                        action="{% url 'ticket:ticket_upload' ticket.id %}" 
+                                        class="discreet ticket-upload-form" 
+                                        enctype="multipart/form-data" 
+                                        method="POST"
+                                    >
+                                        {% csrf_token %}
+
+                                        <label for="file" class="button link upload">Anexar bilhete</label>
+
+                                        <input 
+                                            id="file" 
+                                            type="file"
+                                            name="file"
+                                            required
+                                        >
+
+                                        <div class="container lg submit-navbar">
+                                            <button class="button">Salvar bilhete</button>
+                                        </div>
+                                    </form>
+                                {% endif %}
+                            {% else %}
+                                <a class="button link download" href="{% url 'ticket:pdf' ticket.id %}" download>Download</a>
+                            {% endif %}
+                        {% endif %}
                     </div>
 
-                    <span>Criado em {{ ticket.created_at }}</span>
+                    <span class="fs-sm fw-bd clr-text-light">Criado em {{ ticket.created_at }}</span>
                 </li>
             {% endfor %}
         </ul>
