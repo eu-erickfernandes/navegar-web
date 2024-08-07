@@ -150,3 +150,36 @@ def ticket_creation(request, route_boat_weekday_id, date):
         message = new_ticket_message(request, ticket)
         # response = send_message('556899546899', message)
     return redirect(reverse('ticket:index'))
+
+
+@require_POST
+def ticket_upload(request, ticket_id):
+    ticket = Ticket.objects.get(id= ticket_id)
+
+    file = request.FILES.get('file')
+    file.name = f'/ticket_{ticket.id}/{file.name}'
+    ticket.file = file
+    ticket.save()
+
+    return redirect(f'/passagens/passagem/{ticket_id}/')
+
+
+@require_POST
+def ticket_update(request, ticket_id, new_status):
+    ticket = Ticket.objects.get(id= ticket_id)
+
+    ticket.status = new_status
+    
+    ticket.save()
+    
+    return redirect(f'/passagens/passagem/{ticket_id}/')
+
+
+@require_POST
+def ticket_check(request, ticket_id):
+    ticket = Ticket.objects.get(id= ticket_id)
+
+    ticket.status = 'paid'
+    ticket.save()
+
+    return redirect(f'/passagens/passagem/{ticket_id}/')

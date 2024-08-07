@@ -1,0 +1,125 @@
+{% extends '../partials/_base.html' %}
+
+{% load static %}
+
+{% block title %}
+    {{ ticket.boat }} - 
+
+    {% if ticket.passenger %} 
+        {{ ticket.passenger.name }} 
+    {% else %} 
+        CARGA 
+    {% endif %} - 
+
+    {{ticket.date}} - 
+    {{ ticket.origin }} - 
+    {{ ticket.destination }}
+{% endblock %}
+
+{% block css_template %}
+    <link rel="stylesheet" href="{% static 'css/templates/ticket/ticket.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include '../partials/_page-header.html' with title='Passagem' back_link='/passagens' %}
+
+    <main>
+        <div class="container">
+            {% if ticket.status == 'pending' %}
+                <p class="badge yellow">Pendente</p>
+            {% elif ticket.status == 'paid' %}
+                <p class="badge green">Pago</p>
+            {% elif ticket.status == 'cancelled' %}
+                <p class="badge red">Cancelado</p>
+            {% endif %}
+
+            <p class="boat-label">{{ ticket.boat }}</p>
+
+            <div class="group sm">
+                <h2 class="fw-bd">{{ ticket.origin }} -> {{ ticket.destination }}</h2>
+
+                <div class="group row lg">
+                    <span class="fs-sm fw-bd clr-text-light">{{ ticket.date }}</span>
+
+                    <span class="fs-sm fw-bd clr-text-light">{{ ticket.departure_time }} - {{ ticket.arrival_time }} {% if ticket.next_day %} (Dia seguinte) {% endif %}</span>
+                </div>
+            </div>
+
+            <p class="clr-primary fw-bd fs-sm">{{ ticket.price }}</p>
+        </div>
+
+        <div class="container">
+            <div class="group sm">
+                {% if ticket.passenger %}
+                    <span class="fw-bd fs-sm clr-text-light">{{ ticket.passenger.name }}</span>
+                    <span class="fw-bd fs-sm clr-text-light">{{ ticket.passenger.cpf|default:'CPF: NA' }} - {{ ticket.passenger.rg|default:'RG: NA' }} - {{ ticket.passenger.birth_date|default:'Nascimento: NA' }}</span>
+                {% else %}
+                    <span class="fw-bd fs-sm clr-text-light">CARGA: {{ ticket.cargo.weight }}</span>
+                    <span class="fw-bd fs-sm clr-text-light">{{ ticket.cargo.description }}</span>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if ticket.status != 'cancelled' %}
+            <div class="container">
+                <div class="group row">
+                    {% if ticket.boat.supplier.upload_ticket %}
+                        {% if ticket.file %}
+                            <a class="button link download" href="{{ ticket.file.url }}" download>Download</a>
+                        {% else %}
+                            <form 
+                                action="{% url 'ticket:ticket_upload' ticket.id %}" 
+                                class="discreet ticket-upload-form" 
+                                enctype="multipart/form-data" 
+                                method="POST"
+                            >
+                                {% csrf_token %}
+
+                                <label for="file" class="button link upload">Anexar bilhete</label>
+
+                                <input 
+                                    id="file" 
+                                    type="file"
+                                    name="file"
+                                    required
+                                >
+
+                                <div class="container lg submit-navbar">
+                                    <button class="button" type="submit">Salvar bilhete</button>
+                                </div>
+                            </form>
+                        {% endif %}
+                    {% else %}
+                        <a href="{% url 'ticket:pdf' ticket.id %}" class="button link download" download>Download</a>
+                    {% endif %}
+
+                    
+                    {% if ticket.status == 'pending' or ticket.status == 'paid' %}
+                        <form class="discreet" action="{% url 'ticket:ticket_update' ticket.id 'cancelled' %}" method="POST">
+                            {% csrf_token %}
+
+                            <button class="button link red" type="submit" name="ticket" value="{{ ticket.id }}">Cancelar passagem</button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if ticket.status == 'pending' and request.user.role == 'A' %}
+                <div class="container">
+                    <form action="{% url 'ticket:ticket_check' ticket.id %}" class="discreet" method="POST">
+                        {% csrf_token %}
+
+                        <div class="checkbox">
+                            <input type="checkbox" id="status_update" name="{{ ticket.iod }}">
+                            <label for="status_update">Marcar como pago</label>
+                        </div>
+
+                        <div class="container lg submit-navbar">
+                            <button class="button">Salvar alterações</button>
+                        </div>
+                    </form>
+                </div>
+            {% endif %}
+        {% endif %}
+    </main>
+{% endblock %}

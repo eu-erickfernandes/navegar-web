@@ -116,7 +116,9 @@
                     </tbody>
                 </table>
 
-                <button type="submit">MARCAR COMO PAGO</button>
+                {% if request.user.role == 'A' %}
+                    <button type="submit">MARCAR COMO PAGO</button>
+                {% endif %}
             </form>
         {% endfor %}
     </main>

@@ -19,7 +19,7 @@ def dashboard(request):
         searched_month = request.GET.get('month')
         main_date = datetime(int(searched_month.split('-')[0]), int(searched_month.split('-')[1]), 1)
 
-    tickets = Ticket.objects.filter(created_at__year= main_date.year, created_at__month= main_date.month)
+    tickets = Ticket.objects.filter(created_at__year= main_date.year, created_at__month= main_date.month).exclude(status= 'cancelled')
 
     days = []
 

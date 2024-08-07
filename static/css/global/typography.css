@@ -91,4 +91,14 @@ body{
         background-color: var(--clr-green-dark);
         color: var(--clr-white);
     }
+
+    &.red{
+        background-color: var(--clr-red-dark);
+        color: var(--clr-white);
+    }
+
+    &.yellow{
+        background-color: var(--clr-yellow);
+        color: var(--clr-text);
+    }
 }
