@@ -24,8 +24,9 @@ def dashboard(request):
     days = []
 
     total_paid = round(tickets.filter(status= 'paid').aggregate(Sum('price')).get('price__sum'), 2) if tickets.filter(status= 'paid').count() > 0 else Decimal(0.0)
-    total_pending = round(tickets.filter(status= 'pending').aggregate(Sum('price')).get('price__sum'), 2) if tickets.filter(status= 'pending').count() > 0 else Decimal(0.0)
     total_profit = round(total_paid * PROFIT_MARGIN, 2) 
+    total_pending = round(tickets.filter(status= 'pending').aggregate(Sum('price')).get('price__sum'), 2) if tickets.filter(status= 'pending').count() > 0 else Decimal(0.0)
+    total_pending_profit = round(total_pending * PROFIT_MARGIN, 2) 
     
     if tickets.count() > 0:
         days_list = tickets.dates('created_at', 'day', order= 'DESC')
@@ -37,6 +38,8 @@ def dashboard(request):
                 day_total_pending = round(day_tickets.filter(status= 'pending').aggregate(Sum('price')).get('price__sum'), 2)
             except:
                 day_total_pending = Decimal(0.0)
+
+            day_total_pending_profit = round(day_total_pending * PROFIT_MARGIN, 2)
 
             try:
                 day_total_paid = round(day_tickets.filter(status= 'paid').aggregate(Sum('price')).get('price__sum'), 2)
@@ -51,6 +54,7 @@ def dashboard(request):
                     'total_profit': day_total_profit,
                     'total_paid': day_total_paid,
                     'total_pending': day_total_pending,
+                    'total_pending_profit': day_total_pending_profit,
                     'tickets': tickets.filter(created_at__day= day.day)
                 }
             )
@@ -61,6 +65,7 @@ def dashboard(request):
         'main_date': main_date,
         'total_paid': total_paid,
         'total_pending': total_pending,
+        'total_pending_profit': total_pending_profit,
         'total_profit': total_profit,
         'tickets': tickets,
     })

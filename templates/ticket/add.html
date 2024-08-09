@@ -81,7 +81,9 @@
 
                                         <label for="radio-passenger-{{ passenger.id }}" class="group">
                                             <span>{{ passenger.name }}</span>
-                                            <span>CPF: {{ passenger.cpf }}</span>
+                                            <span class="fs-sm fw-bd clr-text-light">Nascimento: {{ passenger.birth_date|default:'N/A' }}</span>
+                                            <span class="fs-sm fw-bd clr-text-light">CPF: {{ passenger.cpf|default:'N/A' }}</span>
+                                            <span class="fs-sm fw-bd clr-text-light">RG: {{ passenger.rg|default:'N/A' }}</span>
                                         </label>
                                     </li>
                                 {% endfor %}
@@ -95,14 +97,6 @@
                             placeholder="Data de Nascimento"
                             type="text" 
                         >
-    
-                        <!-- <div class="radio-control sm">
-                            <input type="radio" id="identification-type-cpf" name="identification_type" value="cpf" checked>
-                            <label for="identification-type-cpf">CPF</label>
-                            
-                            <input type="radio" id="identification-type-rg" name="identification_type" value="rg">
-                            <label for="identification-type-rg">RG</label>
-                        </div> -->
     
                         <input 
                             data-mask="cpf"
