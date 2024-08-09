@@ -25,7 +25,7 @@
 
                     <div class="group">
                         <div class="data">
-                            <span class="name">{{ user.name }}</span>
+                            <a href="{% url 'authentication:user' user.id %}" class="name">{{ user.name }}</a>
                             <span>{{ user.email }}</span>
                             <span>{{ user.phone }}</span>
                         </div>

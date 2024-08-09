@@ -10,12 +10,6 @@ form:not(.discreet){
     }
 }
 
-
-main{
-    --submit-navbar-height: 5rem;
-    padding-bottom: calc(var(--submit-navbar-height) + 1rem);
-}
-
 .discreet{
     .submit-navbar{
         bottom: 0;
