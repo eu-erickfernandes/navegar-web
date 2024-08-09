@@ -82,8 +82,6 @@ def user_login(request):
     elif auth_type == 'phone':
         phone = sub('\D', '', request.POST.get('phone'))
 
-        print(phone)
-
         try:    
             email = CustomUser.objects.get(phone= phone).email
         except:
@@ -105,3 +103,34 @@ def user_login(request):
         'error_messages': error_messages,
         'login': True
     })
+
+
+@require_POST
+def user_update(request, user_id):
+    user = CustomUser.objects.get(id= user_id)
+    print(user)    
+
+    role = request.POST.get('role')
+
+    name = request.POST.get('name')
+    cpf = request.POST.get('cpf')
+    birth_date = date_format(request.POST.get('birth_date'))
+    email = request.POST.get('email')
+    phone = request.POST.get('phone')
+
+    user.role = role
+    user.name = name
+    user.cpf = cpf if len(cpf) else None
+    user.birth_date = birth_date if len(birth_date) else None
+    user.email = email if len(email) else None
+    user.phone = phone if len(phone) else None
+
+    if role == 'S':
+        upload_ticket = request.POST.get('upload_ticket')
+        user.upload_ticket = upload_ticket
+    else:
+        user.upload_ticket = False
+
+    user.save()
+
+    return redirect(f'/usuario/{user_id}/')
