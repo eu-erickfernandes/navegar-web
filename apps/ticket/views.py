@@ -52,6 +52,7 @@ def ticket(request, ticket_id):
         return redirect(reverse('ticket:index'))
     
     return render(request, 'ticket/ticket.html', {
+        'hidden_navbar': True,
         'ticket': ticket,
         'ticket_cargo': ticket_cargo
     })

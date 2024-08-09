@@ -1,0 +1,109 @@
+{% extends '../partials/_base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Usuário
+{% endblock %}
+
+{% block css_template %}
+    <link rel="stylesheet" href="{% static 'css/templates/authentication/user.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include '../partials/_page-header.html' with title='Usuário' back_link='/usuario/' %}
+
+    <main>
+        <form method="POST" action="{% url 'authentication:user_update' user.id %}">
+            {% csrf_token %}
+
+            <div class="radio-control">
+                {% for role in roles %}
+                    <input 
+                        {% if role.0 == user.role %} checked {% endif %}
+                        data-role-radio
+                        id="radio-role-{{ role.0 }}"
+                        name="role" 
+                        type="radio"
+                        value="{{ role.0 }}"
+                    >
+
+                    <label for="radio-role-{{ role.0 }}">{{ role.1 }}</label>
+                {% endfor %}
+            </div>
+
+            <input
+                id="name"
+                maxlength="100"
+                name="name" 
+                placeholder="Nome completo"
+                required
+                type="text"
+                value="{{ user.name }}" 
+            >
+
+            <input 
+                data-mask="cpf" 
+                id="cpf" 
+                name="cpf" 
+                placeholder="CPF" 
+                type="text" 
+                value="{{ user.cpf }}" 
+            >
+
+            <input 
+                data-mask="date" 
+                id="birth-date" 
+                name="birth_date" 
+                placeholder="Data de Nascimento" 
+                type="text" 
+                value="{{ user.birth_date|date:'SHORT_DATE_FORMAT' }}" 
+            >
+
+            <input 
+                id="email" 
+                maxlength="100" 
+                name="email" 
+                placeholder="E-mail" 
+                type="email" 
+                value="{{ user.email }}" 
+            >
+
+            <input 
+                id="phone" 
+                name="phone" 
+                placeholder="Telefone" 
+                type="text" 
+                value="{{ user.phone }}" 
+            >
+
+            <div class="radio-control" data-upload-ticket-control>
+                <input 
+                    {% if not user.upload_ticket %} checked {% endif %}
+                    id="radio-upload-ticket-false"
+                    name="upload_ticket" 
+                    type="radio"
+                    value="False"
+                >
+                <label for="radio-upload-ticket-false">Voucher</label>
+
+                <input 
+                    {% if user.upload_ticket %} checked {% endif %}
+                    id="radio-upload-ticket-true"
+                    name="upload_ticket" 
+                    type="radio"
+                    value="True"
+                >
+                <label for="radio-upload-ticket-true">Bilhete</label>
+            </div>
+
+            <div class="container submit-navbar">
+                <button class="button" type="submit">Salvar alterações</button>
+            </div>
+        </form>
+    </main>
+{% endblock %}
+
+{% block js_template %}
+    <script src="{% static 'js/templates/authentication/user.js' %}"></script>
+{% endblock %}

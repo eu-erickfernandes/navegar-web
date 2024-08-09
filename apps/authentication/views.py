@@ -18,6 +18,7 @@ def signin(request):
     return render(request, 'authentication/auth.html', {'login': login})
 
 
+@login_required
 def user_logout(request):
     logout(request)
 
@@ -34,6 +35,33 @@ def panel(request):
 def index(request):
     users = CustomUser.objects.all().exclude(is_superuser= True)
 
-    return render(request, 'authentication/index.html',{
+    return render(request, 'authentication/index.html', {
         'users': users
+    })
+
+
+@login_required
+@required_user_roles('A')
+def user(request, user_id):
+    try:
+        user = CustomUser.objects.get(id= user_id)
+    except:
+        return redirect(reverse('authentication:index'))
+    
+    roles = []
+
+    for role in CustomUser.ROLE_CHOICES:
+        if role[0] == 'A':
+            roles.append(('A', 'Administrador'))
+
+        if role[0] == 'S':
+            roles.append(('S', 'Fornecedor'))
+
+        if role[0] == 'C':
+            roles.append(('C', 'Cliente'))
+
+    return render(request, 'authentication/user.html', {
+        'hidden_navbar': True,
+        'user': user,
+        'roles': roles
     })
