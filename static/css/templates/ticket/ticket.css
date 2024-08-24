@@ -4,14 +4,6 @@ main{
 }
 
 .discreet{
-    .submit-navbar{
-        bottom: 0;
-        height: var(--submit-navbar-height);
-        left: 0;
-        position: fixed;
-        z-index: 1;
-    }
-
     &:has(:invalid) .submit-navbar{
         display: none;
     }

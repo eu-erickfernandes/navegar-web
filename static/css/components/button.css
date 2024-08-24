@@ -54,6 +54,11 @@
             color: var(--clr-red-dark);
         }
 
+        &.yellow{
+            background-color: var(--clr-yellow-light);
+            color: var(--clr-text);
+        }
+
         &.add::before,
         &.download::before,
         &.upload::before{

@@ -177,6 +177,7 @@ def ticket_update(request, ticket_id, new_status):
 
 @require_POST
 def ticket_check(request, ticket_id):
+    print(ticket_id)
     ticket = Ticket.objects.get(id= ticket_id)
 
     ticket.status = 'paid'
