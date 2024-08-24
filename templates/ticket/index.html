@@ -28,12 +28,18 @@
         <ul class="ticket-list">
             {% for ticket in tickets %}
                 <li class="group">
-                    {% if ticket.status == 'pending' %}
-                        <span class="badge yellow">Pendente</span>
-                    {% elif ticket.status == 'paid' %}
-                        <span class="badge green">Pago</span>
+                    {% if ticket.status == 'analyzing' %}
+                        <p class="badge">Em Análise</p>
                     {% elif ticket.status == 'cancelled' %}
-                        <span class="badge red">Cancelado</span>
+                        <p class="badge red">Cancelado</p>
+                    {% elif ticket.status == 'completed' %}
+                        <p class="badge green">Finalizado</p>
+                    {% elif ticket.status == 'no-show' %}
+                        <p class="badge red">NO-SHOW</p>
+                    {% elif ticket.status == 'paid' %}
+                        <p class="badge blue">Pago</p>
+                    {% elif ticket.status == 'pending' %}
+                        <p class="badge yellow">Pendente</p>
                     {% endif %}
 
                     <p class="boat-label fs-md fw-bd">{{ ticket.boat }}</p>

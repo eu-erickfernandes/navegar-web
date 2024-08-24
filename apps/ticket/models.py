@@ -32,9 +32,12 @@ class Cargo(models.Model):
 
 class Ticket(models.Model):
     STATUS_CHOICES= [
-        ('pending', 'Pendente'),
-        ('paid', 'Pago'),
+        ('analyzing', 'Em Análise'),
         ('cancelled', 'Cancelado'),
+        ('completed', 'Finalizado '),
+        ('no-show', 'NO-SHOW'),
+        ('paid', 'Pago'),
+        ('pending', 'Pendente'),
     ]
 
     created_at = models.DateTimeField(auto_now_add= True)
