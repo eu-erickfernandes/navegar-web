@@ -14,10 +14,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     name = models.CharField(max_length= 100)
     birth_date = models.DateField(null= True)
-    cpf = models.CharField(max_length= 14, unique= True, null= True)
+    cpf = models.CharField(max_length= 14, unique= True, null= True, blank= True)
 
     email = models.EmailField(unique= True, null= True)
-    phone = models.CharField(max_length= 16, unique= True)
+    phone = models.CharField(max_length= 16, unique= True, blank= True)
 
     role = models.CharField(max_length=1, choices= ROLE_CHOICES, default= 'P')
     upload_ticket = models.BooleanField(default= False)

@@ -37,7 +37,7 @@ class Ticket(models.Model):
         ('cancelled', 'Cancelado'),
     ]
 
-    created_at = models.DateTimeField(default= datetime.now)
+    created_at = models.DateTimeField(auto_now_add= True)
     created_by = models.ForeignKey(CustomUser, on_delete= models.PROTECT)
 
     passenger = models.ForeignKey(Passenger, on_delete= models.PROTECT, null= True, blank= True)

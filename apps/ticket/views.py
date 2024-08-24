@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.template.loader import get_template
@@ -14,9 +16,19 @@ from services.whatsapp_api import session_status, send_message
 
 @login_required
 def index(request):
-    tickets = Ticket.objects.all().order_by('-created_at')
+    main_date = datetime.now().date()
+    last_month = main_date
+
+    # HANDLING THE ROUTE SEARCH
+    if request.GET.__contains__('month'):
+        searched_month = request.GET.get('month')
+        main_date = datetime(int(searched_month.split('-')[0]), int(searched_month.split('-')[1]), 1)
+        
+    tickets = Ticket.objects.filter(created_at__year= main_date.year, created_at__month= main_date.month)
 
     return render(request, 'ticket/index.html', {
+        'last_month': last_month,
+        'main_date': main_date,
         'tickets': tickets
     })
 
