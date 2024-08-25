@@ -29,6 +29,7 @@ def ticket_creation(request, route_boat_weekday_id, date):
         route_boat_weekday = RouteBoatWeekday.objects.get(id= route_boat_weekday_id)
     except:
         return redirect(f'/passagens/adicionar/{route_boat_weekday_id}/{date}/')
+    print(request.POST)
     
     created_by = request.user
     boat = route_boat_weekday.boat
@@ -85,7 +86,9 @@ def ticket_creation(request, route_boat_weekday_id, date):
                     rebooking= rebooking,
                     
                     cost= cost,
-                    price= price
+                    price= price,
+
+                    status= 'analyzing' if request.POST.get('analyzing') != None else 'pending'
                 )
 
                 message = new_ticket_message(request, ticket)
@@ -116,6 +119,8 @@ def ticket_creation(request, route_boat_weekday_id, date):
                     price= price,
 
                     passenger= passenger,
+
+                    status= 'analyzing' if request.POST.get('analyzing') != None else 'pending'
                 )
 
                 message = new_ticket_message(request, ticket)
@@ -149,6 +154,8 @@ def ticket_creation(request, route_boat_weekday_id, date):
             
             cost= cost,
             price= price,
+
+            status= 'analyzing' if request.POST.get('analyzing') != None else 'pending'
         )
         
         message = new_ticket_message(request, ticket)

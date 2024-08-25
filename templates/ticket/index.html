@@ -56,8 +56,14 @@
 
                     <div class="group row">
                         <a href="{% url 'ticket:ticket' ticket.id %}" class="button link">Ver mais</a>
+                        
+                        {% if ticket.status == 'analyzing' %}
+                            <form class="discreet" action="{% url 'ticket:ticket_status_update' ticket.id 'pending' %}" method="POST">
+                                {% csrf_token %}
 
-                        {% if ticket.status != 'cancelled' %}
+                                <button class="button link" type="submit">Confirmar</button>
+                            </form>
+                        {% elif ticket.status != 'cancelled' %}
                             {% if ticket.boat.supplier.upload_ticket %}
                                 {% if ticket.file %}
                                     <a class="button link download" href="{% url 'ticket:pdf' ticket.id %}" download>Download</a>
