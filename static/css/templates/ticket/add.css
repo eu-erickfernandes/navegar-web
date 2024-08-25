@@ -1,5 +1,5 @@
 main{
-    --submit-navbar-height: 107px;
+    --submit-navbar-height: 168px;
     padding-bottom: calc(var(--submit-navbar-height) + 1rem);
 }
 
