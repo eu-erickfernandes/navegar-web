@@ -20,7 +20,6 @@ class City(models.Model):
 
 class Boat(models.Model):
     supplier = models.ForeignKey(CustomUser, on_delete= models.PROTECT)
-
     name = models.CharField(max_length= 100)
 
     def __str__(self):

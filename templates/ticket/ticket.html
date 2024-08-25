@@ -33,18 +33,24 @@
                         <p class="badge red">Cancelado</p>
                     {% elif ticket.status == 'completed' %}
                         <p class="badge gren">Finalizado</p>
-                    {% elif ticket.status == 'no-show' %}
-                        <p class="badge red">NO-SHOW</p>
                     {% elif ticket.status == 'paid' %}
                         <p class="badge blue">Pago</p>
                     {% elif ticket.status == 'pending' %}
                         <p class="badge yellow">Pendente</p>
                     {% endif %}
 
+                    {% if ticket.no_show %}
+                        <p class="badge red">NO-SHOW</p>
+                    {% endif %}
+
                     <p class="boat-label">{{ ticket.boat }}</p>
 
                     <div class="group sm">
                         <h2 class="fw-bd">{{ ticket.origin }} -> {{ ticket.destination }}</h2>
+
+                        {% if ticket.rebooking %}
+                            <span class="fs-sm fw-bd clr-text-light">REMARCAÇÃO</span>
+                        {% endif %}
 
                         <div class="group row lg">
                             <span class="fs-sm fw-bd clr-text-light">{{ ticket.date }}</span>
@@ -53,7 +59,7 @@
                         </div>
                     </div>
 
-                    <p class="clr-primary fw-bd fs-sm">{{ ticket.price }}</p>
+                    <p class="clr-primary fw-bd fs-sm">{{ ticket.value }}</p>
                 </div>
 
                 <div class="group sm">
@@ -65,19 +71,21 @@
                         <span class="fw-bd fs-sm clr-text-light">{{ ticket.cargo.description }}</span>
                     {% endif %}
                 </div>
+                
+                {% comment %}
+                    {% if ticket.status != 'cancelled' and ticket.no_show %}
+                        <form class="discreet" action="{% url 'ticket:ticket_no_show_toggle' ticket.id %}" method="POST">
+                            {% csrf_token %}
 
-                {% if ticket.status != 'cancelled' and ticket.status != 'no-show' %}
-                    <form class="discreet" action="{% url 'ticket:ticket_update' ticket.id 'no-show' %}" method="POST">
-                        {% csrf_token %}
-
-                        <button class="button link yellow" type="submit" name="ticket" value="{{ ticket.id }}">Marcar NO-SHOW</button>
-                    </form>
-                {% endif %}
+                            <button class="button link yellow" type="submit" name="ticket" value="{{ ticket.id }}">Marcar NO-SHOW</button>
+                        </form>
+                    {% endif %}
+                {% endcomment %}
 
 
                 {% if ticket.status != 'cancelled' %}
                     <div class="group row">
-                        {% if ticket.status != 'no-show' %}
+                        {% if not ticket.no_show %}
                             {% if ticket.boat.supplier.upload_ticket %}
                                 {% if ticket.file %}
                                     <a class="button link download" href="{{ ticket.file.url }}" download>Download</a>
@@ -111,7 +119,7 @@
 
                         
                         {% if ticket.status != 'completed' %}
-                            <form class="discreet" action="{% url 'ticket:ticket_update' ticket.id 'cancelled' %}" method="POST">
+                            <form class="discreet" action="{% url 'ticket:ticket_status_update' ticket.id 'cancelled' %}" method="POST">
                                 {% csrf_token %}
 
                                 <button class="button link red" type="submit" name="ticket" value="{{ ticket.id }}">Cancelar passagem</button>
@@ -120,8 +128,8 @@
                     </div>
                 {% endif %}
 
-                {% if ticket.status == 'pending' or ticket.status == 'no-show' and request.user.role == 'A' %}
-                    <form action="" class="discreet" method="POST">
+                {% if ticket.status == 'pending' or not ticket.no_show and request.user.role == 'A' %}
+                    <form action="{% url 'ticket:ticket_status_update' ticket.id 'paid' %}" class="discreet" method="POST">
                         {% csrf_token %}
 
                         <div class="container lg submit-navbar">

@@ -40,6 +40,7 @@ def ticket_creation(request, route_boat_weekday_id, date):
     next_day = route_boat_weekday.next_day
     cost = route_boat_weekday.cost
     price = route_boat_weekday.price
+    rebooking = request.POST.get('rebooking') != None
 
     ticket_type = request.POST.get('ticket_type')
 
@@ -81,6 +82,7 @@ def ticket_creation(request, route_boat_weekday_id, date):
                     departure_time= departure_time,
                     arrival_time= arrival_time,
                     next_day= next_day,
+                    rebooking= rebooking,
                     
                     cost= cost,
                     price= price
@@ -108,6 +110,7 @@ def ticket_creation(request, route_boat_weekday_id, date):
                     departure_time= departure_time,
                     arrival_time= arrival_time,
                     next_day= next_day,
+                    rebooking= rebooking,
                     
                     cost= cost,
                     price= price,
@@ -142,6 +145,7 @@ def ticket_creation(request, route_boat_weekday_id, date):
             departure_time= departure_time,
             arrival_time= arrival_time,
             next_day= next_day,
+            rebooking= rebooking,
             
             cost= cost,
             price= price,
@@ -165,7 +169,7 @@ def ticket_upload(request, ticket_id):
 
 
 @require_POST
-def ticket_update(request, ticket_id, new_status):
+def ticket_status_update(request, ticket_id, new_status):
     ticket = Ticket.objects.get(id= ticket_id)
 
     ticket.status = new_status
@@ -176,11 +180,10 @@ def ticket_update(request, ticket_id, new_status):
 
 
 @require_POST
-def ticket_check(request, ticket_id):
-    print(ticket_id)
+def ticket_no_show_toggle(request, ticket_id):
     ticket = Ticket.objects.get(id= ticket_id)
 
-    ticket.status = 'paid'
+    ticket.no_show = True
     ticket.save()
-
+    
     return redirect(f'/passagens/passagem/{ticket_id}/')

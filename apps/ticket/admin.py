@@ -4,7 +4,7 @@ from .models import Ticket, Passenger, Cargo
 
 # Register your models here.
 class TicketAdmin(admin.ModelAdmin):
-    list_display = ('created_at', 'created_by', 'origin', 'destination', 'passenger', 'cargo')
+    list_display = ('created_at', 'created_by', 'rebooking', 'no_show', 'status', 'origin', 'destination', 'passenger', 'cargo')
 
 admin.site.register(Ticket, TicketAdmin)
 
