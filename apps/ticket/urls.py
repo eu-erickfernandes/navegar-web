@@ -14,8 +14,7 @@ urlpatterns = [
 
     # ACTIONS
     path('ticket_creation/<int:route_boat_weekday_id>/<slug:date>/', ticket_creation, name= 'ticket_creation'),
-    # path('ticket_cancellation/<int:ticket_id>/', ticket_cancellation, name= 'ticket_cancellation'),
-    path('ticket_check/<int:ticket_id>/', ticket_check, name= 'ticket_check'),
     path('ticket_upload/<int:ticket_id>/', ticket_upload, name= 'ticket_upload'),
-    path('ticket_update/<int:ticket_id>/<str:new_status>', ticket_update, name= 'ticket_update'),
+    path('ticket_status_update/<int:ticket_id>/<str:new_status>/', ticket_status_update, name= 'ticket_status_update'),
+    path('ticket_no_show_toggle/<int:ticket_id>/', ticket_no_show_toggle, name= 'ticket_no_show_toggle'),
 ]

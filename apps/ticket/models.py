@@ -1,11 +1,12 @@
 from datetime import datetime
 from datetime import timedelta
+from decimal import Decimal
 
 from django.db import models
 from django.conf import settings
 
 from apps.authentication.models import CustomUser
-from apps.route.models import Boat, City
+from apps.route.models import Boat, City, PROFIT_MARGIN
 
 class Passenger(models.Model):
     name = models.CharField(max_length= 100)
@@ -35,7 +36,6 @@ class Ticket(models.Model):
         ('analyzing', 'Em Análise'),
         ('cancelled', 'Cancelado'),
         ('completed', 'Finalizado '),
-        ('no-show', 'NO-SHOW'),
         ('paid', 'Pago'),
         ('pending', 'Pendente'),
     ]
@@ -64,12 +64,25 @@ class Ticket(models.Model):
 
     status = models.CharField(max_length= 20, choices= STATUS_CHOICES, default= 'pending')
 
+    rebooking = models.BooleanField(default= False)
+    no_show = models.BooleanField(default= False)
+
     def __str__(self):
         return f'{self.date}: {self.origin} - {self.destination} - {"PASSENGER" if self.passenger else "CARGO"} - CREATED AT {self.created_at}'
     
     @property
     def arrival_date(self):
         return self.date + timedelta(days=1) if self.next_day else self.date
+    
+    @property
+    def value(self):
+        if self.rebooking:
+            return round(self.price * Decimal(0.10) * (Decimal(1.00) + PROFIT_MARGIN), 2)
+        
+        if self.no_show:
+            return round(self.price * Decimal(0.30) * (Decimal(1.00) + PROFIT_MARGIN), 2)
+        
+        return self.price
 
     def get_translared_status(self):
         for status in self.STATUS_CHOICES:

@@ -34,12 +34,14 @@
                         <p class="badge red">Cancelado</p>
                     {% elif ticket.status == 'completed' %}
                         <p class="badge green">Finalizado</p>
-                    {% elif ticket.status == 'no-show' %}
-                        <p class="badge red">NO-SHOW</p>
                     {% elif ticket.status == 'paid' %}
                         <p class="badge blue">Pago</p>
                     {% elif ticket.status == 'pending' %}
                         <p class="badge yellow">Pendente</p>
+                    {% endif %}
+
+                    {% if ticket.no_show %}
+                        <p class="badge red">NO-SHOW</p>
                     {% endif %}
 
                     <p class="boat-label fs-md fw-bd">{{ ticket.boat }}</p>
@@ -88,7 +90,7 @@
                         {% endif %}
                     </div>
 
-                    <span class="fs-sm fw-bd clr-text-light">Criado em {{ ticket.created_at }}</span>
+                    <span class="fs-sm fw-bd clr-text-light">{% if ticket.rebooking %}REMARCAÇÃO - {% endif %}Criado em {{ ticket.created_at }}</span>
                 </li>
             {% endfor %}
         </ul>

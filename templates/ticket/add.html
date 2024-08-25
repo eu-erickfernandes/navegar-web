@@ -31,6 +31,11 @@
         <form method="POST" action="{% url 'ticket:ticket_creation' route_boat_weekday.id date %}">
             {% csrf_token %}
 
+            <div class="checkbox">
+                <input type="checkbox" id="rebooking" name="rebooking">
+                <label for="rebooking">Remarcação</label>
+            </div>
+
             <div class="radio-control">
                 <input type="radio" id="ticket-type-passenger" name="ticket_type" value="passenger" data-radio-passenger checked>
                 <label for="ticket-type-passenger">Passageiro</label>

@@ -100,15 +100,15 @@
 
                                 <td>
                                     {% if ticket.passenger %}
-                                        PASSAGEM/LANCHA
+                                        PASSAGEM/{% if ticket.rebooking %}REMCARCAÇÃO{% else %}LANCHA{% endif %}
                                     {% else %}
-                                        ENCOMENDA
+                                        ENCOMENDA{% if ticket.rebooking %}/REMCARCAÇÃO{% endif %}
                                     {% endif %}
                                 </td>
 
                                 <td>{{ ticket.origin }} -> {{ ticket.destination }}</td>
                                 <td>{{ ticket.boat }}</td>
-                                <td>R$ {{ ticket.cost }}</td>
+                                <td>R$ {{ ticket.value }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
