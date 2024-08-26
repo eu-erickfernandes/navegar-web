@@ -71,16 +71,6 @@
                         <span class="fw-bd fs-sm clr-text-light">{{ ticket.cargo.description }}</span>
                     {% endif %}
                 </div>
-                
-                {% comment %}
-                    {% if ticket.status != 'cancelled' and ticket.no_show %}
-                        <form class="discreet" action="{% url 'ticket:ticket_no_show_toggle' ticket.id %}" method="POST">
-                            {% csrf_token %}
-
-                            <button class="button link yellow" type="submit" name="ticket" value="{{ ticket.id }}">Marcar NO-SHOW</button>
-                        </form>
-                    {% endif %}
-                {% endcomment %}
 
                 {% if ticket.status == 'analyzing' %}
                     <div class="group row">
