@@ -1,3 +1,6 @@
+const rebookingCheckbox = document.querySelector('[data-rebooking-checkbox]')
+const noShowCheckbox = document.querySelector('[data-no-show-checkbox]')
+
 const radioPassenger = document.querySelector('[data-radio-passenger]')
 const radioCargo = document.querySelector('[data-radio-cargo]')
 
@@ -7,6 +10,16 @@ const groupCargo = document.querySelector('[data-group-cargo]')
 const quantityInput = document.querySelector('[data-quantity-input]')
 const quantityAdd = document.querySelector('[data-quantity-add]')
 const quantityRemove = document.querySelector('[data-quantity-remove]')
+
+rebookingCheckbox.addEventListener('click', () => {
+    if(rebookingCheckbox.checked)
+        noShowCheckbox.checked = false
+})
+
+noShowCheckbox.addEventListener('click', () => {
+    if(noShowCheckbox.checked)
+        rebookingCheckbox.checked = false
+})
 
 // TICKET TYPE CONTROL
 const switchType = () => {

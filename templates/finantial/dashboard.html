@@ -100,9 +100,9 @@
 
                                 <td>
                                     {% if ticket.passenger %}
-                                        PASSAGEM/{% if ticket.rebooking %}REMCARCAÇÃO{% else %}LANCHA{% endif %}
+                                        PASSAGEM/{% if ticket.rebooking %}REMCARCAÇÃO{% elif ticket.no_show %}NO-SHOW{% else %}LANCHA{% endif %}
                                     {% else %}
-                                        ENCOMENDA{% if ticket.rebooking %}/REMCARCAÇÃO{% endif %}
+                                        ENCOMENDA{% if ticket.rebooking %}/REMCARCAÇÃO{% elif ticket.no_show %}/NO-SHOW{% endif %}
                                     {% endif %}
                                 </td>
 

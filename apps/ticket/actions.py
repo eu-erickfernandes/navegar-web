@@ -42,6 +42,7 @@ def ticket_creation(request, route_boat_weekday_id, date):
     cost = route_boat_weekday.cost
     price = route_boat_weekday.price
     rebooking = request.POST.get('rebooking') != None
+    no_show = request.POST.get('no_show') != None
 
     ticket_type = request.POST.get('ticket_type')
 
@@ -84,6 +85,7 @@ def ticket_creation(request, route_boat_weekday_id, date):
                     arrival_time= arrival_time,
                     next_day= next_day,
                     rebooking= rebooking,
+                    no_show= no_show,
                     
                     cost= cost,
                     price= price,
@@ -114,6 +116,7 @@ def ticket_creation(request, route_boat_weekday_id, date):
                     arrival_time= arrival_time,
                     next_day= next_day,
                     rebooking= rebooking,
+                    no_show= no_show,
                     
                     cost= cost,
                     price= price,
@@ -151,6 +154,7 @@ def ticket_creation(request, route_boat_weekday_id, date):
             arrival_time= arrival_time,
             next_day= next_day,
             rebooking= rebooking,
+            no_show= no_show,
             
             cost= cost,
             price= price,
