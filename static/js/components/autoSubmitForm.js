@@ -2,9 +2,12 @@ const forms = document.querySelectorAll('[data-auto-submit-form]')
 
 if(forms.length)
     forms.forEach((form) => {
-        const submitInput = form.querySelector('[data-auto-submit-input]')
+        const submitInputs = form.querySelectorAll('[data-auto-submit-input]')
 
-        submitInput.addEventListener('change', () => {
-            form.submit()
+        submitInputs.forEach((submitInput) => {
+
+            submitInput.addEventListener('change', () => {
+                form.submit()
+            })
         })
     })

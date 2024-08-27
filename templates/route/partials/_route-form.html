@@ -61,7 +61,7 @@
         </div>
     </div>
 
-    <label class="checkbox" for="next-day">
+    <div class="checkbox">
         <input 
             id="next-day"
             name="next_day" 
@@ -70,8 +70,8 @@
             {% if route.next_day %} checked {% endif %}
         >
 
-        <span>Dia seguinte</span>
-    </label>
+        <label for="next-day">Dia seguinte</label>
+    </div>
     
     <input
         id="price"
@@ -151,7 +151,7 @@
 
     <button class="button link add" type="button" data-add-button>Adicionar Embarcação</button>
 
-    <div class="container lg submit-navbar">
+    <div class="submit-navbar">
         <button class="button">Salvar alterações</button>
     </div>
 </form>

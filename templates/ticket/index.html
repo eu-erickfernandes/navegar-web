@@ -35,7 +35,7 @@
                     {% elif ticket.status == 'completed' %}
                         <p class="badge green">Finalizado</p>
                     {% elif ticket.status == 'paid' %}
-                        <p class="badge blue">Pago</p>
+                        <p class="badge green">Pago em {{ ticket.paid_at }}</p>
                     {% elif ticket.status == 'pending' %}
                         <p class="badge yellow">Pendente</p>
                     {% endif %}

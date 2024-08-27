@@ -67,6 +67,8 @@ class Ticket(models.Model):
     rebooking = models.BooleanField(default= False)
     no_show = models.BooleanField(default= False)
 
+    paid_at = models.DateTimeField(default= None, null= True, blank= True)
+
     def __str__(self):
         return f'{self.date}: {self.origin} - {self.destination} - {"PASSENGER" if self.passenger else "CARGO"} - CREATED AT {self.created_at}'
     
@@ -77,10 +79,10 @@ class Ticket(models.Model):
     @property
     def value(self):
         if self.rebooking:
-            return round(self.price * Decimal(0.10) * (Decimal(1.00) + PROFIT_MARGIN), 2)
+            return round(self.price * Decimal(0.10), 2)
         
         if self.no_show:
-            return round(self.price * Decimal(0.30) * (Decimal(1.00) + PROFIT_MARGIN), 2)
+            return round(self.price * Decimal(0.30), 2)
         
         return self.price
 
@@ -88,6 +90,3 @@ class Ticket(models.Model):
         for status in self.STATUS_CHOICES:
             if status[0] == self.status:
                 return status[1]
-            
-    class Meta:
-        ordering = ['-created_at']

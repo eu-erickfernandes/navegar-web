@@ -1,13 +1,73 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from decimal import Decimal
 
-from django.db.models.aggregates import Sum
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
+from apps.authentication.models import CustomUser
 from apps.ticket.models import Ticket
 from apps.route.models import PROFIT_MARGIN
 
+
+@login_required
+def index(request):
+    # Ticket.objects.all().update(status= 'pending', paid_at= None)
+    main_date = datetime.now().date()
+
+    suppliers = CustomUser.objects.filter(role= 'S')
+
+    # HANDLING THE DATE FILTER SUBMIT
+    if request.GET.__contains__('date'):
+        searched_date = request.GET.get('date').split('-')
+        main_date = datetime(int(searched_date[0]), int(searched_date[1]), int(searched_date[2]))
+
+    previous_date = main_date - timedelta(days= 1)
+
+    # HANDLING THE SUPPLIER FILTER SUBMIT
+    searched_supplier = CustomUser.objects.get(id= request.GET.get('supplier')) if request.GET.__contains__('supplier') and request.user.role == 'A' else None
+
+    if searched_supplier:
+        pending_tickets = Ticket.objects.filter(status= 'pending', created_at__date__lt= previous_date, boat__supplier= searched_supplier)
+        paid_tickets = Ticket.objects.filter(status= 'paid', paid_at__date= main_date, boat__supplier= searched_supplier)
+        previous_tickets = Ticket.objects.filter(created_at__date= previous_date, status= 'pending', boat__supplier= searched_supplier)
+    else:
+        pending_tickets = Ticket.objects.filter(status= 'pending', created_at__date__lt= previous_date)
+        paid_tickets = Ticket.objects.filter(status= 'paid', paid_at__date= main_date)
+        previous_tickets = Ticket.objects.filter(created_at__date= previous_date, status= 'pending')
+
+    tickets = pending_tickets.union(previous_tickets).union(paid_tickets)
+
+
+    total = Decimal(0.0)
+    total_paid = Decimal(0.0)
+    total_pending = Decimal(0.0)
+
+    if tickets.count() > 0:
+        for ticket in tickets:
+            total += ticket.value
+
+            if ticket.status in ['paid', 'completed']:
+                total_paid += ticket.value
+            elif ticket.status == 'pending':
+                total_pending += ticket.value 
+ 
+    total_profit = round(total_paid * PROFIT_MARGIN, 2) 
+    total_pending_profit = round(total_pending * PROFIT_MARGIN, 2) 
+
+    customer_total = total_pending + total_pending_profit
+
+    return render(request, 'finantial/index.html', {
+        'customer_total': customer_total,
+        'tickets': tickets,
+        'total': total,
+        'total_paid': total_paid,
+        'total_pending': total_pending,
+        'total_pending_profit': total_pending_profit,
+        'total_profit': total_profit,
+        'main_date': main_date,
+        'searched_supplier': searched_supplier,
+        'suppliers': suppliers,
+    })
 
 @login_required
 def dashboard(request):

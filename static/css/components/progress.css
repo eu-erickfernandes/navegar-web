@@ -1,0 +1,12 @@
+.progress-container{
+    background-color: var(--clr-gray);
+    border-radius: .25rem;
+    height: .5rem;
+    overflow: hidden;
+    width: 100%;
+
+    .progress-bar{
+        background-color: var(--clr-primary);
+        height: 100%;
+    }
+}
