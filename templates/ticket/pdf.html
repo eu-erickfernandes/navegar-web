@@ -51,13 +51,13 @@
 
             <tr>
                 {% if ticket.passenger %}
-                    <td class="costumer-data">{{ ticket.passenger.name }}</td>
-                    <td class="costumer-data">{{ ticket.passenger.birth_date|date:'d/m/Y'|default:"N/A" }}</td>
-                    <td class="costumer-data">{{ ticket.passenger.cpf|default:"N/A" }}</td>
-                    <td class="costumer-data">{{ ticket.passenger.rg|default:"N/A" }}</td>
+                    <td class="customer-data">{{ ticket.passenger.name }}</td>
+                    <td class="customer-data">{{ ticket.passenger.birth_date|date:'d/m/Y'|default:"N/A" }}</td>
+                    <td class="customer-data">{{ ticket.passenger.cpf|default:"N/A" }}</td>
+                    <td class="customer-data">{{ ticket.passenger.rg|default:"N/A" }}</td>
                 {% else %}
-                    <td class="costumer-data">{{ ticket_cargo.description }}</td>
-                    <td class="costumer-data">{{ ticket_cargo.weight }}</td>
+                    <td class="customer-data">{{ ticket_cargo.description }}</td>
+                    <td class="customer-data">{{ ticket_cargo.weight }}</td>
                 {% endif %}
             </tr>
 
@@ -149,7 +149,7 @@
                 text-align: left;
             }
 
-            .ticket-table .costumer-data{
+            .ticket-table .customer-data{
                 padding-top: .25rem;
             }
 

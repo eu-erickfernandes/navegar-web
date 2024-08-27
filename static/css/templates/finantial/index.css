@@ -1,0 +1,21 @@
+.finantial-sheet{
+    tr{
+        background-color: var(--clr-white);
+        transition: background-color .5s;
+        
+        &.paid{
+            background-color: var(--clr-green-light);
+        }
+
+        &:has(input:checked){
+            background-color: var(--clr-primary-light);
+        }
+    }
+
+    .paid-ticket{
+        background-color: var(--clr-green-dark);
+        background-image: url('../../../icons/check-white.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+}

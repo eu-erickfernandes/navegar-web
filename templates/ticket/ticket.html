@@ -110,7 +110,7 @@
                                             required
                                         >
 
-                                        <div class="container lg submit-navbar">
+                                        <div class="submit-navbar">
                                             <button class="button" type="submit">Salvar bilhete</button>
                                         </div>
                                     </form>
@@ -135,7 +135,7 @@
                     <form action="{% url 'ticket:ticket_status_update' ticket.id 'paid' %}" class="discreet" method="POST">
                         {% csrf_token %}
 
-                        <div class="container lg submit-navbar">
+                        <div class="submit-navbar">
                             <button class="button">Marcar como Pago</button>
                         </div>
                     </form>

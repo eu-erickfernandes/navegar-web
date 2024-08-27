@@ -7,6 +7,10 @@ app_name = 'finantial'
 
 urlpatterns = [
     # VIEWS
-    path('', dashboard, name= 'dashboard'),
-    path('ticket_check/', ticket_check, name= 'ticket_check')
+    path('dashboard/', dashboard, name= 'dashboard'),
+    path('', index, name= 'index'),
+    
+    #ACTIONS
+    path('finantial_update/', finantial_update, name= 'finantial_update'),
+    path('ticket_check/', ticket_check, name= 'ticket_check'),
 ]

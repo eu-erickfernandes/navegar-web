@@ -1,16 +1,3 @@
-main{
-    --submit-navbar-height: 5rem;
-    
-    padding-bottom: calc(var(--submit-navbar-height) + 1rem);
-
-    .remove-boat{
-        cursor: pointer;
-    }
-
-    .submit-navbar{
-        bottom: 0;
-        height: var(--submit-navbar-height);
-        left: 0;
-        position: fixed;
-    }
+.remove-boat{
+    cursor: pointer;
 }

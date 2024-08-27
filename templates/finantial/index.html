@@ -1,0 +1,154 @@
+{% extends '../partials/_base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Financeiro
+{% endblock %}
+
+{% block css_template %}
+    <link rel="stylesheet" href="{% static 'css/templates/finantial/index.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include '../partials/_page-header.html' with title='Financeiro' back_link='/' %}
+
+    <main>
+        <form class="container" data-auto-submit-form>
+            <input 
+                data-auto-submit-input
+                id="date"
+                min="2024-05-01"
+                name="date"     
+                required
+                type="date" 
+                value="{{ main_date|date:'Y-m-d' }}"
+            >
+            
+            {% if request.user.role == 'A' %}
+                <select name="supplier" id="supplier" data-auto-submit-input>
+                    <option value="" disabled selected>Fornecedor</option>
+
+                    {% for supplier in suppliers %}
+                        {% if supplier.id == searched_supplier.id %}
+                            <option value="{{ supplier.id }}" selected>{{ supplier.name }}</option>
+                        {% else %}
+                            <option value="{{ supplier.id }}">{{ supplier.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+
+                <a href="{% url 'finantial:index' %}" class="clr-red fs-sm fw-bd">Limpar seleção</a>
+            {% endif %}
+        </form>
+
+        <div class="container lg">
+            <p class="fs-md fw-bd">{{ main_date|date:'l, d \d\e F' }}</p>
+
+            <span class="divider"></span>
+
+            {% if tickets %}
+                <div class="group sm">
+                    {% if request.user.role == 'A' %}
+                        <span class="fs-sm clr-green fw-bd">Lucro: R$ {{ total_profit }}</span>
+
+                        <div class="progress-container" data-progress-total="{{ total }}">
+                            <div class="progress-bar" data-progress-bar="{{ total_paid }}"></div>
+                        </div>
+
+                        <div class="group row space-between">
+                            <span class="fs-sm clr-primary fw-bd">Recebido: R$ {{ total_paid }}</span>
+                            <span class="fs-sm clr-text-light fw-bd">Pendente: R$ {{ total_pending }}</span>
+                        </div>
+                    {% elif request.user.role == 'C' %}
+                        <div class="progress-container" data-progress-total="{{ total }}">
+                            <div class="progress-bar" data-progress-bar="{{ total_paid }}"></div>
+                        </div>
+
+                        <span class="fs-sm clr-text-light fw-bd">A pagar: R$ {{ total_pending }} + R$ {{ total_pending_profit }} (8%) = {{ customer_total }}</span>
+                    {% endif %}
+                </div>
+            {% else %}
+                <span class="fs-sm clr-text-light fw-bd">Nenhuma passagem emitida ou paga nesta data</span>
+            {% endif %}
+        </div>
+        
+        {% if tickets %}
+            <form action="{% url 'finantial:finantial_update' %}" class="discreet" method="POST">
+                {% csrf_token %}
+
+                <table class="sheet finantial-sheet">
+                    <thead>
+                        {% if request.user.role == 'A' %}
+                            <th>
+                                <input type="checkbox" id="mark-all" data-mark-all-checkbox>
+                            </th>
+                        {% endif %}
+
+                        <th>Data inicial</th>
+                        <th>Hora</th>
+                        <th>Data final</th>
+                        <th>Hora</th>
+                        <th>Paxs</th>
+                        <th>Serviço</th>
+                        <th>Descrição</th>
+                        <th>Lancha/Produto</th>
+                        <th>Valor</th>
+                    </thead>
+
+                    <tbody>
+                        {% for ticket in tickets %}
+                            <tr class="{{ ticket.status }}">
+                                {% if request.user.role == 'A' %}
+                                    {% if ticket.status == 'pending' %}
+                                        <td>
+                                            <input 
+                                            type="checkbox"
+                                            name="{{ ticket.id }}"
+                                            >   
+                                        </td>
+                                    {% elif ticket.status == 'paid' %}
+                                        <td class="paid-ticket"></td>
+                                    {% endif %}
+                                {% endif %}
+
+                                <td>{{ ticket.date|date:"SHORT_DATE_FORMAT" }}</td>
+                                <td>{{ ticket.departure_time }}</td>
+                                <td>{{ ticket.arrival_date|date:"SHORT_DATE_FORMAT" }}</td>
+                                <td>{{ ticket.arrival_time }}</td>
+
+                                <td>
+                                    {% if ticket.passenger %}
+                                        {{ ticket.passenger }}
+                                    {% else %}
+                                        {{ ticket.cargo.description }}
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    {% if ticket.passenger %}
+                                        PASSAGEM/{% if ticket.rebooking %}REMCARCAÇÃO{% elif ticket.no_show %}NO-SHOW{% else %}LANCHA{% endif %}
+                                    {% else %}
+                                        ENCOMENDA{% if ticket.rebooking %}/REMCARCAÇÃO{% elif ticket.no_show %}/NO-SHOW{% endif %}
+                                    {% endif %}
+                                </td>
+
+                                <td>{{ ticket.origin }} -> {{ ticket.destination }}</td>
+                                <td>{{ ticket.boat }}</td>
+                                <td>R$ {{ ticket.value }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <div class="submit-navbar hidden" data-submit-navbar>
+                    <button class="button">Salvar alterações</button>
+                </div>
+            </form>
+        {% endif %}
+    </main>
+{% endblock %}
+
+{% block js_template %}
+    <script src="{% static 'js/templates/finantial/index.js' %}"></script>
+{% endblock %}

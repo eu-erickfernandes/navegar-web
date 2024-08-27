@@ -198,33 +198,19 @@ main{
     }
 }
 
-.submit-navbar{
-    align-items: center;
-    background-color: var(--clr-white);
-    bottom: 0;
-    box-sizing: border-box;
+.submit-navbar .cost-info{
     display: grid;
-    height: var(--submit-navbar-height);
-    gap: .75rem;
-    left: 0;
-    padding: 1rem;
-    position: fixed;
-    width: 100%;
+    gap: .5rem;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+    
+    span{
+        font-size: .75rem;
+        font-weight: 600;
+        text-wrap: nowrap;
 
-    .cost-info{
-        display: grid;
-        gap: .5rem;
-        grid-template-columns: 1fr 1fr;
-        justify-content: space-between;
-        
-        span{
-            font-size: .75rem;
-            font-weight: 600;
-            text-wrap: nowrap;
-
-            &:is(:nth-child(even)){
-                text-align: right;
-            }
+        &:is(:nth-child(even)){
+            text-align: right;
         }
     }
 }

@@ -7,7 +7,7 @@ from .managers import CustomUserManager
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     ROLE_CHOICES = [
         ('A', 'Administrator',),
-        ('C', 'Costumer',),
+        ('C', 'Customer',),
         ('P', 'Passenger',),
         ('S', 'Supplier',)
     ]

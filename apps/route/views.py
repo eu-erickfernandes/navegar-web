@@ -13,10 +13,6 @@ from .models import City, RouteBoatWeekday, Route, Boat
 def index(request):
     routes = Route.objects.all()
 
-    # RouteBoatWeekday.objects.all().delete()
-    # RouteBoat.objects.all().delete()
-    # Route.objects.all().delete()
-
     return render(request, 'route/index.html', {
         'routes': routes
     })
