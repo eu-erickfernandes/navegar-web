@@ -1,6 +1,6 @@
+const finantialSheet = document.querySelector('[data-finantial-sheet]')
 const markAllCheckbox = document.querySelector('[data-mark-all-checkbox]')
 const checkboxes = document.querySelectorAll('input[type="checkbox"]')
-const submitNavbar = document.querySelector('[data-submit-navbar]')
 
 if(markAllCheckbox)
     markAllCheckbox.addEventListener('click', () => {
@@ -9,9 +9,12 @@ if(markAllCheckbox)
         })
     })
 
-if(checkboxes.length)
-    checkboxes.forEach((checkbox) => {
-        checkbox.addEventListener('click', () => {
-            submitNavbar.classList.remove('hidden')
+if(finantialSheet)
+    finantialSheet.querySelectorAll('tbody tr').forEach((tr) => {
+        tr.addEventListener('click', (event) => {
+            if(event.target.tagName != 'INPUT'){
+                const checkbox = tr.querySelector('input[type="checkbox"]')
+                checkbox.checked = !checkbox.checked
+            }
         })
     })

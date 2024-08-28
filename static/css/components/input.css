@@ -7,7 +7,8 @@ input:is(
     [type="text"],
     [type="time"],
 ), 
-select{
+select,
+textarea{
     --icon-size: 1.25rem;
     --padding-inline: .75rem;
 
@@ -25,6 +26,11 @@ select{
     outline: none;
     padding-inline: var(--padding-inline);
     width: 100%;
+
+    &:is(textarea){
+        height: 7.5rem;
+        padding-block: .5rem;
+    }
 
     &:focus-visible{
         border: 2px solid var(--clr-primary);
