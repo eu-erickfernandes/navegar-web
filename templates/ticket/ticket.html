@@ -34,7 +34,7 @@
                     {% elif ticket.status == 'completed' %}
                         <p class="badge gren">Finalizado</p>
                     {% elif ticket.status == 'paid' %}
-                        <p class="badge blue">Pago</p>
+                        <p class="badge green">Pago em {{ ticket.paid_at }}</p>
                     {% elif ticket.status == 'pending' %}
                         <p class="badge yellow">Pendente</p>
                     {% endif %}
@@ -131,7 +131,7 @@
                     </div>
                 {% endif %}
 
-                {% if ticket.status == 'pending' or not ticket.no_show and request.user.role == 'A' %}
+                {% if ticket.status == 'pending' and request.user.role == 'A' %}
                     <form action="{% url 'ticket:ticket_status_update' ticket.id 'paid' %}" class="discreet" method="POST">
                         {% csrf_token %}
 
