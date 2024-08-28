@@ -52,7 +52,7 @@ def route_creation(request):
                     )
 
 
-    return redirect(f'/rotas/{route.id}')
+    return redirect(f'/rotas/{route.id}/')
 
 
 @require_POST
@@ -131,7 +131,7 @@ def route_update(request, route_id):
     RouteBoatWeekday.objects.filter(route_boat__route= route).exclude(id__in= route_boat_weekdays).delete()
     RouteBoat.objects.filter(route= route).exclude(id__in= route_boats).delete()
 
-    return redirect(f'/rotas/{route_id}')
+    return redirect(f'/rotas/{route_id}/')
 
 @require_POST
 def boat_creation(request):

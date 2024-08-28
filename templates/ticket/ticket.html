@@ -141,6 +141,48 @@
                     </form>
                 {% endif %}
             </div>
+
+            <div class="group lg">
+                <p>Adicionais</p>
+
+                {% for additional in ticket.get_additional %}
+                    <div class="group additional-group">
+                        <span class="fw-bd fs-md clr-primary">{{ additional.value }}</span>
+                        <span class="fs-sm fw-bd clr-text-light">{{ additional.description }}</span>
+                        <a href="{% url 'ticket:additional_remove' additional.id %}" class="clr-red fw-bd fs-sm">Remover Adicional</a>
+                    </div>
+                {% endfor %}
+
+                <form
+                    action="{% url 'ticket:additional_creation' ticket.id %}"
+                    class="container lg card"
+                    method="POST"
+                >
+                    {% csrf_token %}
+
+                    <div class="group lg">
+                        <input 
+                            id="description"
+                            placeholder="Descrição"
+                            maxlength="100"
+                            name="description" 
+                            required
+                            type="text" 
+                        >
+                        
+                        <input 
+                            id="value"
+                            placeholder="Valor"
+                            maxlength="50"
+                            name="value" 
+                            required
+                            type="text" 
+                        >
+
+                        <button class="link button">Salvar Adicional</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </main>
 {% endblock %}

@@ -1,3 +1,10 @@
 .ticket-upload-form .submit-navbar{
     z-index: 2;
 }
+
+.additional-group{
+    background-color: var(--clr-primary-light);
+    border-left: 4px solid var(--clr-primary-dark);
+    padding-block: .5rem;
+    padding-inline: 1rem;
+}

@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.views.decorators.http import require_POST
 
 from apps.route.models import RouteBoatWeekday
-from .models import Ticket, Passenger, Cargo
+from .models import Ticket, Passenger, Cargo, Additional
 
 from utils.format import date_format
 
@@ -197,4 +197,29 @@ def ticket_no_show_toggle(request, ticket_id):
     ticket.no_show = True
     ticket.save()
     
+    return redirect(f'/passagens/passagem/{ticket_id}/')
+
+
+@require_POST
+def additional_creation(request, ticket_id):
+    ticket = Ticket.objects.get(id= ticket_id)
+
+    description = request.POST.get('description')
+    value = request.POST.get('value')
+
+    Additional.objects.create(
+        ticket= ticket,
+        description= description,
+        value= value
+    )
+
+    return redirect(f'/passagens/passagem/{ticket_id}/')
+
+
+def additional_remove(request, additional_id):
+    additional = Additional.objects.get(id= additional_id)
+    ticket_id = additional.ticket.id
+    
+    additional.delete()
+
     return redirect(f'/passagens/passagem/{ticket_id}/')

@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-    {% include '../partials/_page-header.html' with title='Embarcações' back_link='/' %}
+    {% include '../partials/_page-header.html' with title='Embarcações' back_link='/usuario/painel/' %}
 
     <main>
         <form class="container" action="{% url 'route:boat_creation' %}" method="POST">

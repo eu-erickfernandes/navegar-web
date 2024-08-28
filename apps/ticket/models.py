@@ -90,3 +90,21 @@ class Ticket(models.Model):
         for status in self.STATUS_CHOICES:
             if status[0] == self.status:
                 return status[1]
+            
+    def get_additional(self):
+        return Additional.objects.filter(ticket= self)
+            
+    
+class Additional(models.Model):
+    STATUS_CHOICES= [
+        ('paid', 'Pago'),
+        ('pending', 'Pendente'),
+    ]
+
+    ticket = models.ForeignKey(Ticket, on_delete= models.PROTECT)
+
+    description = models.CharField(max_length=100, null= True)
+    value = models.DecimalField(max_digits= 10, decimal_places= 2)
+
+    status = models.CharField(max_length= 20, choices= STATUS_CHOICES, default= 'pending')
+    paid_at = models.DateTimeField(default= None, null= True, blank= True)

@@ -11,7 +11,7 @@ from apps.route.models import PROFIT_MARGIN
 
 @login_required
 def index(request):
-    # Ticket.objects.all().update(status= 'pending', paid_at= None)
+    # Ticket.objects.filter(created_at__date= '2024-08-26').update(status= 'pending', paid_at= None)
     main_date = datetime.now().date()
 
     suppliers = CustomUser.objects.filter(role= 'S')
@@ -45,6 +45,14 @@ def index(request):
     if tickets.count() > 0:
         for ticket in tickets:
             total += ticket.value
+
+            for additional in ticket.get_additional():
+                total += additional.value
+
+                if additional.status == 'paid':
+                    total_paid += additional.value
+                elif additional.status == 'pending':
+                    total_pending += additional.value 
 
             if ticket.status in ['paid', 'completed']:
                 total_paid += ticket.value
