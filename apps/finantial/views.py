@@ -8,10 +8,12 @@ from apps.authentication.models import CustomUser
 from apps.ticket.models import Ticket
 from apps.route.models import PROFIT_MARGIN
 
+from .models import Observation 
+from .actions import finantial_update 
 
 @login_required
 def index(request):
-    # Ticket.objects.filter(created_at__date= '2024-08-26').update(status= 'pending', paid_at= None)
+    Ticket.objects.filter(created_at__date= '2024-08-26').update(status= 'pending', paid_at= None)
     main_date = datetime.now().date()
 
     suppliers = CustomUser.objects.filter(role= 'S')
@@ -19,8 +21,9 @@ def index(request):
     # HANDLING THE DATE FILTER SUBMIT
     if request.GET.__contains__('date'):
         searched_date = request.GET.get('date').split('-')
-        main_date = datetime(int(searched_date[0]), int(searched_date[1]), int(searched_date[2]))
-
+        main_date = datetime(int(searched_date[0]), int(searched_date[1]), int(searched_date[2])).date()
+    
+    
     previous_date = main_date - timedelta(days= 1)
 
     # HANDLING THE SUPPLIER FILTER SUBMIT
@@ -37,6 +40,11 @@ def index(request):
 
     tickets = pending_tickets.union(previous_tickets).union(paid_tickets)
 
+    if request.POST:
+        id_tickets_list = tickets.values_list('id', flat= True)
+        finantial_update(request.POST, id_tickets_list, main_date)
+
+    observation = Observation.objects.get(date= main_date) if Observation.objects.filter(date= main_date).exists() else None
 
     total = Decimal(0.0)
     total_paid = Decimal(0.0)
@@ -73,6 +81,7 @@ def index(request):
         'total_pending_profit': total_pending_profit,
         'total_profit': total_profit,
         'main_date': main_date,
+        'observation': observation,
         'searched_supplier': searched_supplier,
         'suppliers': suppliers,
     })

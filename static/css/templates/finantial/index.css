@@ -1,14 +1,19 @@
+.finantial-form{
+    padding-block: 0;
+}
+
 .finantial-sheet{
-    tr{
+    tbody tr{
         background-color: var(--clr-white);
+        cursor: pointer;
         transition: background-color .5s;
         
-        &.paid{
-            background-color: var(--clr-green-light);
-        }
-
         &:has(input:checked){
             background-color: var(--clr-primary-light);
+
+            &.paid{
+                background-color: var(--clr-green-light);
+            }
         }
     }
 
