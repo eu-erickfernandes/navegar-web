@@ -139,7 +139,7 @@
                             </tr>
 
                             {% for additional in ticket.get_additional %}
-                                <tr>
+                                <tr class="{{ additional.status }}">
                                     {% if request.user.role == 'A' %}
                                         {% if additional.status == 'pending' %}
                                             <td>
