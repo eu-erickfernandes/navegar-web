@@ -17,4 +17,6 @@ urlpatterns = [
     path('ticket_upload/<int:ticket_id>/', ticket_upload, name= 'ticket_upload'),
     path('ticket_status_update/<int:ticket_id>/<str:new_status>/', ticket_status_update, name= 'ticket_status_update'),
     path('ticket_no_show_toggle/<int:ticket_id>/', ticket_no_show_toggle, name= 'ticket_no_show_toggle'),
+    path('additional_creation/<int:ticket_id>/', additional_creation, name= 'additional_creation'),
+    path('additional_remove/<int:additional_id>/', additional_remove, name= 'additional_remove'),
 ]
