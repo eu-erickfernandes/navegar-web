@@ -12,7 +12,7 @@ if(markAllCheckbox)
 if(finantialSheet)
     finantialSheet.querySelectorAll('tbody tr').forEach((tr) => {
         tr.addEventListener('click', (event) => {
-            if(event.target.tagName != 'INPUT'){
+            if(event.target.tagName != 'INPUT' && !event.target.classList.contains('editable-data')){
                 const checkbox = tr.querySelector('input[type="checkbox"]')
                 checkbox.checked = !checkbox.checked
             }

@@ -1,4 +1,7 @@
+from decimal import Decimal
 from django.db import models
+
+PROFIT_MARGIN = Decimal(0.08)
 
 # Create your models here.
 class Observation(models.Model):

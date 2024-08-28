@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.decorators.http import require_POST
@@ -40,11 +42,17 @@ def ticket_creation(request, route_boat_weekday_id, date):
     arrival_time = route_boat_weekday.arrival_time
     next_day = route_boat_weekday.next_day
     cost = route_boat_weekday.cost
-    price = route_boat_weekday.price
     rebooking = request.POST.get('rebooking') != None
     no_show = request.POST.get('no_show') != None
 
     ticket_type = request.POST.get('ticket_type')
+
+    if rebooking:
+        price = round(route_boat_weekday.price * Decimal(0.10), 2)
+    elif no_show:
+        price = round(route_boat_weekday.price * Decimal(0.30), 2)
+    else:
+        price = route_boat_weekday.price
 
     if ticket_type == 'passenger':
         for item in request.POST.items():

@@ -100,20 +100,10 @@
                         {% for ticket in tickets %}
                             <tr class="{{ ticket.status }}">
                                 {% comment %}
-                                    {% if request.user.role == 'A' %}
-                                        {% if ticket.status == 'pending' %}
-                                            <td>
-                                                <input 
-                                                    type="checkbox"
-                                                    name="ticket_{{ ticket.id }}"
-                                                >   
-                                            </td>
-                                        {% elif ticket.status == 'paid' %}
-                                            <td class="paid-ticket"></td>
-                                        {% endif %}
-                                    {% endif %}
+                                <td>{{ ticket.id }}</td>
+                                <td>{{ ticket.created_at }}</td>
+                                <td>{{ ticket.paid_at }}</td>
                                 {% endcomment %}
-                                
                                 <td>
                                     <input 
                                         {% if ticket.status == 'paid' %} checked {% endif %}
@@ -145,25 +135,33 @@
 
                                 <td>{{ ticket.origin }} -> {{ ticket.destination }}</td>
                                 <td>{{ ticket.boat }}</td>
-                                <td>R$ {{ ticket.value }}</td>
+
+                                {% if request.user.role == 'A' %}
+                                    <td class="editable-data">
+                                        R$ 
+                                        <input 
+                                            id="ticket_price_{{ ticket.id }}"
+                                            maxlength="10"
+                                            name="ticket_price_{{ ticket.id }}"
+                                            required
+                                            type="text" 
+                                            value="{{ ticket.price }}"
+                                        >
+                                    </td>
+                                {% else %}
+                                    <td>R$ {{ ticket.price }}</td>
+                                {% endif %}
                             </tr>
 
                             {% for additional in ticket.get_additional %}
                                 <tr class="{{ additional.status }}">
+                                    {% comment %}
+                                        <td>{{ additional.id }}</td>
+                                        <td></td>
+                                        <td>{{ additional.paid_at }}</td>
+                                    {% endcomment %}
+
                                     {% if request.user.role == 'A' %}
-                                        {% comment %}
-                                            {% if additional.status == 'pending' %}
-                                                <td>
-                                                    <input 
-                                                    type="checkbox"
-                                                    name="additional_{{ additional.id }}"
-                                                    >   
-                                                </td>
-                                            {% elif additional.status == 'paid' %}
-                                                <td class="paid-ticket"></td>
-                                            {% endif %}
-                                        {% endcomment %}
-                                        
                                         <td>
                                             <input 
                                                 {% if additional.status == 'paid' %} checked {% endif %}
@@ -196,7 +194,21 @@
 
                                     <td>{{ additional.description }}</td>
                                     <td>{{ ticket.boat }}</td>
-                                    <td>R$ {{ additional.value }}</td>
+                                    {% if request.user.role == 'A' %}
+                                        <td class="editable-data">
+                                            R$ 
+                                            <input 
+                                                id="additional_price_{{ additional.id }}"
+                                                maxlength="10"
+                                                name="additional_price_{{ additional.id }}"
+                                                required
+                                                type="text" 
+                                                value="{{ additional.value }}"
+                                            >
+                                        </td>
+                                    {% else %}
+                                        <td>R$ {{ additional.value }}</td>
+                                    {% endif %}
                                 </tr>
                             {% endfor %}
                         {% endfor %}
