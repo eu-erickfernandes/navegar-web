@@ -6,7 +6,7 @@ from django.db import models
 from django.conf import settings
 
 from apps.authentication.models import CustomUser
-from apps.route.models import Boat, City, PROFIT_MARGIN
+from apps.route.models import Boat, City
 
 class Passenger(models.Model):
     name = models.CharField(max_length= 100)
@@ -75,16 +75,6 @@ class Ticket(models.Model):
     @property
     def arrival_date(self):
         return self.date + timedelta(days=1) if self.next_day else self.date
-    
-    @property
-    def value(self):
-        if self.rebooking:
-            return round(self.price * Decimal(0.10), 2)
-        
-        if self.no_show:
-            return round(self.price * Decimal(0.30), 2)
-        
-        return self.price
 
     def get_translared_status(self):
         for status in self.STATUS_CHOICES:

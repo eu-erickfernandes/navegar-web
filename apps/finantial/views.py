@@ -5,15 +5,17 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
 from apps.authentication.models import CustomUser
-from apps.ticket.models import Ticket
-from apps.route.models import PROFIT_MARGIN
+from apps.ticket.models import Ticket, Additional
+from .models import PROFIT_MARGIN
 
 from .models import Observation 
 from .actions import finantial_update 
 
 @login_required
 def index(request):
-    Ticket.objects.filter(created_at__date= '2024-08-26').update(status= 'pending', paid_at= None)
+    # Ticket.objects.filter(created_at__date= '2024-08-26').update(status= 'pending', paid_at= None)
+    # Additional.objects.all().delete()
+    # Ticket.objects.all().delete()
     main_date = datetime.now().date()
 
     suppliers = CustomUser.objects.filter(role= 'S')
@@ -22,7 +24,6 @@ def index(request):
     if request.GET.__contains__('date'):
         searched_date = request.GET.get('date').split('-')
         main_date = datetime(int(searched_date[0]), int(searched_date[1]), int(searched_date[2])).date()
-    
     
     previous_date = main_date - timedelta(days= 1)
 
@@ -52,7 +53,7 @@ def index(request):
 
     if tickets.count() > 0:
         for ticket in tickets:
-            total += ticket.value
+            total += ticket.price
 
             for additional in ticket.get_additional():
                 total += additional.value
@@ -63,9 +64,9 @@ def index(request):
                     total_pending += additional.value 
 
             if ticket.status in ['paid', 'completed']:
-                total_paid += ticket.value
+                total_paid += ticket.price
             elif ticket.status == 'pending':
-                total_pending += ticket.value 
+                total_pending += ticket.price 
  
     total_profit = round(total_paid * PROFIT_MARGIN, 2) 
     total_pending_profit = round(total_pending * PROFIT_MARGIN, 2) 
@@ -106,9 +107,9 @@ def dashboard(request):
     if tickets.count() > 0:
         for ticket in tickets:
             if ticket.status == 'paid' or ticket.status == 'completed':
-                total_paid += ticket.value
+                total_paid += ticket.price
             elif ticket.status == 'pending':
-                total_pending += ticket.value
+                total_pending += ticket.price
 
     # total_paid = round(tickets.filter(status= 'paid').aggregate(Sum('price')).get('price__sum'), 2) if tickets.filter(status= 'paid').count() > 0 else Decimal(0.0)
     total_profit = round(total_paid * PROFIT_MARGIN, 2) 
@@ -139,9 +140,9 @@ def dashboard(request):
             if day_tickets.count() > 0:
                 for ticket in day_tickets:
                     if ticket.status == 'paid' or ticket.status == 'completed':
-                        day_total_paid += ticket.value
+                        day_total_paid += ticket.price
                     elif ticket.status == 'pending':
-                        day_total_pending += ticket.value
+                        day_total_pending += ticket.price
 
             day_total_profit = round(day_total_paid * PROFIT_MARGIN, 2)
             day_total_pending_profit = round(day_total_pending * PROFIT_MARGIN, 2)

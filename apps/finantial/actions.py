@@ -1,4 +1,4 @@
-from datetime import datetime
+from decimal import Decimal
 
 from django.utils import timezone
 
@@ -68,6 +68,12 @@ def finantial_update(post, id_tickets_list, date):
 
         ticket.status = 'paid' if paid else 'pending'
         ticket.paid_at = timezone.now() if paid else None
+
+        try:
+            ticket.price =  Decimal(post.get(f'ticket_price_{id}').replace(',', '.'))
+        except:
+            pass
+
         ticket.save()
 
         for additional in ticket.get_additional():
@@ -79,6 +85,12 @@ def finantial_update(post, id_tickets_list, date):
 
             additional.status = 'paid' if paid else 'pending'
             additional.paid_at = timezone.now() if paid else None
+
+            try:
+                additional.value =  Decimal(post.get(f'additional_price_{additional.id}').replace(',', '.'))
+            except:
+                pass
+
             additional.save()
 
 
