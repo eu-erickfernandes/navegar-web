@@ -46,7 +46,6 @@
             <div class="search-date-button">
                 <input 
                     id="date"
-                    min="{{ today|date:'Y-m-d' }}" 
                     name="date"     
                     required
                     type="date" 
@@ -80,7 +79,7 @@
                 </a>
             {% empty %}
                 {% if origin %}
-                    <span class="not-found">Nenhuma embarcação disponível</span>
+                    <span class="not-found">Nenhuma embarcação disponível para esta data</span>
                 {% endif %}
             {% endfor %}
         </form>

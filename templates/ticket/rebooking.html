@@ -1,0 +1,126 @@
+{% extends '../partials/_base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Remarcação
+{% endblock %}
+
+{% block css_template %}
+    <link rel="stylesheet" href="{% static 'css/templates/ticket/rebooking.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include '../partials/_page-header.html' with title='Remarcação' back_link='/' %}
+
+    <main>
+        <div class="container">
+            <div class="group lg">
+                <div class="badge gray lg">#{{ ticket.id }}</div>
+
+                <div class="group">
+                    <p class="boat-label">{{ ticket.boat }}</p>
+
+                    <div class="group sm">
+                        <h2 class="fw-bd">{{ ticket.origin }} -> {{ ticket.destination }}</h2>
+
+                        <div class="group row lg">
+                            <span class="fs-sm fw-bd clr-text-light">{{ ticket.date }}</span>
+
+                            <span class="fs-sm fw-bd clr-text-light">{{ ticket.departure_time }} - {{ ticket.arrival_time }} {% if ticket.next_day %} (Dia seguinte) {% endif %}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <form class="discreet group">
+                    <select name="origin" id="origin" required>
+                        {% for city in origins %}
+                            <option 
+                                {% if origin %} 
+                                    {% if city.id == origin.id %} selected {% endif %}
+                                {% else %}
+                                    {% if city.id == ticket.origin.id %} selected {% endif %}
+                                {% endif %}
+
+                                value="{{ city.id }}"
+                            >
+                                {{ city }}
+                            </option>
+                        {% endfor %}
+                    </select>
+
+                    <select name="destination" id="destination" required>
+                        {% for city in destinations %}
+                            <option 
+                                {% if destination %} 
+                                    {% if city.id == destination.id %} selected {% endif %}
+                                {% else %}
+                                    {% if city.id == ticket.destination.id %} selected {% endif %}
+                                {% endif %}
+
+                                value="{{ city.id }}"
+                            >
+                                {{ city }}
+                            </option>
+                        {% endfor %}
+                    </select>
+        
+                    <div class="group row">
+                        <input 
+                            id="date"
+                            name="date" 
+                            required
+                            type="date"
+                            
+                            {% if date %} 
+                                value="{{ date }}"
+                            {% else %} 
+                                value="{{ ticket.date|date:'Y-m-d' }}"
+                            {% endif %} 
+                        >
+        
+                        <button class="button icon search" type="submit"></button>
+                    </div>
+                </form>
+                
+                {% if route_boat_weekdays %}
+                    <form action="{% url 'ticket:ticket_rebooking' ticket.id %}" class="discreet group" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="date" value="{{ date }}">
+
+                        {% for item in route_boat_weekdays %}
+                            <div class="container lg card result-item">
+                                <input type="radio" id="{{ item.id }}" name="route_boat_weekday" value="{{ item.id }}">
+                                
+                                <label class="group lg" for="{{ item.id }}">
+                                    <span class="boat-label fs-md">{{ item.boat }}</span>
+                
+                                    <div class="group sm route-info">
+                                        <span class="route-time fw-bd fs-md">
+                                            {{ item.departure_time }} - {{ item.arrival_time }}
+                                            
+                                            {% if item.next_day %} (Dia seguinte) {% endif %}
+                                        </span>
+                
+                                        <span class="clr-text-light fs-sm fw-bd">{{ item.origin }} - {{ item.destination }}</span>
+                                        <span class="clr-text-light fs-sm fw-bd">{{ item.duration }} horas</span>
+                                    </div>
+                
+                                    <span class="clr-primary fs-sm">R$ {{ item.price }}</span>
+                                </label>
+                            </div>
+                        {% empty %}
+                            {% if origin %}
+                                <span class="clr-red fs-sm fw-bd">Nenhuma embarcação disponível para esta data</span>
+                            {% endif %}
+                        {% endfor %}
+
+                        <div class="submit-navbar">
+                            <button class="button" type="submit">Salvar Remarcação</button>
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+{% endblock %}

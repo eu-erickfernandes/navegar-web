@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Ticket, Passenger, Cargo
+from .models import Ticket, Passenger, Cargo, Additional
 
 # Register your models here.
 class TicketAdmin(admin.ModelAdmin):
@@ -19,3 +19,9 @@ class CargoAdmin(admin.ModelAdmin):
     list_display = ('description', 'weight')
 
 admin.site.register(Cargo, CargoAdmin)
+
+
+class AdditionalAdmin(admin.ModelAdmin):
+    list_display = ('ticket', 'created_at', 'description', 'value', 'status', 'paid_at',)
+
+admin.site.register(Additional, AdditionalAdmin)

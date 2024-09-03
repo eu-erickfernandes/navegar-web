@@ -82,9 +82,18 @@ body{
     padding-inline: .5rem;
     width: fit-content;
 
+    &.lg{
+        font-size: .75rem;
+    }
+
     &.blue{
         background-color: var(--clr-primary-dark);
         color: var(--clr-white);
+    }
+
+    &.gray{
+        background-color: var(--clr-gray);
+        color: var(--clr-texts);
     }
 
     &.green{

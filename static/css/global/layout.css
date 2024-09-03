@@ -74,6 +74,7 @@ body{
         width: 100%;
 
         &.row{
+            align-items: center;
             display: flex;
 
             &.space-between{
@@ -87,6 +88,10 @@ body{
 
         &.lg{
             gap: 1rem;
+        }
+
+        &.fit-content{
+            width: fit-content;
         }
     }
 

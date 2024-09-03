@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from apps.authentication.models import CustomUser
 from apps.route.models import City, Boat, Route, RouteBoat, RouteBoatWeekday, RouteDiscount
-from apps.ticket.models import Ticket, Cargo, Passenger
+from apps.ticket.models import Ticket, Cargo, Passenger, Additional
 
 
 class Command(BaseCommand):
@@ -9,6 +9,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         print('CLEANING CURRENT DATA')
+
+        print(f'ADDITIONAL: {Additional.objects.all().count()}')
+        Additional.objects.all().delete()
 
         print(f'TICKETS: {Ticket.objects.all().count()}')
         Ticket.objects.all().delete()

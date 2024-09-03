@@ -13,9 +13,6 @@ from .actions import finantial_update
 
 @login_required
 def index(request):
-    # Ticket.objects.filter(created_at__date= '2024-08-26').update(status= 'pending', paid_at= None)
-    # Additional.objects.all().delete()
-    # Ticket.objects.all().delete()
     main_date = datetime.now().date()
 
     suppliers = CustomUser.objects.filter(role= 'S')
@@ -34,16 +31,27 @@ def index(request):
         pending_tickets = Ticket.objects.filter(status= 'pending', created_at__date__lt= previous_date, boat__supplier= searched_supplier)
         paid_tickets = Ticket.objects.filter(status= 'paid', paid_at__date= main_date, boat__supplier= searched_supplier)
         previous_tickets = Ticket.objects.filter(created_at__date= previous_date, status= 'pending', boat__supplier= searched_supplier)
+
+        pending_additionals = Additional.objects.filter(status= 'pending', created_at__date__lt= previous_date, ticket__boat__supplier= searched_supplier)
+        paid_additionals = Additional.objects.filter(status= 'paid', paid_at__date= main_date, ticket__boat__supplier= searched_supplier)
+        previous_additionals = Additional.objects.filter(created_at__date= previous_date, status= 'pending', ticket__boat__supplier= searched_supplier)
     else:
         pending_tickets = Ticket.objects.filter(status= 'pending', created_at__date__lt= previous_date)
         paid_tickets = Ticket.objects.filter(status= 'paid', paid_at__date= main_date)
         previous_tickets = Ticket.objects.filter(created_at__date= previous_date, status= 'pending')
 
+        pending_additionals = Additional.objects.filter(status= 'pending', created_at__date__lt= previous_date)
+        paid_additionals = Additional.objects.filter(status= 'paid', paid_at__date= main_date)
+        previous_additionals = Additional.objects.filter(created_at__date= previous_date, status= 'pending')
+
     tickets = pending_tickets.union(previous_tickets).union(paid_tickets)
+    additionals = pending_additionals.union(previous_additionals).union(paid_additionals)
 
     if request.POST:
         id_tickets_list = tickets.values_list('id', flat= True)
-        finantial_update(request.POST, id_tickets_list, main_date)
+        id_additionals_list = additionals.values_list('id', flat= True)
+
+        finantial_update(request.POST, id_tickets_list, id_additionals_list, main_date)
 
     observation = Observation.objects.get(date= main_date) if Observation.objects.filter(date= main_date).exists() else None
 
@@ -55,18 +63,18 @@ def index(request):
         for ticket in tickets:
             total += ticket.price
 
-            for additional in ticket.get_additional():
-                total += additional.value
-
-                if additional.status == 'paid':
-                    total_paid += additional.value
-                elif additional.status == 'pending':
-                    total_pending += additional.value 
-
             if ticket.status in ['paid', 'completed']:
                 total_paid += ticket.price
             elif ticket.status == 'pending':
                 total_pending += ticket.price 
+
+        for additional in additionals:
+            total += additional.value
+
+            if additional.status == 'paid':
+                total_paid += additional.value
+            elif additional.status == 'pending':
+                total_pending += additional.value
  
     total_profit = round(total_paid * PROFIT_MARGIN, 2) 
     total_pending_profit = round(total_pending * PROFIT_MARGIN, 2) 
@@ -74,6 +82,7 @@ def index(request):
     customer_total = total_pending + total_pending_profit
 
     return render(request, 'finantial/index.html', {
+        'additionals': additionals,
         'customer_total': customer_total,
         'tickets': tickets,
         'total': total,

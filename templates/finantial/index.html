@@ -37,9 +37,9 @@
                         {% endif %}
                     {% endfor %}
                 </select>
-
-                <a href="{% url 'finantial:index' %}" class="clr-red fs-sm fw-bd">Limpar seleção</a>
             {% endif %}
+            
+            <a href="{% url 'finantial:index' %}" class="clr-red fs-sm fw-bd">Limpar seleção</a>
         </form>
 
         <div class="container lg">
@@ -73,7 +73,7 @@
             {% endif %}
         </div>
         
-        {% if tickets %}
+        {% if tickets or additionals %}
             <form class="finantial-form" method="POST">
                 {% csrf_token %}
 
@@ -104,13 +104,16 @@
                                 <td>{{ ticket.created_at }}</td>
                                 <td>{{ ticket.paid_at }}</td>
                                 {% endcomment %}
-                                <td>
-                                    <input 
-                                        {% if ticket.status == 'paid' %} checked {% endif %}
-                                        name="ticket_{{ ticket.id }}" 
-                                        type="checkbox" 
-                                    >
-                                </td>
+
+                                {% if request.user.role == 'A' %}
+                                    <td>
+                                        <input 
+                                            {% if ticket.status == 'paid' %} checked {% endif %}
+                                            name="ticket_{{ ticket.id }}" 
+                                            type="checkbox" 
+                                        >
+                                    </td>
+                                {% endif %}
 
                                 <td>{{ ticket.date|date:"SHORT_DATE_FORMAT" }}</td>
                                 <td>{{ ticket.departure_time }}</td>
@@ -152,65 +155,66 @@
                                     <td>R$ {{ ticket.price }}</td>
                                 {% endif %}
                             </tr>
+                        {% endfor %}
 
-                            {% for additional in ticket.get_additional %}
-                                <tr class="{{ additional.status }}">
-                                    {% comment %}
-                                        <td>{{ additional.id }}</td>
-                                        <td></td>
-                                        <td>{{ additional.paid_at }}</td>
-                                    {% endcomment %}
+                        {% for additional in additionals %}
+                            <tr class="{{ additional.status }}">
+                                {% comment %}
+                                    <td>{{ additional.id }}</td>
+                                    <td></td>
+                                    <td>{{ additional.paid_at }}</td>
+                                {% endcomment %}
 
-                                    {% if request.user.role == 'A' %}
-                                        <td>
-                                            <input 
-                                                {% if additional.status == 'paid' %} checked {% endif %}
-                                                name="additional_{{ additional.id }}" 
-                                                type="checkbox" 
-                                            >
-                                        </td>
-                                    {% endif %}
-
-                                    <td>{{ ticket.date|date:"SHORT_DATE_FORMAT" }}</td>
-                                    <td>{{ ticket.departure_time }}</td>
-                                    <td>{{ ticket.arrival_date|date:"SHORT_DATE_FORMAT" }}</td>
-                                    <td>{{ ticket.arrival_time }}</td>
-
+                                {% if request.user.role == 'A' %}
                                     <td>
-                                        {% if ticket.passenger %}
-                                            {{ ticket.passenger }}
-                                        {% else %}
-                                            {{ ticket.cargo.description }}
-                                        {% endif %}
+                                        <input 
+                                            {% if additional.status == 'paid' %} checked {% endif %}
+                                            name="additional_{{ additional.id }}" 
+                                            type="checkbox" 
+                                        >
                                     </td>
+                                {% endif %}
 
-                                    <td>
-                                        {% if ticket.passenger %}
-                                            PASSAGEM/ADICIONAL
-                                        {% else %}
-                                            ENCOMENDA/ADICIONAL
-                                        {% endif %}
-                                    </td>
+                                <td>{{ additional.ticket.date|date:"SHORT_DATE_FORMAT" }}</td>
+                                <td>{{ additional.ticket.departure_time }}</td>
+                                <td>{{ additional.ticket.arrival_date|date:"SHORT_DATE_FORMAT" }}</td>
+                                <td>{{ additional.ticket.arrival_time }}</td>
 
-                                    <td>{{ additional.description }}</td>
-                                    <td>{{ ticket.boat }}</td>
-                                    {% if request.user.role == 'A' %}
-                                        <td class="editable-data">
-                                            R$ 
-                                            <input 
-                                                id="additional_price_{{ additional.id }}"
-                                                maxlength="10"
-                                                name="additional_price_{{ additional.id }}"
-                                                required
-                                                type="text" 
-                                                value="{{ additional.value }}"
-                                            >
-                                        </td>
+                                <td>
+                                    {% if additional.ticket.passenger %}
+                                        {{ additional.ticket.passenger }}
                                     {% else %}
-                                        <td>R$ {{ additional.value }}</td>
+                                        {{ additional.ticket.cargo.description }}
                                     {% endif %}
-                                </tr>
-                            {% endfor %}
+                                </td>
+
+                                <td>
+                                    {% if additional.ticket.passenger %}
+                                        PASSAGEM/ADICIONAL
+                                    {% else %}
+                                        ENCOMENDA/ADICIONAL
+                                    {% endif %}
+                                </td>
+
+                                <td>{{ additional.description }}</td>
+                                <td>{{ additional.ticket.boat }}</td>
+
+                                {% if request.user.role == 'A' %}
+                                    <td class="editable-data">
+                                        R$ 
+                                        <input 
+                                            id="additional_price_{{ additional.id }}"
+                                            maxlength="10"
+                                            name="additional_price_{{ additional.id }}"
+                                            required
+                                            type="text" 
+                                            value="{{ additional.value }}"
+                                        >
+                                    </td>
+                                {% else %}
+                                    <td>R$ {{ additional.value }}</td>
+                                {% endif %}
+                            </tr>
                         {% endfor %}
                     </tbody>
                 </table>

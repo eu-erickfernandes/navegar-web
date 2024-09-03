@@ -1,0 +1,13 @@
+form:not(:has(:checked)) .submit-navbar{
+    display: none;
+}
+
+.result-item{
+    input {
+        display: none;
+    }   
+
+    &:has(:checked){
+        background-color: var(--clr-primary-light);
+    }
+}

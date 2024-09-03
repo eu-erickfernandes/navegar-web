@@ -100,6 +100,7 @@
         width: fit-content;
 
         &.search{
+            align-self: stretch;
             background-image: url('../../icons/buttons/search.svg');
 
             &:disabled{

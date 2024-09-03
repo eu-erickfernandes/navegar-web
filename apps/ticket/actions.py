@@ -31,7 +31,6 @@ def ticket_creation(request, route_boat_weekday_id, date):
         route_boat_weekday = RouteBoatWeekday.objects.get(id= route_boat_weekday_id)
     except:
         return redirect(f'/passagens/adicionar/{route_boat_weekday_id}/{date}/')
-    print(request.POST)
     
     created_by = request.user
     boat = route_boat_weekday.boat
@@ -184,7 +183,63 @@ def ticket_upload(request, ticket_id):
     ticket.file = file
     ticket.save()
 
-    return redirect(f'/passagens/passagem/{ticket_id}/')
+    return redirect(f'/passagens/{ticket_id}/')
+
+
+@require_POST
+def ticket_update(request, ticket_id):
+    ticket = Ticket.objects.get(id= ticket_id)
+
+    if request.POST.__contains__('cancellation'):
+        ticket.set_status('cancelled')
+
+        return redirect(f'/passagens/{ticket_id}/')
+    
+    if request.POST.__contains__('no_show'):
+        ticket.no_show = True
+        ticket.set_status('pending')
+
+    ticket.price = Decimal(request.POST.get('price').replace(',', '.'))
+    ticket.save()
+    
+    for item in request.POST.items():
+        print(item)
+
+    return redirect(f'/passagens/{ticket_id}/')
+
+
+@require_POST
+def ticket_rebooking(request, ticket_id):
+    ticket = Ticket.objects.get(id= ticket_id)
+    
+    for item in request.POST.items():
+        print(item)
+
+    route_boat_weekday_id = request.POST.get('route_boat_weekday')
+    route_boat_weekday = RouteBoatWeekday.objects.get(id= route_boat_weekday_id)
+
+    date = request.POST.get('date')
+
+    ticket.set_status('pending')
+
+    ticket.boat = route_boat_weekday.boat
+
+    ticket.origin = route_boat_weekday.origin
+    ticket.destination = route_boat_weekday.destination
+
+    ticket.date = date
+
+    ticket.departure_time = route_boat_weekday.departure_time
+    ticket.arrival_time = route_boat_weekday.arrival_time
+
+    ticket.cost = route_boat_weekday.cost
+    ticket.price = route_boat_weekday.price
+
+    ticket.rebooking = True
+
+    ticket.save()
+
+    return redirect(f'/passagens/{ticket_id}/')
 
 
 @require_POST
@@ -195,7 +250,7 @@ def ticket_status_update(request, ticket_id, new_status):
     
     ticket.save()
     
-    return redirect(f'/passagens/passagem/{ticket_id}/')
+    return redirect(f'/passagens/{ticket_id}/')
 
 
 @require_POST
@@ -205,7 +260,7 @@ def ticket_no_show_toggle(request, ticket_id):
     ticket.no_show = True
     ticket.save()
     
-    return redirect(f'/passagens/passagem/{ticket_id}/')
+    return redirect(f'/passagens/{ticket_id}/')
 
 
 @require_POST
@@ -221,7 +276,7 @@ def additional_creation(request, ticket_id):
         value= value
     )
 
-    return redirect(f'/passagens/passagem/{ticket_id}/')
+    return redirect(f'/passagens/{ticket_id}/')
 
 
 def additional_remove(request, additional_id):
@@ -230,4 +285,4 @@ def additional_remove(request, additional_id):
     
     additional.delete()
 
-    return redirect(f'/passagens/passagem/{ticket_id}/')
+    return redirect(f'/passagens/{ticket_id}/')

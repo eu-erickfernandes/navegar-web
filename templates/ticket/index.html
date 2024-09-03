@@ -14,91 +14,142 @@
     {% include '../partials/_page-header.html' with title='Passagens' back_link='/' %}
 
     <main>
-        <form class="container" data-auto-submit-form>
-            <input 
-                data-auto-submit-input
-                type="month"
-                max="{{ last_month|date:'Y-m' }}"
-                min="2024-05"
-                name="month"
-                value="{{ main_date|date:'Y-m' }}"
-            >
+        <form class="container">
+            <div class="group row">
+                <input 
+                    type="text"
+                    maxlength="15"
+                    name="id"
+                    value="{{ id }}"
+                    required
+                    placeholder="Código da Passagem"
+                >
+                
+                <button class="button icon search"></button>
+            </div>
+
+            {% if id %}
+                <a href="{% url 'ticket:index' %}" class="clr-red fw-bd fs-sm">Limpar busca</a>
+            {% endif %}
         </form>
 
-        <ul class="ticket-list">
-            {% for ticket in tickets %}
-                <li class="group">
-                    {% if ticket.status == 'analyzing' %}
-                        <p class="badge">Em Análise</p>
-                    {% elif ticket.status == 'cancelled' %}
-                        <p class="badge red">Cancelado</p>
-                    {% elif ticket.status == 'completed' %}
-                        <p class="badge green">Finalizado</p>
-                    {% elif ticket.status == 'paid' %}
-                        <p class="badge green">Pago em {{ ticket.paid_at }}</p>
-                    {% elif ticket.status == 'pending' %}
-                        <p class="badge yellow">Pendente</p>
-                    {% endif %}
+        {% if not id %}
+            <div class="container">
+                <nav class="group row space-between">
+                    <span class="clr-text-light fs-sm">{{ tickets_count }} Passagens</span>
 
-                    {% if ticket.no_show %}
-                        <p class="badge red">NO-SHOW</p>
-                    {% endif %}
+                    <div class="group row fit-content lg">
 
-                    <p class="boat-label fs-md fw-bd">{{ ticket.boat }}</p>
-                    <p class="ticket-route fs-md fw-bd">{{ ticket.origin|upper }} -> {{ ticket.destination|upper  }}</p>
-                    <span class="fs-sm clr-text-light">{{ ticket.date }}</span>
-
-                    {% if ticket.passenger %}
-                        <span class="fs-sm clr-text-light">{{ ticket.passenger.name }}</span>
-                    {% else %}
-                        <span class="fs-sm clr-text-light">CARGA</span>
-                    {% endif %}
-
-                    <div class="group row">
-                        <a href="{% url 'ticket:ticket' ticket.id %}" class="button link">Ver mais</a>
+                        {% if tickets.has_previous %}
+                            <a href="?page={{ tickets.previous_page_number }}">
+                                <button class="navicon pagination-previous"></button>
+                            </a>
+                        {% else %}
+                            <button disabled class="navicon pagination-previous"></button>
+                        {% endif %}
                         
-                        {% if ticket.status == 'analyzing' %}
-                            <form class="discreet" action="{% url 'ticket:ticket_status_update' ticket.id 'pending' %}" method="POST">
-                                {% csrf_token %}
-
-                                <button class="button link" type="submit">Confirmar</button>
-                            </form>
-                        {% elif ticket.status != 'cancelled' %}
-                            {% if ticket.boat.supplier.upload_ticket %}
-                                {% if ticket.file %}
-                                    <a class="button link download" href="{% url 'ticket:pdf' ticket.id %}" download>Download</a>
-                                {% else %}
-                                    <form 
-                                        action="{% url 'ticket:ticket_upload' ticket.id %}" 
-                                        class="discreet ticket-upload-form" 
-                                        enctype="multipart/form-data" 
-                                        method="POST"
-                                    >
-                                        {% csrf_token %}
-
-                                        <label for="file" class="button link upload">Anexar bilhete</label>
-
-                                        <input 
-                                            id="file" 
-                                            type="file"
-                                            name="file"
-                                            required
-                                        >
-
-                                        <div class="container lg submit-navbar">
-                                            <button class="button">Salvar bilhete</button>
-                                        </div>
-                                    </form>
-                                {% endif %}
-                            {% else %}
-                                <a class="button link download" href="{% url 'ticket:pdf' ticket.id %}" download>Download</a>
-                            {% endif %}
+                        <span class="clr-text-light fs-sm">{{ tickets.number }} de {{ tickets.paginator.num_pages }}</span>
+                        
+                        {% if tickets.has_next %}
+                            <a href="?page={{ tickets.next_page_number }}">
+                                <button class="navicon pagination-next"></button>
+                            </a>
+                        {% else %}
+                            <button class="navicon pagination-next" disabled></button>
                         {% endif %}
                     </div>
+                </nav>
+            </div>
+        {% endif %}
 
-                    <span class="fs-sm fw-bd clr-text-light">{% if ticket.rebooking %}REMARCAÇÃO - {% endif %}Criado em {{ ticket.created_at }}</span>
-                </li>
-            {% endfor %}
-        </ul>
+        {% if tickets %}
+            <ul class="ticket-list">
+                {% for ticket in tickets %}
+                    <li class="group">
+                        <div class="group row">
+                            <p class="badge gray lg">#{{ ticket.id }}</p>
+
+                            {% if ticket.status == 'analyzing' %}
+                                <p class="badge lg">Em Análise</p>
+                            {% elif ticket.status == 'cancelled' %}
+                                <p class="badge red lg">Cancelado</p>
+                            {% elif ticket.status == 'completed' %}
+                                <p class="badge green lg">Finalizado</p>
+                            {% elif ticket.status == 'paid' %}
+                                <p class="badge green lg">Pago em {{ ticket.paid_at }}</p>
+                            {% elif ticket.status == 'pending' %}
+                                <p class="badge yellow lg">Pendente</p>
+                            {% endif %}
+
+                            {% if ticket.no_show %}
+                                <p class="badge red lg">NO-SHOW</p>
+                            {% endif %}
+
+                            {% if ticket.rebooking %}
+                                <p class="badge lg">REMARCAÇÃO</p>
+                            {% endif %}
+                        </div>
+
+                        <p class="boat-label fs-md fw-bd">{{ ticket.boat }}</p>
+                        <p class="ticket-route fs-md fw-bd">{{ ticket.origin|upper }} -> {{ ticket.destination|upper  }}</p>
+                        <span class="fs-sm clr-text-light">{{ ticket.date }}</span>
+
+                        {% if ticket.passenger %}
+                            <span class="fs-sm clr-text-light">{{ ticket.passenger.name }}</span>
+                        {% else %}
+                            <span class="fs-sm clr-text-light">CARGA</span>
+                        {% endif %}
+
+                        <div class="group row">
+                            <a href="{% url 'ticket:ticket' ticket.id %}" class="button link">Ver mais</a>
+                            
+                            {% if ticket.status == 'analyzing' %}
+                                <form class="discreet" action="{% url 'ticket:ticket_status_update' ticket.id 'pending' %}" method="POST">
+                                    {% csrf_token %}
+
+                                    <button class="button link" type="submit">Confirmar</button>
+                                </form>
+                            {% elif ticket.status != 'cancelled' %}
+                                {% if ticket.boat.supplier.upload_ticket %}
+                                    {% if ticket.file %}
+                                        <a class="button link download" href="{% url 'ticket:pdf' ticket.id %}" download>Download</a>
+                                    {% else %}
+                                        <form 
+                                            action="{% url 'ticket:ticket_upload' ticket.id %}" 
+                                            class="discreet ticket-upload-form" 
+                                            enctype="multipart/form-data" 
+                                            method="POST"
+                                        >
+                                            {% csrf_token %}
+
+                                            <label for="file" class="button link upload">Anexar bilhete</label>
+
+                                            <input 
+                                                id="file" 
+                                                type="file"
+                                                name="file"
+                                                required
+                                            >
+
+                                            <div class="container lg submit-navbar">
+                                                <button class="button">Salvar bilhete</button>
+                                            </div>
+                                        </form>
+                                    {% endif %}
+                                {% else %}
+                                    <a class="button link download" href="{% url 'ticket:pdf' ticket.id %}" download>Download</a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+
+                        <span class="fs-sm fw-bd clr-text-light">Criado em {{ ticket.created_at }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <div class="container">
+                <span class="clr-text-light fs-sm fw-bd">Nenhuma passagem encontrada</span>
+            </div>
+        {% endif %}
     </main>
 {% endblock %}

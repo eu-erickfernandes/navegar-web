@@ -3,7 +3,7 @@ from datetime import timedelta
 from decimal import Decimal
 
 from django.db import models
-from django.conf import settings
+from django.utils import timezone
 
 from apps.authentication.models import CustomUser
 from apps.route.models import Boat, City
@@ -76,10 +76,14 @@ class Ticket(models.Model):
     def arrival_date(self):
         return self.date + timedelta(days=1) if self.next_day else self.date
 
-    def get_translared_status(self):
-        for status in self.STATUS_CHOICES:
-            if status[0] == self.status:
-                return status[1]
+    def set_status(self, status):
+        if status == 'paid':
+            self.paid_at = timezone.now()
+        elif status != 'completed':
+            self.paid_at = None
+        
+        self.status = status
+        self.save()
             
     def get_additional(self):
         return Additional.objects.filter(ticket= self)
@@ -92,9 +96,13 @@ class Additional(models.Model):
     ]
 
     ticket = models.ForeignKey(Ticket, on_delete= models.PROTECT)
+    created_at = models.DateTimeField(auto_now_add= True)
 
     description = models.CharField(max_length=100, null= True)
     value = models.DecimalField(max_digits= 10, decimal_places= 2)
 
     status = models.CharField(max_length= 20, choices= STATUS_CHOICES, default= 'pending')
     paid_at = models.DateTimeField(default= None, null= True, blank= True)
+
+    def __str__(self):
+        return f'{self.description} - {self.value} - CREATED AT {self.created_at}'

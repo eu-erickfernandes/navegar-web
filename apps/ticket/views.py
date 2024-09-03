@@ -6,30 +6,40 @@ from django.template.loader import get_template
 from django.http import HttpResponse
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 from xhtml2pdf import pisa
 
-from apps.route.models import RouteBoatWeekday
+from apps.route.models import RouteBoatWeekday, Route, City
 from .models import Passenger, Ticket, Cargo
 
 from services.whatsapp_api import session_status, send_message
 
 @login_required
 def index(request):
-    main_date = datetime.now().date()
-    last_month = main_date
+    tickets = Ticket.objects.all().order_by('-created_at')
 
-    # HANDLING THE ROUTE SEARCH
-    if request.GET.__contains__('month'):
-        searched_month = request.GET.get('month')
-        main_date = datetime(int(searched_month.split('-')[0]), int(searched_month.split('-')[1]), 1)
-        
-    tickets = Ticket.objects.filter(created_at__year= main_date.year, created_at__month= main_date.month).order_by('-created_at')
+    # HANDLING THE ID SEARCH
+    if request.GET.__contains__('id'):
+        id = request.GET.get('id')
+        tickets = tickets.filter(id= id)
+
+        return render(request, 'ticket/index.html', {
+            'id': id,
+            'tickets': tickets
+        })
+
+    tickets_count = tickets.count()
+
+    paginator = Paginator(tickets, 10)
+
+    page_number = request.GET.get('page')
+    tickets = paginator.get_page(page_number) 
 
     return render(request, 'ticket/index.html', {
-        'last_month': last_month,
-        'main_date': main_date,
-        'tickets': tickets
+        'tickets': tickets,
+        'tickets_count': tickets_count,
+        'paginator': paginator
     })
 
 
@@ -71,6 +81,52 @@ def ticket(request, ticket_id):
 
 
 @login_required
+def rebooking(request, ticket_id):
+    try:
+        ticket = Ticket.objects.get(id= ticket_id)
+    except:
+        return redirect(reverse('ticket:index'))
+
+    available_origins_ids = Route.objects.values_list('origin', flat= True)
+    available_destinations_ids = Route.objects.values_list('destination', flat= True)
+
+    origins = City.objects.filter(id__in= available_origins_ids)
+    destinations = City.objects.filter(id__in= available_destinations_ids)
+
+    # HANDLING THE ROUTE SEARCH
+    if request.GET.get('origin') and request.GET.get('destination') and request.GET.get('date'):
+        origin = City.objects.get(id= request.GET.get('origin'))
+        destination = City.objects.get(id= request.GET.get('destination'))
+        date = request.GET.get('date')
+        
+        splited_date = date.split('-')
+        weekday = datetime(int(splited_date[0]), int(splited_date[1]), int(splited_date[2])).isoweekday()
+
+        route_boat_weekdays = RouteBoatWeekday.objects.filter(
+            route_boat__route__origin= origin, 
+            route_boat__route__destination= destination, 
+            weekday= weekday
+        )
+
+        return render(request, 'ticket/rebooking.html', {
+            'date': date,
+            'destination': destination,
+            'destinations': destinations,
+            'hidden_navbar': True,
+            'origin': origin,
+            'origins': origins,
+            'route_boat_weekdays': route_boat_weekdays,
+            'ticket': ticket,
+        })
+
+    return render(request, 'ticket/rebooking.html', {
+        'destinations': destinations,
+        'hidden_navbar': True,
+        'origins': origins,
+        'ticket': ticket
+    })
+
+@login_required
 def pdf(request, ticket_id):
     try:
         ticket = Ticket.objects.get(id= ticket_id)
@@ -88,8 +144,6 @@ def pdf(request, ticket_id):
 
     response = HttpResponse(pdf, content_type= 'application/pdf')
     response['Content-Disposition'] = f'filename={ title }.pdf'
-
-    
 
     template = get_template('ticket/pdf.html')
     
