@@ -11,15 +11,17 @@ const quantityInput = document.querySelector('[data-quantity-input]')
 const quantityAdd = document.querySelector('[data-quantity-add]')
 const quantityRemove = document.querySelector('[data-quantity-remove]')
 
-rebookingCheckbox.addEventListener('click', () => {
-    if(rebookingCheckbox.checked)
-        noShowCheckbox.checked = false
-})
+if(rebookingCheckbox)
+    rebookingCheckbox.addEventListener('click', () => {
+        if(rebookingCheckbox.checked)
+            noShowCheckbox.checked = false
+    })
 
-noShowCheckbox.addEventListener('click', () => {
-    if(noShowCheckbox.checked)
-        rebookingCheckbox.checked = false
-})
+if(noShowCheckbox)
+    noShowCheckbox.addEventListener('click', () => {
+        if(noShowCheckbox.checked)
+            rebookingCheckbox.checked = false
+    })
 
 // TICKET TYPE CONTROL
 const switchType = () => {

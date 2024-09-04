@@ -109,10 +109,10 @@ def search(request):
             weekday= weekday
         )
 
-        if(str(date) == str(today)):
-            route_boat_weekdays = route_boat_weekdays.filter(
-                route_boat__route__departure_time__gt= datetime.now().time()
-            )
+        # if(str(date) == str(today)):
+        #     route_boat_weekdays = route_boat_weekdays.filter(
+        #         route_boat__route__departure_time__gt= datetime.now().time()
+        #     )
 
         return render(request, 'route/search.html', {
             'date': date,

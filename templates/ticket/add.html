@@ -31,7 +31,7 @@
         <form method="POST" action="{% url 'ticket:ticket_creation' route_boat_weekday.id date %}">
             {% csrf_token %}
 
-            <div class="checkbox">
+            <!-- <div class="checkbox">
                 <input type="checkbox" id="rebooking" name="rebooking" data-rebooking-checkbox>
                 <label for="rebooking">Remarcação</label>
             </div>
@@ -39,7 +39,7 @@
             <div class="checkbox">
                 <input type="checkbox" id="no_show" name="no_show" data-no-show-checkbox>
                 <label for="no_show">NO-SHOW</label>
-            </div>
+            </div> -->
 
             <div class="radio-control">
                 <input type="radio" id="ticket-type-passenger" name="ticket_type" value="passenger" data-radio-passenger checked>
