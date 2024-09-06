@@ -3,6 +3,8 @@ from django.urls import reverse
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 
+from services.whatsapp_api import get_connection_status
+
 from .decorators import redirect_authenticated_user, required_user_roles
 from .models import *
 
@@ -27,7 +29,11 @@ def user_logout(request):
 
 @login_required
 def panel(request):
-    return render(request, 'authentication/panel.html')
+    connection_status = get_connection_status()
+
+    return render(request, 'authentication/panel.html', {
+        'connection_status': connection_status
+    })
 
 
 @login_required

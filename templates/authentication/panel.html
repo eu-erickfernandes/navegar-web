@@ -20,6 +20,31 @@
             </div>
         </div>
 
+        {% if request.user.role == 'A' %}
+            <a 
+                class="container lg whatsapp-link {% if connection_status %} active {% endif %}"
+                href="#" 
+            >
+                <div class="group row">
+                    {% if connection_status %}
+                        <img src="{% static 'icons/whatsapp-green.svg' %}" alt="Logo WhatsApp">
+                    {% else %}
+                        <img src="{% static 'icons/whatsapp-gray.svg' %}" alt="Logo WhatsApp">
+                    {% endif %}
+
+                    <p class="fs-md fw-bd">
+                        Seção
+                        
+                        {% if connection_status %}
+                            Ativa
+                        {% else %}
+                            Inativa
+                        {% endif %}
+                    </p>
+                </div>
+            </a>
+        {% endif %}
+
         <div class="group">
             {% if request.user.role == 'A' %}
                 <a class="panel-link routes fs-md" href="{% url 'route:index' %}">Rotas</a>
