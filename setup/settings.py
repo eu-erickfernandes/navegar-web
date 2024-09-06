@@ -104,12 +104,6 @@ else:
             "PORT": os.getenv('POSTGRES_PORT', 'port'),
         }
     }
-# elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
-#     if os.getenv("DATABASE_URL", None) is None:
-#         raise Exception("DATABASE_URL environment variable not defined")
-#     DATABASES = {
-#         "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
-#     }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -147,12 +141,12 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-if DEVELOPMENT_MODE is True:
-    STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static/')
-    ]
-else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static/')
+]
+# if DEVELOPMENT_MODE is True:
+# else:
+#     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 # Default primary key field type
@@ -164,6 +158,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'authentication.CustomUser'
 LOGIN_URL = '/usuario/entrar/'
-
-WHATSAPP_API_URL = 'http://whatsapp-api:3000/'
-WHATSAPP_API_SESSION = 'navegarwpp'

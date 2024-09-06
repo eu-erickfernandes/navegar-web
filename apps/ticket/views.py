@@ -13,11 +13,16 @@ from xhtml2pdf import pisa
 from apps.route.models import RouteBoatWeekday, Route, City
 from .models import Passenger, Ticket, Cargo
 
-from services.whatsapp_api import session_status, send_message
 
 @login_required
 def index(request):
     tickets = Ticket.objects.all().order_by('-created_at')
+
+    # ticket_test = tickets.first()
+
+    # from .messages import ticket_creation_message
+
+    # ticket_creation_message(request, ticket_test)
 
     # HANDLING THE ID SEARCH
     if request.GET.__contains__('id'):

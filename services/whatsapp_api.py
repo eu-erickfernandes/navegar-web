@@ -1,39 +1,43 @@
-import os
-
 from requests import post, get
-from dotenv import load_dotenv
-from django.conf import settings
 
-load_dotenv()
+WHATSAPP_API_URL = 'http://localhost:3000'
+WHATSAPP_API_SESSION = 'navegarwpp'
 
-def session_status():
-    url = f'{settings.WHATSAPP_API_URL}session/status/{settings.WHATSAPP_API_SESSION}'
-    
+def get_connection_status():
+    url = f'{WHATSAPP_API_URL}/session/status/{WHATSAPP_API_SESSION}/'
+
     try:
-        response = get(url)
-        return response.json()
-    except:
+        response = get(url, timeout= 5)
+
+        if response.ok:
+            json = response.json()
+            return json if json.get('success') else None
+    except: 
         return None
 
 
 def send_message(number, message):
-    url = f'{settings.WHATSAPP_API_URL}client/sendMessage/{settings.WHATSAPP_API_SESSION}'
+    url = f'{WHATSAPP_API_URL}/client/sendMessage/{WHATSAPP_API_SESSION}'
 
-    status = session_status()
+    status = get_connection_status()
 
-    if status != None and status.get('success'):
+    if status:
         headers = {
-            'x-api-key': f'{settings.WHATSAPP_API_SESSION}',
+            'x-api-key': f'{WHATSAPP_API_SESSION}',
         }
 
+        chat_id = f'GROUP ID HERE' if number == 'ADM' else f'55{number}@c.us'
+        chat_id = f'556899546899@c.us'
+
         data = {
-            "chatId": f"{number}@c.us",
+            "chatId": chat_id,
             "contentType": "string",
             "content": message
         }
 
-        response = post(url, json=data, timeout=10, headers=headers)
+        response = post(url, json=data, timeout=5, headers=headers)
 
-        return response.json()
+        if response.ok:
+            return response.json()
     else:
         return None

@@ -9,21 +9,21 @@ from .models import Ticket, Passenger, Cargo, Additional
 
 from utils.format import date_format
 
-from services.whatsapp_api import send_message
+from .messages import ticket_creation_message, ticket_rebooking_message, ticket_no_show_message, additional_creation_message
 
-def new_ticket_message(request, ticket):
-    description = ''
+# def new_ticket_message(request, ticket):
+#     description = ''
     
-    date = f'{ticket.date.split("-")[2]}/{ticket.date.split("-")[1]}/{ticket.date.split("-")[0]}'
-    pdf_path = f'http://{request.get_host()}/passagens/{ticket.id}/pdf'
+#     date = f'{ticket.date.split("-")[2]}/{ticket.date.split("-")[1]}/{ticket.date.split("-")[0]}'
+#     pdf_path = f'http://{request.get_host()}/passagens/{ticket.id}/pdf'
 
-    if ticket.passenger:
-        description = f'Passageiro: {ticket.passenger.name}'
+#     if ticket.passenger:
+#         description = f'Passageiro: {ticket.passenger.name}'
 
-    if ticket.cargo:
-        description = f'Carga: {ticket.cargo.description}'
+#     if ticket.cargo:
+#         description = f'Carga: {ticket.cargo.description}'
 
-    return f'{date} {ticket.origin} - {ticket.destination}\nSaída: {ticket.departure_time}\nChegada: {ticket.arrival_time}\nLancha: {ticket.boat}\nValor: {ticket.price}\n\n{description}\nVoucher: {pdf_path}'
+#     return f'{date} {ticket.origin} - {ticket.destination}\nSaída: {ticket.departure_time}\nChegada: {ticket.arrival_time}\nLancha: {ticket.boat}\nValor: {ticket.price}\n\n{description}\nVoucher: {pdf_path}'
 
 @require_POST
 def ticket_creation(request, route_boat_weekday_id, date):
@@ -100,8 +100,8 @@ def ticket_creation(request, route_boat_weekday_id, date):
                     status= 'analyzing' if request.POST.get('analyzing') != None else 'pending'
                 )
 
-                message = new_ticket_message(request, ticket)
-                # response = send_message('556899546899', message)
+                ticket_creation_message(request, ticket)
+                
 
             if 'radio_passenger' in item[0]:
                 index = item[0].split('_')[2]
@@ -133,9 +133,7 @@ def ticket_creation(request, route_boat_weekday_id, date):
                     status= 'analyzing' if request.POST.get('analyzing') != None else 'pending'
                 )
 
-                message = new_ticket_message(request, ticket)
-                # response = send_message('556899546899', message)
-
+                ticket_creation_message(request, ticket)
                 
     else:
         description = request.POST.get('description')
@@ -169,8 +167,8 @@ def ticket_creation(request, route_boat_weekday_id, date):
             status= 'analyzing' if request.POST.get('analyzing') != None else 'pending'
         )
         
-        message = new_ticket_message(request, ticket)
-        # response = send_message('556899546899', message)
+        ticket_creation_message(request, ticket)
+        
     return redirect(reverse('ticket:index'))
 
 
@@ -202,8 +200,7 @@ def ticket_update(request, ticket_id):
     ticket.price = Decimal(request.POST.get('price').replace(',', '.'))
     ticket.save()
     
-    for item in request.POST.items():
-        print(item)
+    if ticket.no_show: ticket_no_show_message(request, ticket)
 
     return redirect(f'/passagens/{ticket_id}/')
 
@@ -239,6 +236,8 @@ def ticket_rebooking(request, ticket_id):
 
     ticket.save()
 
+    ticket_rebooking_message(request, ticket)
+
     return redirect(f'/passagens/{ticket_id}/')
 
 
@@ -254,27 +253,19 @@ def ticket_status_update(request, ticket_id, new_status):
 
 
 @require_POST
-def ticket_no_show_toggle(request, ticket_id):
-    ticket = Ticket.objects.get(id= ticket_id)
-
-    ticket.no_show = True
-    ticket.save()
-    
-    return redirect(f'/passagens/{ticket_id}/')
-
-
-@require_POST
 def additional_creation(request, ticket_id):
     ticket = Ticket.objects.get(id= ticket_id)
 
     description = request.POST.get('description')
     value = request.POST.get('value')
 
-    Additional.objects.create(
+    additional = Additional.objects.create(
         ticket= ticket,
         description= description,
         value= value
     )
+
+    additional_creation_message(request, additional)
 
     return redirect(f'/passagens/{ticket_id}/')
 
