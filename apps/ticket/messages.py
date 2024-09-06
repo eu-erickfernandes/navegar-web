@@ -37,7 +37,7 @@ def ticket_creation_message(request, ticket):
     send_message('ADM', message)
 
     if ticket.status == 'pending':
-        send_message(ticket.boat.supplier.phone, message)
+        send_message(ticket.boat.supplier.whatsapp_phone, message)
 
 
 def ticket_rebooking_message(request, ticket):
@@ -77,7 +77,7 @@ def ticket_rebooking_message(request, ticket):
     send_message('ADM', message)
 
     if ticket.status == 'pending':
-        send_message(ticket.boat.supplier.phone, message)
+        send_message(ticket.boat.supplier.whatsapp_phone, message)
 
 
 def ticket_no_show_message(request, ticket):
@@ -113,7 +113,7 @@ def ticket_no_show_message(request, ticket):
     send_message('ADM', message)
 
     if ticket.status == 'pending':
-        send_message(ticket.boat.supplier.phone, message)
+        send_message(ticket.boat.supplier.whatsapp_phone, message)
 
 
 def additional_creation_message(request, additional):

@@ -27,7 +27,7 @@
                         <div class="data">
                             <a href="{% url 'authentication:user' user.id %}" class="name">{{ user.name }}</a>
                             <span>{{ user.email }}</span>
-                            <span>{{ user.phone }}</span>
+                            <span>{{ user.formated_phone }}</span>
                         </div>
                         
                         {% if user.role == 'A' %}
