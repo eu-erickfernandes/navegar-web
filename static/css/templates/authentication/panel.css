@@ -7,6 +7,17 @@
     }
 }
 
+main .whatsapp-link{
+    background-color: var(--clr-gray);
+    color: var(--clr-text);
+    border-radius: .25rem;
+
+    &.active{
+        background-color: var(--clr-green-light);
+        color: var(--clr-green-dark);
+    }
+}
+
 .panel-link{
     align-items: center;
     background-color: var(--clr-white);
