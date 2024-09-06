@@ -26,7 +26,7 @@ def send_message(number, message):
             'x-api-key': f'{WHATSAPP_API_SESSION}',
         }
 
-        chat_id = f'GROUP ID HERE' if number == 'ADM' else f'55{number}@c.us'
+        # chat_id = f'GROUP ID HERE' if number == 'ADM' else f'55{number}@c.us'
         chat_id = f'556899546899@c.us'
 
         data = {

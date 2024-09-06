@@ -13,11 +13,22 @@ class Command(BaseCommand):
         users = CustomUser.objects.all().exclude(is_superuser= True)
 
         for user in users:
-            print(user)
-            print(user.phone)
+            print(user, user.phone)
 
-            if len(user.phone) == 12:
+            if len(user.phone) == 12 and '55' in user.phone:
                 print('TO FIX')
+
+                # REMOVE 55
+                new_number = user.phone[2:]
+                print(f'{user.phone}__{len(user.phone)} -> {new_number}__{len(new_number)}')
+
+                # ADD 9
+                new_number = f'{user.phone[2:4]}9{user.phone[4:]}'
+                print(f'{user.phone}__{len(user.phone)} -> {new_number}__{len(new_number)}')
+                
+                user.phone = new_number
+                user.save()
+                
                 fixed_phones += 1
 
             print()

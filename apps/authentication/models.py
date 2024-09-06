@@ -32,6 +32,14 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     objects = CustomUserManager()
 
+    @property
+    def formated_phone(self):
+        return f'({self.phone[:2]}) {self.phone[2]} {self.phone[3:7]}-{self.phone[7:]}'
+
+    @property
+    def whatsapp_phone(self):
+        return f'{self.phone[:2]}{self.phone[3:]}'
+
     def __str__(self):
         return self.name
     
