@@ -42,7 +42,7 @@ def ticket_creation_message(request, ticket):
 
 def ticket_rebooking_message(request, ticket):
     date = f'{str(ticket.date).split("-")[2]}/{str(ticket.date).split("-")[1]}/{str(ticket.date).split("-")[0]}'
-    pdf_path = f'http://{request.get_host()}/passagens/{ticket.id}/pdf'
+    pdf_path = f'http://{request.get_host()}/passagens/{ticket.id}/pdf/'
     
     description = ''
 

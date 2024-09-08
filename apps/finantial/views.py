@@ -22,8 +22,9 @@ def index(request):
         searched_date = request.GET.get('date').split('-')
         main_date = datetime(int(searched_date[0]), int(searched_date[1]), int(searched_date[2])).date()
     
-    previous_date = main_date - timedelta(days= 1)
-
+    # previous_date = main_date - timedelta(days= 1)
+    previous_date = main_date
+    
     # HANDLING THE SUPPLIER FILTER SUBMIT
     searched_supplier = CustomUser.objects.get(id= request.GET.get('supplier')) if request.GET.__contains__('supplier') and request.user.role == 'A' else None
 

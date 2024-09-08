@@ -1,6 +1,11 @@
+from django.conf import settings
 from requests import post, get
 
-WHATSAPP_API_URL = 'http://localhost:3000'
+WHATSAPP_API_URL = 'http://134.122.115.6:3000'
+
+if settings.DEVELOPMENT_MODE:
+    WHATSAPP_API_URL = 'http://localhost:3000'
+
 WHATSAPP_API_SESSION = 'navegarwpp'
 
 def get_connection_status():
@@ -18,6 +23,8 @@ def get_connection_status():
 
 def send_message(number, message):
     url = f'{WHATSAPP_API_URL}/client/sendMessage/{WHATSAPP_API_SESSION}'
+
+    if len(number) != 10: return None
 
     status = get_connection_status()
 
