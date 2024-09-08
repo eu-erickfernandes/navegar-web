@@ -4,7 +4,7 @@ from services.whatsapp_api import send_message
 
 def ticket_creation_message(request, ticket):
     date = f'{str(ticket.date).split("-")[2]}/{str(ticket.date).split("-")[1]}/{str(ticket.date).split("-")[0]}'
-    pdf_path = f'http://{request.get_host()}/passagens/{ticket.id}/pdf'
+    pdf_path = f'http://{request.get_host()}/passagens/{ticket.id}/pdf/'
     
     description = ''
 
