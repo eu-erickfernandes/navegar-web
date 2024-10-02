@@ -69,6 +69,9 @@ class Ticket(models.Model):
 
     paid_at = models.DateTimeField(default= None, null= True, blank= True)
 
+    class Meta:
+        ordering = ['created_at']
+
     def __str__(self):
         return f'{self.date}: {self.origin} - {self.destination} - {"PASSENGER" if self.passenger else "CARGO"} - CREATED AT {self.created_at}'
     

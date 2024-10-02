@@ -54,6 +54,8 @@ def index(request):
 
         finantial_update(request.POST, id_tickets_list, id_additionals_list, main_date)
 
+    tickets = tickets.order_by('created_at')
+
     observation = Observation.objects.get(date= main_date) if Observation.objects.filter(date= main_date).exists() else None
 
     total = Decimal(0.0)

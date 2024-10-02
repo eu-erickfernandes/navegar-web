@@ -131,7 +131,7 @@ def rebooking(request, ticket_id):
         'ticket': ticket
     })
 
-@login_required
+# @login_required
 def pdf(request, ticket_id):
     try:
         ticket = Ticket.objects.get(id= ticket_id)
