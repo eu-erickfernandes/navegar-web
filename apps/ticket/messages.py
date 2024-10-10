@@ -33,11 +33,16 @@ def ticket_creation_message(request, ticket):
 
     if not ticket.boat.supplier.upload_ticket and ticket.status == 'pending':
         message += f'\n\n*VOUCHER*\n{pdf_path}'
+        supplier_message = f'*VOUCHER*\n{pdf_path}'
 
     send_message('ADM', message)
 
-    if ticket.status == 'pending':
-        send_message(ticket.boat.supplier.whatsapp_phone, message)
+    # if ticket.status == 'pending':
+    #     # send_message(ticket.boat.supplier.whatsapp_phone, message)
+    #     if ticket.boat.supplier.upload_ticket:
+    #         send_message(ticket.boat.supplier.whatsapp_phone, message)
+    #     else:
+    #         send_message(ticket.boat.supplier.whatsapp_phone, supplier_message)
 
 
 def ticket_rebooking_message(request, ticket):
@@ -73,12 +78,16 @@ def ticket_rebooking_message(request, ticket):
 
     if not ticket.boat.supplier.upload_ticket and ticket.status == 'pending':
         message += f'\n\n*VOUCHER*\n{pdf_path}'
+        supplier_message =  f'*VOUCHER*\n{pdf_path}'
 
     send_message('ADM', message)
 
-    if ticket.status == 'pending':
-        send_message(ticket.boat.supplier.whatsapp_phone, message)
-
+    # if ticket.status == 'pending':
+    #     # send_message(ticket.boat.supplier.whatsapp_phone, message)
+    #     if ticket.boat.supplier.upload_ticket:
+    #         send_message(ticket.boat.supplier.whatsapp_phone, message)
+    #     else:
+    #         send_message(ticket.boat.supplier.whatsapp_phone, supplier_message)
 
 def ticket_no_show_message(request, ticket):
     date = f'{str(ticket.date).split("-")[2]}/{str(ticket.date).split("-")[1]}/{str(ticket.date).split("-")[0]}'
@@ -112,8 +121,8 @@ def ticket_no_show_message(request, ticket):
 
     send_message('ADM', message)
 
-    if ticket.status == 'pending':
-        send_message(ticket.boat.supplier.whatsapp_phone, message)
+    # if ticket.status == 'pending':
+    #     send_message(ticket.boat.supplier.whatsapp_phone, message)
 
 
 def additional_creation_message(request, additional):

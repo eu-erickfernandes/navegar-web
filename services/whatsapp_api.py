@@ -6,6 +6,7 @@ WHATSAPP_API_URL = 'http://134.122.115.6:3000'
 if settings.DEVELOPMENT_MODE:
     WHATSAPP_API_URL = 'http://localhost:3000'
 
+ADM_GROUP_ID = '120363334343075699@g.us'
 WHATSAPP_API_SESSION = 'navegarwpp'
 
 def get_connection_status():
@@ -24,7 +25,7 @@ def get_connection_status():
 def send_message(number, message):
     url = f'{WHATSAPP_API_URL}/client/sendMessage/{WHATSAPP_API_SESSION}'
 
-    if len(number) != 10: return None
+    if len(number) != 10 and number != 'ADM': return None
 
     status = get_connection_status()
 
@@ -33,8 +34,9 @@ def send_message(number, message):
             'x-api-key': f'{WHATSAPP_API_SESSION}',
         }
 
-        # chat_id = f'GROUP ID HERE' if number == 'ADM' else f'55{number}@c.us'
-        chat_id = f'556899546899@c.us'
+        chat_id = ADM_GROUP_ID if number == 'ADM' else f'55{number}@c.us'
+        # chat_id = f'556899546899@c.us'
+        # chat_id = ADM_GROUP_ID if number == 'ADM' else f'556899546899@c.us'
 
         data = {
             "chatId": chat_id,

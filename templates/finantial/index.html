@@ -94,17 +94,16 @@
                         <th>Descrição</th>
                         <th>Lancha/Produto</th>
                         <th>Valor</th>
+
+                        {% if request.user.role == 'A' %}
+                            <th>Criado em</th>
+                            <th>Cód.</th>
+                        {% endif %}
                     </thead>
 
                     <tbody>
                         {% for ticket in tickets %}
                             <tr class="{{ ticket.status }}">
-                                {% comment %}
-                                <td>{{ ticket.id }}</td>
-                                <td>{{ ticket.created_at }}</td>
-                                <td>{{ ticket.paid_at }}</td>
-                                {% endcomment %}
-
                                 {% if request.user.role == 'A' %}
                                     <td>
                                         <input 
@@ -151,6 +150,9 @@
                                             value="{{ ticket.price }}"
                                         >
                                     </td>
+
+                                    <td>{{ ticket.created_at }}</td>
+                                    <td>{{ ticket.id }}</td>
                                 {% else %}
                                     <td>R$ {{ ticket.price }}</td>
                                 {% endif %}
@@ -160,7 +162,7 @@
                         {% for additional in additionals %}
                             <tr class="{{ additional.status }}">
                                 {% comment %}
-                                    <td>{{ additional.id }}</td>
+                                    
                                     <td></td>
                                     <td>{{ additional.paid_at }}</td>
                                 {% endcomment %}
@@ -211,6 +213,9 @@
                                             value="{{ additional.value }}"
                                         >
                                     </td>
+
+                                    <td>{{ additional.created_at }}</td>
+                                    <td>{{ additional.id }}</td>
                                 {% else %}
                                     <td>R$ {{ additional.value }}</td>
                                 {% endif %}
